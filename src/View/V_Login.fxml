@@ -1,14 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Controller.C_Login"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="528.0" prefWidth="313.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.C_Login">
+   <children>
+      <ImageView fitHeight="64.0" fitWidth="64.0" layoutX="125.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/quiz_splash.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="82.0" layoutY="165.0" prefHeight="30.0" prefWidth="164.0" text="Login to Continue">
+         <font>
+            <Font name="Berlin Sans FB" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="119.0" layoutY="114.0" text="Quiz Manager" />
+      <JFXTextField fx:id="txt_Email" focusColor="#2196f3" layoutX="38.0" layoutY="232.0" prefHeight="26.0" prefWidth="233.0" promptText="Email" />
+      <JFXPasswordField fx:id="txt_Password" focusColor="#2196f3" layoutX="38.0" layoutY="298.0" prefHeight="26.0" prefWidth="233.0" promptText="Password" />
+      <Label layoutX="57.0" layoutY="486.0" prefHeight="18.0" prefWidth="164.0" text="Don't you have an account?" />
+      <Label layoutX="221.0" layoutY="486.0" onMouseClicked="#lbl_RegisterOnAction" prefHeight="18.0" prefWidth="50.0" style="-fx-text-fill: #2196f3;" text="Register" />
+      <Button layoutX="38.0" layoutY="374.0" mnemonicParsing="false" onAction="#btn_LoginOnAction" prefHeight="37.0" prefWidth="240.0" style="-fx-background-color: #2196f3; -fx-text-fill: #ffffff;" text="Let' s Login">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Label layoutX="164.0" layoutY="341.0" onMouseClicked="#lbl_forgotPasswordOnAction" style="-fx-text-fill: #2196f3;" text="Forgot Password?" />
+   </children>
 </AnchorPane>
