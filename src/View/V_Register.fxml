@@ -1,14 +1,111 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="Controller.C_Register"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="560.0" prefWidth="610.0" style="-fx-background-color: #ffffff;"
+            xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="Controller.C_Register">
+   <ImageView fitHeight="46.0" fitWidth="43.0" layoutX="35.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@../assets/quiz_splash.png"/>
+      </image>
+   </ImageView>
+   <Label layoutX="95.0" layoutY="20.0" prefHeight="30.0" prefWidth="164.0" text="Register Here">
+      <font>
+         <Font name="Berlin Sans FB" size="20.0"/>
+      </font>
+   </Label>
+   <Label layoutX="95.0" layoutY="48.0" text="Quiz Manager"/>
+   <JFXTextField fx:id="txt_firstName" focusColor="#2196f3" labelFloat="true" layoutX="33.0" layoutY="98.0"
+                 prefHeight="26.0" prefWidth="233.0" promptText="First Name"/>
+   <JFXPasswordField fx:id="txt_createPassword" focusColor="#2196f3" labelFloat="true" layoutX="325.0" layoutY="252.0"
+                     prefHeight="26.0" prefWidth="233.0" promptText="Create Password"/>
+   <Label layoutX="219.0" layoutY="527.0" prefHeight="18.0" prefWidth="139.0" text="Already have an account ?"/>
+   <Label fx:id="lbl_Login" layoutX="362.0" layoutY="527.0" onMouseClicked="#lbl_LoginOnAction" prefHeight="18.0"
+          prefWidth="31.0" style="-fx-text-fill: #2196f3;" text="Login">
+      <cursor>
+         <Cursor fx:constant="HAND"/>
+      </cursor>
+   </Label>
+   <Button fx:id="btn_Register" layoutX="185.0" layoutY="454.0" mnemonicParsing="false" onAction="#btn_RegisterOnAction"
+           prefHeight="37.0" prefWidth="240.0" style="-fx-background-color: #2196f3; -fx-text-fill: #ffffff;"
+           text="Register Now">
+      <cursor>
+         <Cursor fx:constant="HAND"/>
+      </cursor>
+   </Button>
+   <Label fx:id="lbl_forgotPassword" layoutX="283.0" layoutY="421.0" onMouseClicked="#lbl_forgotPasswordOnAction"
+          style="-fx-text-fill: #2196f3;" text="Terms and Conditions">
+      <cursor>
+         <Cursor fx:constant="HAND"/>
+      </cursor>
+   </Label>
+   <JFXTextField fx:id="txt_lastName" focusColor="#2196f3" labelFloat="true" layoutX="333.0" layoutY="99.0"
+                 prefHeight="26.0" prefWidth="233.0" promptText="Last Name"/>
+   <JFXTextField fx:id="txt_email" focusColor="#2196f3" labelFloat="true" layoutX="33.0" layoutY="172.0"
+                 prefHeight="26.0" prefWidth="233.0" promptText="Email"/>
+   <JFXDatePicker fx:id="datePicker_DOB" layoutX="326.0" layoutY="176.0" overLay="true" prefHeight="25.0"
+                  prefWidth="152.0" promptText="Date Of Birth"/>
+   <JFXComboBox fx:id="cmb_city" labelFloat="true" layoutX="33.0" layoutY="251.0" prefHeight="25.0" prefWidth="233.0"
+                promptText="City"/>
+   <JFXTextField fx:id="txt_age" focusColor="#2196f3" labelFloat="true" layoutX="491.0" layoutY="176.0"
+                 prefHeight="26.0" prefWidth="67.0" promptText="Age"/>
+   <CheckBox fx:id="checkBox_TC" layoutX="207.0" layoutY="421.0" mnemonicParsing="false" text="I agree to"/>
+   <JFXPasswordField fx:id="txt_ConfirmPassword" focusColor="#2196f3" labelFloat="true" layoutX="33.0" layoutY="329.0"
+                     prefHeight="26.0" prefWidth="233.0" promptText="Confirm Password"/>
+   <Label fx:id="lbl_FNameError" layoutX="34.0" layoutY="127.0" prefHeight="10.0" prefWidth="215.0" textFill="#ff3333">
+      <font>
+         <Font name="System Italic" size="11.0"/>
+      </font>
+   </Label>
+   <Label fx:id="lbl_LNameError" layoutX="334.0" layoutY="126.0" prefHeight="10.0" prefWidth="215.0" textFill="#ff3333">
+      <font>
+         <Font name="System Italic" size="11.0"/>
+      </font>
+   </Label>
+   <Label fx:id="lbl_emailError" layoutX="34.0" layoutY="200.0" prefHeight="10.0" prefWidth="215.0" textFill="#ff3333">
+      <font>
+         <Font name="System Italic" size="11.0"/>
+      </font>
+   </Label>
+   <Label fx:id="lbl_DOBError" layoutX="326.0" layoutY="202.0" prefHeight="16.0" prefWidth="158.0" textFill="#ff3333">
+      <font>
+         <Font name="System Italic" size="11.0"/>
+      </font>
+   </Label>
+   <Label fx:id="lbl_CityError" layoutX="32.0" layoutY="275.0" prefHeight="16.0" prefWidth="233.0" textFill="#ff3333">
+      <font>
+         <Font name="System Italic" size="11.0"/>
+      </font>
+   </Label>
+   <Label fx:id="lbl_createPasswordError" layoutX="325.0" layoutY="279.0" prefHeight="16.0" prefWidth="233.0"
+          textFill="#ff3333">
+      <font>
+         <Font name="System Italic" size="11.0"/>
+      </font>
+   </Label>
+   <Label fx:id="lbl_confirmPasswordError" layoutX="32.0" layoutY="355.0" prefHeight="16.0" prefWidth="233.0"
+          textFill="#ff3333">
+      <font>
+         <Font name="System Italic" size="11.0"/>
+      </font>
+   </Label>
+   <Label fx:id="lbl_tcError" layoutX="189.0" layoutY="492.0" prefHeight="16.0" prefWidth="233.0" textFill="#ff3333">
+      <font>
+         <Font name="System Italic" size="11.0"/>
+      </font>
+   </Label>
+   <JFXTextField fx:id="txt_Position" focusColor="#2196f3" labelFloat="true" layoutX="325.0" layoutY="329.0"
+                 prefHeight="26.0" prefWidth="233.0" promptText="Position"/>
 </AnchorPane>

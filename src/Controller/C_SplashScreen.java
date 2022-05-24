@@ -17,7 +17,6 @@ public class C_SplashScreen {
         Stage stage = (Stage) btn_Teacher.getScene().getWindow();
         stage.close();
         try {
-
             new UI().setUI("/View/V_Login");
             C_Login.setUserType("Teacher");
         } catch (IOException e) {
