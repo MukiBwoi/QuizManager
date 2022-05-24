@@ -13,7 +13,7 @@ import java.io.IOException;
 public class C_Login {
     public JFXTextField txt_Email;
     public JFXPasswordField txt_Password;
-    private static String userType;
+    public static String userType;
     public Label lbl_Register;
     public Label lbl_forgotPassword;
 
