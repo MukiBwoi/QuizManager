@@ -1,5 +1,6 @@
 package Controller;
 
+import Constants.Screens;
 import Constants.Users;
 import Utils.UI;
 import javafx.event.ActionEvent;
@@ -22,7 +23,7 @@ public class C_SplashScreen {
         stage.close();
         try {
             Users.current_user = Users.student;
-            new UI().setUI("/View/V_Login");
+            new UI().setUI(Screens.login);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -34,7 +35,7 @@ public class C_SplashScreen {
         stage.close();
         try {
             Users.current_user = Users.admin;
-            new UI().setUI("/View/V_Login");
+            new UI().setUI(Screens.login);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -45,7 +46,7 @@ public class C_SplashScreen {
         stage.close();
         try {
             Users.current_user = Users.lecturer;
-            new UI().setUI("/View/V_Login");
+            new UI().setUI(Screens.login);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -17,7 +17,7 @@
 <AnchorPane prefHeight="560.0" prefWidth="610.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.C_Register">
    <ImageView fitHeight="46.0" fitWidth="43.0" layoutX="35.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
       <image>
-         <Image url="@../assets/quiz_splash.png" />
+         <Image url="@../Assets/quiz_splash.png" />
       </image>
    </ImageView>
    <Label layoutX="95.0" layoutY="20.0" prefHeight="30.0" prefWidth="164.0" text="Register Here">
@@ -82,7 +82,7 @@
          <Font name="System Italic" size="11.0" />
       </font>
    </Label>
-   <Label fx:id="lbl_createPasswordError" layoutX="325.0" layoutY="294.0" prefHeight="16.0" prefWidth="233.0" textFill="#ff3333">
+   <Label fx:id="lbl_createPasswordError" layoutX="325.0" layoutY="294.0" prefHeight="16.0" prefWidth="116.0" textFill="#ff3333">
       <font>
          <Font name="System Italic" size="11.0" />
       </font>
@@ -103,7 +103,7 @@
          <Cursor fx:constant="HAND" />
       </cursor>
    </JFXComboBox>
-   <Label fx:id="lbl_why" layoutX="558.0" layoutY="295.0" onMouseEntered="#passwordWhyOnHovered" text="why?" textFill="RED" visible="false">
+   <Label fx:id="lbl_why" layoutX="450.0" layoutY="294.0" onMouseEntered="#passwordWhyOnHovered" text="why?" textFill="#2196f3" visible="false">
       <tooltip>
          <Tooltip minWidth="-Infinity" text="Minimum eight characters, at least one letter, one number one special character" width="500.0" wrapText="true" />
       </tooltip>

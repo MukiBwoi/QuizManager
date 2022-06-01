@@ -1,5 +1,6 @@
 package Controller;
 
+import Constants.Screens;
 import Constants.Users;
 import Model.ValidationModel;
 import Utils.UI;
@@ -12,7 +13,6 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import java.awt.*;
@@ -22,6 +22,7 @@ import java.net.URL;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Objects;
 
 public class C_Register {
 
@@ -44,19 +45,17 @@ public class C_Register {
     public Label lbl_confirmPasswordError;
     public Label lbl_tcError;
     public JFXTextField txt_Position;
-    public JFXComboBox cmb_batch;
-    public JFXComboBox cmb_branch;
-    public JFXComboBox current_cmb;
+    public JFXComboBox<String> cmb_batch;
+    public JFXComboBox<String> cmb_branch;
+    public JFXComboBox<String> current_cmb;
     public Label lbl_why;
     private  String cmb_validation_message;
     public static boolean isValidated = false;
 
     UI ui = new UI();
     public void initialize(){
-        txt_Position.setText(Users.current_user);
-        txt_firstName.setText(null);
-        txt_lastName.setText(null);
-        txt_email.setText(null);
+
+        setFieldNull();
         showCombo();
 
     }
@@ -64,7 +63,7 @@ public class C_Register {
         try {
             Stage stage =  (Stage)lbl_Login.getScene().getWindow();
             stage.close();
-            ui.setUI("/View/V_Login");
+            ui.setUI(Screens.login);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -76,7 +75,7 @@ public class C_Register {
             try {
                 Stage stage =  (Stage)btn_Register.getScene().getWindow();
                 stage.close();
-                ui.setUI("/View/V_Dashboard");
+                ui.setUI(Screens.dashboard);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -89,9 +88,7 @@ public class C_Register {
         //Open Link From Browser
         try {
             Desktop.getDesktop().browse(new URL("https://mukibwoi.github.io/govidiriya-privacy/").toURI());
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (URISyntaxException e) {
+        } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
 
@@ -121,7 +118,7 @@ public class C_Register {
     }
 
     void showCombo(){
-        if(Users.current_user == Users.lecturer){
+        if(Objects.equals(Users.current_user, Users.lecturer)){
             cmb_batch.setVisible(false);
             current_cmb = cmb_branch;
             cmb_validation_message = "Branch required";
@@ -140,7 +137,7 @@ public class C_Register {
         lbl_emailError.setText(ValidationModel.validateEmail(txt_email.getText()));
         //lbl_DOBError.setText(ValidationModel.validateDOB(datePicker_DOB.getValue()));
         lbl_CityError.setText(ValidationModel.commonValidator(current_cmb.getValue() == null?
-                        null : current_cmb.getValue().toString() ,
+                        null : current_cmb.getValue(),
                 cmb_validation_message));
         lbl_createPasswordError.setText(ValidationModel.validateNewPass(txt_createPassword.getText() ,lbl_why ));
         lbl_confirmPasswordError.setText(ValidationModel.validateConfirmPassword(txt_createPassword.getText() ,
@@ -149,5 +146,12 @@ public class C_Register {
     }
 
     public void passwordWhyOnHovered(MouseEvent mouseEvent) {
+    }
+
+    private void setFieldNull(){
+        txt_Position.setText(Users.current_user);
+        txt_firstName.setText(null);
+        txt_lastName.setText(null);
+        txt_email.setText(null);
     }
 }

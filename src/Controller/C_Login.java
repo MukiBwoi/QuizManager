@@ -1,5 +1,6 @@
 package Controller;
 
+import Constants.Screens;
 import Constants.Users;
 import Utils.UI;
 import com.jfoenix.controls.JFXPasswordField;
@@ -39,7 +40,7 @@ public class C_Login {
         try {
            Stage stage =  (Stage)lbl_Register.getScene().getWindow();
            stage.close();
-           ui.setUI("/View/V_Register");
+           ui.setUI(Screens.register);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -49,7 +50,7 @@ public class C_Login {
         try {
             Stage stage =  (Stage)lbl_forgotPassword.getScene().getWindow();
             stage.close();
-            ui.setUI("/View/V_ResetPassword");
+            ui.setUI(Screens.resetPassword);
         } catch (IOException e) {
             e.printStackTrace();
         }
