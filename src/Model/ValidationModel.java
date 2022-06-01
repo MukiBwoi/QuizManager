@@ -27,13 +27,13 @@ public class ValidationModel {
 
 
     public static String validateEmail(String email){
-        String isNullMessage = commonValidator(email , "Email address required");
+        String isNullMessage = commonValidator(email , "Email address required!");
         if(isNullMessage != null){
             C_Register.isValidated = false;
             return  isNullMessage;
-        }else if(isValidMail(email)){
+        }else if(!isValidMail(email)){
             C_Register.isValidated = false;
-            return "Invalid email format";
+            return "Invalid email format!";
         }else{
             C_Register.isValidated = true;
             return  null;
@@ -43,7 +43,7 @@ public class ValidationModel {
     public static String validateDOB(LocalDate localDate){
         if(localDate == null  || localDate.equals(null)){
             C_Register.isValidated = false;
-            return "Date Of Birth required";
+            return "Date Of Birth required!";
         }
         C_Register.isValidated = true;
         return null;
@@ -52,12 +52,12 @@ public class ValidationModel {
     public static String validateNewPass(String password , Label why){
         if(password == null || password.equals(null)){
             C_Register.isValidated = false;
-            return  "Password required";
+            return  "Password required!";
         }
         else if(!Pattern.compile("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$").matcher(password).matches()){
             why.setVisible(true);
             C_Register.isValidated = false;
-            return "Password format error";
+            return "Password format error!";
         }else{
             C_Register.isValidated = true;
             why.setVisible(false);
@@ -68,7 +68,7 @@ public class ValidationModel {
     public static String validateConfirmPassword(String npassword , String cpassword){
         if(!npassword.equalsIgnoreCase(cpassword)){
             C_Register.isValidated = false;
-            return "Password doesn't match";
+            return "Password doesn't match!";
         }else{
             C_Register.isValidated = true;
             return  null;
@@ -78,7 +78,7 @@ public class ValidationModel {
     public static String validateTC(boolean isChecked){
         if(!isChecked){
             C_Register.isValidated = false;
-            return  "you have to agree to Terms and conditions before continue";
+            return  "you have to agree to Terms and conditions before continue!";
         }
         C_Register.isValidated = true;
         return  null;

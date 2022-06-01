@@ -8,6 +8,7 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -19,6 +20,7 @@ public class C_Login {
     public Label lbl_Register;
     public Label lbl_forgotPassword;
     public Pane pane_RegisterRedirect;
+    public AnchorPane pane_Login;
 
     UI ui = new UI();
 
@@ -58,6 +60,7 @@ public class C_Login {
     void ifAdmin(){
         if(Users.current_user.equals(Users.admin)){
             pane_RegisterRedirect.setVisible(false);
+            pane_Login.setPrefSize(313,460);
         }
     }
 }
