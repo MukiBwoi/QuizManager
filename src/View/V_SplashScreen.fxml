@@ -8,28 +8,33 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="300.0" prefWidth="538.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.C_SplashScreen">
+<AnchorPane prefHeight="300.0" prefWidth="538.0" style="-fx-background-color: white;" styleClass="splash-bg" stylesheets="@../Css/SplashScreen.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.C_SplashScreen">
    <children>
-      <Label layoutX="190.0" layoutY="91.0" prefHeight="61.0" prefWidth="260.0" text="Quiz Manager">
+      <Label layoutX="280.0" layoutY="103.0" prefHeight="42.0" prefWidth="179.0" text="Quizzy Bank">
          <font>
             <Font size="33.0" />
          </font>
       </Label>
-      <ImageView fitHeight="102.0" fitWidth="128.0" layoutX="70.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true" style="-fx-border-radius : 50px;">
+      <Label layoutX="280.0" layoutY="155.0" prefHeight="18.0" prefWidth="160.0" text="Test your knowledge" />
+      <Button fx:id="btn_Lecturer" layoutX="189.0" layoutY="244.0" mnemonicParsing="false" onAction="#btn_LecturerOnAction" prefHeight="42.0" prefWidth="160.0" style="-fx-background-color: #2196f3; -fx-text-fill: #ffffff;" text="Lecturer">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="btn_Student" layoutX="364.0" layoutY="244.0" mnemonicParsing="false" onAction="#btn_StudentOnAction" prefHeight="42.0" prefWidth="160.0" style="-fx-background-color: #2196f3; -fx-text-fill: #ffffff;" text="Student">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button fx:id="btn_Admin" layoutX="14.0" layoutY="244.0" mnemonicParsing="false" onAction="#btn_AdminOnAction" prefHeight="42.0" prefWidth="160.0" style="-fx-background-color: #2196f3; -fx-text-fill: #ffffff;" text="Administrator">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="80.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../assets/quiz_splash.png" />
+            <Image url="@../Assets/logo.png" />
          </image>
       </ImageView>
-      <Label layoutX="190.0" layoutY="154.0" prefHeight="18.0" prefWidth="276.0" text="Test your knowledge with this awsome app" />
-      <Button fx:id="btn_Teacher" layoutX="35.0" layoutY="244.0" mnemonicParsing="false" onAction="#btn_TeacherOnAction" prefHeight="42.0" prefWidth="241.0" style="-fx-background-color: #2196f3; -fx-text-fill: #ffffff;" text="Teacher">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-      <Button fx:id="btn_Student" layoutX="283.0" layoutY="244.0" mnemonicParsing="false" onAction="#btn_StudentOnAction" prefHeight="42.0" prefWidth="241.0" style="-fx-background-color: #2196f3; -fx-text-fill: #ffffff;" text="Student">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
    </children>
 </AnchorPane>

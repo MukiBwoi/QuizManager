@@ -1,11 +1,13 @@
 package Controller;
 
+import Constants.Users;
 import Utils.UI;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -13,18 +15,23 @@ import java.io.IOException;
 public class C_Login {
     public JFXTextField txt_Email;
     public JFXPasswordField txt_Password;
-    public static String userType;
     public Label lbl_Register;
     public Label lbl_forgotPassword;
+    public Pane pane_RegisterRedirect;
 
     UI ui = new UI();
 
-    public void btn_LoginOnAction(ActionEvent actionEvent) {
-        if(userType.equals("Teacher")){
-            System.out.println("Teacher");
-        }else{
-            System.out.println("Student");
+    public void initialize(){
+        ifAdmin();
+    }
 
+    public void btn_LoginOnAction(ActionEvent actionEvent) {
+        if(Users.current_user.equals(Users.lecturer)){
+            System.out.println(Users.lecturer);
+        }else if(Users.current_user.equals(Users.student)){
+            System.out.println(Users.student);
+        }else{
+            System.out.println(Users.admin);
         }
     }
 
@@ -47,8 +54,9 @@ public class C_Login {
             e.printStackTrace();
         }
     }
-
-    public static void setUserType(String u){
-        userType = u;
+    void ifAdmin(){
+        if(Users.current_user.equals(Users.admin)){
+            pane_RegisterRedirect.setVisible(false);
+        }
     }
 }

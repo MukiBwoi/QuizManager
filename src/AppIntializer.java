@@ -1,6 +1,7 @@
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -14,12 +15,11 @@ public class AppIntializer extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        primaryStage.setScene(new Scene(FXMLLoader.load(getClass().getResource("View/V_SplashScreen.fxml"))));
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("View/V_SplashScreen.fxml")));
+        primaryStage.setScene(scene);
         primaryStage.setAlwaysOnTop(true);
         primaryStage.centerOnScreen();
-        primaryStage.initStyle(StageStyle.UNDECORATED);
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.show();
-
-
     }
 }

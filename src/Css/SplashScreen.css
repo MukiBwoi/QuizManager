@@ -1,0 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu&display=swap');
+
+.splash-bg{
+    -fx-background-radius: 30;
+    -fx-border-radius: 30;
+    -fx-font-family: 'Ubuntu', sans-serif;
+}
