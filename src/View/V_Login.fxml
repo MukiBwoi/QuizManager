@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -23,27 +23,23 @@
       </font>
    </Label>
    <Label layoutX="119.0" layoutY="114.0" text="Quiz Manager" />
-   <JFXTextField fx:id="txt_Email" focusColor="#2196f3" labelFloat="true" layoutX="38.0" layoutY="232.0" prefHeight="26.0" prefWidth="233.0" promptText="Email" />
-   <JFXPasswordField fx:id="txt_Password" focusColor="#2196f3" labelFloat="true" layoutX="38.0" layoutY="298.0" prefHeight="26.0" prefWidth="233.0" promptText="Password" />
-   <Button layoutX="38.0" layoutY="381.0" mnemonicParsing="false" onAction="#btn_LoginOnAction" prefHeight="37.0" prefWidth="240.0" style="-fx-background-color: #2196f3; -fx-text-fill: #ffffff;" text="Let' s Login">
-      <cursor>
-         <Cursor fx:constant="HAND" />
-      </cursor>
-   </Button>
-   <Label fx:id="lbl_forgotPassword" layoutX="164.0" layoutY="341.0" onMouseClicked="#lbl_forgotPasswordOnAction" style="-fx-text-fill: #2196f3;" text="Forgot Password?">
-      <cursor>
-         <Cursor fx:constant="HAND" />
-      </cursor>
-   </Label>
-   <Pane fx:id="pane_RegisterRedirect" layoutX="38.0" layoutY="469.0" prefHeight="30.0" prefWidth="240.0">
-      <children>
-         <Label layoutX="13.0" layoutY="5.0" prefHeight="18.0" prefWidth="164.0" text="Don't you have an account?" />
-         <Label fx:id="lbl_Register" layoutX="177.0" layoutY="5.0" onMouseClicked="#lbl_RegisterOnAction" prefHeight="18.0" prefWidth="50.0" style="-fx-text-fill: #2196f3;" text="Register">
-            <cursor>
-               <Cursor fx:constant="HAND" />
-            </cursor>
-         </Label>
-      </children>
+   <JFXTextField fx:id="txt_Email" focusColor="#2196f3" labelFloat="true" layoutX="38.0" layoutY="226.0" prefHeight="33.0" prefWidth="233.0" promptText="Email" />
+   <JFXPasswordField fx:id="txt_Password" focusColor="#2196f3" labelFloat="true" layoutX="38.0" layoutY="298.0" prefHeight="33.0" prefWidth="233.0" promptText="Password" />
+   <Pane fx:id="pane_RegisterRedirect" layoutX="38.0" layoutY="489.0" prefHeight="30.0" prefWidth="240.0">
+      <Label layoutX="13.0" layoutY="5.0" prefHeight="18.0" prefWidth="164.0" text="Don't you have an account?" />
+      <Label fx:id="lbl_Register" layoutX="177.0" layoutY="5.0" onMouseClicked="#lbl_RegisterOnAction" prefHeight="18.0" prefWidth="50.0" style="-fx-text-fill: #2196f3;" text="Register">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Label>
    </Pane>
+   <JFXButton fx:id="btn_forgotPassword" defaultButton="true" layoutX="150.0" layoutY="360.0" onAction="#btn_forgotPasswordOnAction" style="-fx-background-color: white; -fx-text-fill: #333333; -fx-background-radius: 20; -fx-border-radius: 20;" text="Forgot Password?">
+      <cursor>
+         <Cursor fx:constant="HAND" />
+      </cursor>
+   </JFXButton>
+   <Label fx:id="lbl_EmailError" layoutX="39.0" layoutY="264.0" prefHeight="18.0" prefWidth="233.0" style="-fx-text-fill: red; -fx-font-size: 11; -fx-font-style: italic;" />
+   <Label fx:id="lbl_PasswordError" layoutX="42.0" layoutY="337.0" prefHeight="18.0" prefWidth="233.0" style="-fx-text-fill: red; -fx-font-size: 11; -fx-font-style: italic;" />
+   <JFXButton fx:id="btn_Login" buttonType="RAISED" layoutX="38.0" layoutY="408.0" onAction="#btn_LoginOnAction" prefHeight="40.0" prefWidth="240.0" style="-fx-background-color: #2196f3; -fx-border-radius: 20; -fx-background-radius: 20; -fx-text-fill: white;" text="Let' s Login" />
 
 </AnchorPane>
