@@ -2,6 +2,7 @@ package Controller;
 
 import Constants.Screens;
 import Constants.Users;
+import Model.DatabaseService;
 import Model.ValidationModel;
 import Utils.UI;
 import com.jfoenix.controls.JFXButton;
@@ -15,6 +16,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class C_Login {
     public JFXTextField txt_Email;
