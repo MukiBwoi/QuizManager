@@ -1,0 +1,13 @@
+#login-btn , #forget-pass{
+    -fx-background-radius: 10;
+}
+
+#login-btn{
+    -fx-background-color: #2196f3;
+    -fx-text-fill: white;
+}
+
+#forget-pass{
+    -fx-text-fill:  #333333;
+    -fx-background-color: white;
+}

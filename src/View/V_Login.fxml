@@ -33,13 +33,13 @@
          </cursor>
       </Label>
    </Pane>
-   <JFXButton fx:id="btn_forgotPassword" defaultButton="true" layoutX="150.0" layoutY="360.0" onAction="#btn_forgotPasswordOnAction" style="-fx-background-color: white; -fx-text-fill: #333333; -fx-background-radius: 20; -fx-border-radius: 20;" text="Forgot Password?">
+   <JFXButton id="forget-pass" fx:id="btn_forgotPassword" defaultButton="true" layoutX="150.0" layoutY="360.0" onAction="#btn_forgotPasswordOnAction" stylesheets="@../CSS/LoginScreen.css" text="Forgot Password?">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
    </JFXButton>
    <Label fx:id="lbl_EmailError" layoutX="39.0" layoutY="264.0" prefHeight="18.0" prefWidth="233.0" style="-fx-text-fill: red; -fx-font-size: 11; -fx-font-style: italic;" />
    <Label fx:id="lbl_PasswordError" layoutX="42.0" layoutY="337.0" prefHeight="18.0" prefWidth="233.0" style="-fx-text-fill: red; -fx-font-size: 11; -fx-font-style: italic;" />
-   <JFXButton fx:id="btn_Login" buttonType="RAISED" layoutX="38.0" layoutY="408.0" onAction="#btn_LoginOnAction" prefHeight="40.0" prefWidth="240.0" style="-fx-background-color: #2196f3; -fx-border-radius: 20; -fx-background-radius: 20; -fx-text-fill: white;" text="Let' s Login" />
+   <JFXButton id="login-btn" fx:id="btn_Login" buttonType="RAISED" layoutX="38.0" layoutY="408.0" onAction="#btn_LoginOnAction" prefHeight="40.0" prefWidth="240.0" style="-fx-background-color: #2196f3; -fx-text-fill: white;" stylesheets="@../CSS/LoginScreen.css" text="Let' s Login" />
 
 </AnchorPane>

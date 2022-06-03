@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
@@ -16,7 +16,7 @@
 
 <AnchorPane prefHeight="560.0" prefWidth="610.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.C_Register">
    <ImageView fitHeight="46.0" fitWidth="43.0" layoutX="35.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
-      <Image url="@../Assets/quiz_splash.png"/>
+      <Image url="@../Assets/quiz_splash.png" />
    </ImageView>
    <Label layoutX="95.0" layoutY="20.0" prefHeight="30.0" prefWidth="164.0" text="Register Here">
       <font>
@@ -32,11 +32,6 @@
          <Cursor fx:constant="HAND" />
       </cursor>
    </Label>
-   <Button fx:id="btn_Register" layoutX="185.0" layoutY="454.0" mnemonicParsing="false" onAction="#btn_RegisterOnAction" prefHeight="37.0" prefWidth="240.0" style="-fx-background-color: #2196f3; -fx-text-fill: #ffffff;" text="Register Now">
-      <cursor>
-         <Cursor fx:constant="HAND" />
-      </cursor>
-   </Button>
    <Label fx:id="lbl_TermsAndCondition" layoutX="283.0" layoutY="421.0" onMouseClicked="#lbl_TermsAndConditionOnAction" style="-fx-text-fill: #2196f3;" text="Terms and Conditions">
       <cursor>
          <Cursor fx:constant="HAND" />
@@ -53,7 +48,6 @@
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor></JFXTextField>
-   <CheckBox fx:id="checkBox_TC" layoutX="207.0" layoutY="421.0" mnemonicParsing="false" text="I agree to" />
    <JFXPasswordField fx:id="txt_ConfirmPassword" focusColor="#2196f3" labelFloat="true" layoutX="33.0" layoutY="344.0" prefHeight="26.0" prefWidth="233.0" promptText="Confirm Password" />
    <Label fx:id="lbl_FNameError" layoutX="34.0" layoutY="142.0" prefHeight="10.0" prefWidth="215.0" textFill="#ff3333">
       <font>
@@ -106,4 +100,6 @@
          <Tooltip minWidth="-Infinity" text="Minimum eight characters, at least one letter, one number one special character" width="500.0" wrapText="true" />
       </tooltip>
    </Label>
+   <JFXCheckBox fx:id="checkBox_TC" checkedColor="#2196f3" layoutX="201.0" layoutY="421.0" text="I agree to" textFill="#333333" unCheckedColor="#333333" />
+   <JFXButton id="register-btn" fx:id="btn_Register" buttonType="RAISED" layoutX="185.0" layoutY="457.0" onAction="#btn_RegisterOnAction" prefHeight="37.0" prefWidth="240.0" stylesheets="@../CSS/RegisterScreen.css" text="Register Now" textFill="WHITE" />
 </AnchorPane>

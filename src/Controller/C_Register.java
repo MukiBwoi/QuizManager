@@ -2,16 +2,12 @@ package Controller;
 
 import Constants.Screens;
 import Constants.Users;
-import Model.ValidationModel;
+import Model.*;
 import Utils.UI;
-import com.jfoenix.controls.JFXComboBox;
-import com.jfoenix.controls.JFXDatePicker;
-import com.jfoenix.controls.JFXPasswordField;
-import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.controls.*;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -19,6 +15,9 @@ import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.Date;
@@ -28,13 +27,13 @@ public class C_Register {
 
     public JFXTextField txt_email;
     public Label lbl_Login;
-    public Button btn_Register;
+    public JFXButton btn_Register;
     public JFXTextField txt_firstName;
     public JFXPasswordField txt_createPassword;
     public JFXTextField txt_lastName;
     public JFXDatePicker datePicker_DOB;
     public JFXTextField txt_age;
-    public CheckBox checkBox_TC;
+    public JFXCheckBox checkBox_TC;
     public JFXPasswordField txt_ConfirmPassword;
     public Label lbl_FNameError;
     public Label lbl_LNameError;
@@ -51,6 +50,8 @@ public class C_Register {
     public Label lbl_why;
     private  String cmb_validation_message;
     public static boolean isValidated = false;
+
+
 
     UI ui = new UI();
     public void initialize(){
@@ -72,11 +73,36 @@ public class C_Register {
     public void btn_RegisterOnAction(ActionEvent actionEvent) {
         validateAllFields();
         if(isValidated){
+
             try {
-                Stage stage =  (Stage)btn_Register.getScene().getWindow();
-                stage.close();
-                ui.setUI(Screens.dashboard);
-            } catch (IOException e) {
+                boolean isRegistered;
+                if(Users.current_user == Users.student){
+                    isRegistered = M_Register.registerStudent(
+                            new Student(txt_firstName.getText(),txt_lastName.getText() , txt_email.getText(),
+                                    java.sql.Date.valueOf(datePicker_DOB.getValue()),Integer.parseInt(txt_age.getText()),
+                                    cmb_batch.getValue(),1,txt_ConfirmPassword.getText(),txt_Position.getText(),
+                                    Timestamp.valueOf(LocalDateTime.now()))
+                    );
+                }else{
+                    isRegistered = M_Register.registerLecturer(
+                            new Lecturer(txt_firstName.getText(),txt_lastName.getText() , txt_email.getText(),
+                                    cmb_branch.getValue(),0,txt_ConfirmPassword.getText(),txt_Position.getText(),
+                                    Timestamp.valueOf(LocalDateTime.now())));
+                }
+
+                if(isRegistered){
+                    Stage stage =  (Stage)btn_Register.getScene().getWindow();
+                    stage.close();
+                    ui.setUI(Screens.dashboard);
+                }else{
+                    ErrorHandler.setError("Something went wrong please try again !");
+                    Alert alert = new Alert(Alert.AlertType.ERROR ,ErrorHandler.getMessage());
+                    alert.show();
+                }
+            } catch (IOException | ClassNotFoundException | SQLException e) {
+                ErrorHandler.setError(e.getMessage());
+                Alert alert = new Alert(Alert.AlertType.ERROR ,ErrorHandler.getMessage());
+                alert.show();
                 e.printStackTrace();
             }
         }
