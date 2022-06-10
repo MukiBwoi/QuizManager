@@ -11,6 +11,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import sun.security.jgss.GSSUtil;
+
+import javax.mail.MessagingException;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -93,13 +96,14 @@ public class C_Register {
                 if(isRegistered){
                     Stage stage =  (Stage)btn_Register.getScene().getWindow();
                     stage.close();
-                    ui.setUI(Screens.dashboard);
+                    ui.setUI(Screens.verifyCode);
+                    sendVerifyCode();
                 }else{
                     ErrorHandler.setError("Something went wrong please try again !");
                     Alert alert = new Alert(Alert.AlertType.ERROR ,ErrorHandler.getMessage());
                     alert.show();
                 }
-            } catch (IOException | ClassNotFoundException | SQLException e) {
+            } catch (IOException | ClassNotFoundException | SQLException | MessagingException | InterruptedException e) {
                 ErrorHandler.setError(e.getMessage());
                 Alert alert = new Alert(Alert.AlertType.ERROR ,ErrorHandler.getMessage());
                 alert.show();
@@ -179,5 +183,13 @@ public class C_Register {
         txt_firstName.setText(null);
         txt_lastName.setText(null);
         txt_email.setText(null);
+    }
+
+    private void sendVerifyCode() throws MessagingException, InterruptedException {
+        Utils.EmailSender.sendCode(txt_email.getText(),"Verification code for Registration");
+        for (int i = 0; i < 60; i++) {
+            System.out.println(i);
+            Thread.sleep(59000);
+        }
     }
 }

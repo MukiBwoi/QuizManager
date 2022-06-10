@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane focusTraversable="true" prefHeight="500.0" prefWidth="320.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.C_VerifyCode">
+   <children>
+      <Label layoutX="122.0" layoutY="32.0" text="Verify Code">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="170.0" fitWidth="230.0" layoutX="76.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../Assets/verifyCode.jpg" />
+         </image>
+      </ImageView>
+      <JFXButton layoutX="45.0" layoutY="402.0" prefHeight="34.0" prefWidth="223.0" style="-fx-background-color: #2196f3;" text="Verify Code" textFill="WHITE" />
+      <JFXTextField focusColor="#2196f3" labelFloat="true" layoutX="46.0" layoutY="352.0" prefHeight="34.0" prefWidth="223.0" promptText="Verification code" />
+      <Label layoutX="87.0" layoutY="253.0" prefHeight="17.0" prefWidth="139.0" text="Verification code sent to" />
+      <Label layoutX="96.0" layoutY="271.0" text="example@gmail.com" textFill="#2196f3" />
+      <JFXButton layoutX="108.0" layoutY="444.0" text="Resend Code" />
+      <JFXButton layoutX="104.0" layoutY="289.0" prefHeight="25.0" prefWidth="94.0" text="Change Email" />
+      <Label layoutX="131.0" layoutY="469.0" text="59 sec" />
+   </children>
+</AnchorPane>
