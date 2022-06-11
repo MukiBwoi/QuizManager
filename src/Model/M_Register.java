@@ -8,13 +8,14 @@ import java.sql.SQLException;
 public class M_Register {
 
     private static boolean authenticateUser(AuthUser auth) throws SQLException, ClassNotFoundException {
-        String sql = "INSERT INTO auth VALUES(?,?,?,?,?)";
+        String sql = "INSERT INTO auth VALUES(?,?,?,?,?,?)";
         PreparedStatement ps = DBConnection.getInstance().getConnection().prepareStatement(sql);
         ps.setInt(1,auth.getId());
         ps.setString(2,auth.getEmail());
         ps.setString(3,auth.getPassword());
         ps.setString(4,auth.getEmp_type());
-        ps.setTimestamp(5 , auth.getLast_login());
+        ps.setBoolean(5,auth.getIsVerified());
+        ps.setTimestamp(6 , auth.getLast_login());
         return ps.executeUpdate()>0;
     }
 

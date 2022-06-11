@@ -5,15 +5,18 @@ import Constants.Users;
 import Model.*;
 import Utils.UI;
 import com.jfoenix.controls.*;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import sun.security.jgss.GSSUtil;
 
 import javax.mail.MessagingException;
+import javax.rmi.CORBA.Util;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -51,6 +54,7 @@ public class C_Register {
     public JFXComboBox<String> cmb_branch;
     public JFXComboBox<String> current_cmb;
     public Label lbl_why;
+    public ImageView img_loadingIndication;
     private  String cmb_validation_message;
     public static boolean isValidated = false;
 
@@ -76,34 +80,30 @@ public class C_Register {
     public void btn_RegisterOnAction(ActionEvent actionEvent) {
         validateAllFields();
         if(isValidated){
-
             try {
                 boolean isRegistered;
                 if(Users.current_user == Users.student){
                     isRegistered = M_Register.registerStudent(
                             new Student(txt_firstName.getText(),txt_lastName.getText() , txt_email.getText(),
                                     java.sql.Date.valueOf(datePicker_DOB.getValue()),Integer.parseInt(txt_age.getText()),
-                                    cmb_batch.getValue(),1,txt_ConfirmPassword.getText(),txt_Position.getText(),
+                                    cmb_batch.getValue(),1,txt_ConfirmPassword.getText(),txt_Position.getText(),false,
                                     Timestamp.valueOf(LocalDateTime.now()))
                     );
                 }else{
                     isRegistered = M_Register.registerLecturer(
                             new Lecturer(txt_firstName.getText(),txt_lastName.getText() , txt_email.getText(),
-                                    cmb_branch.getValue(),0,txt_ConfirmPassword.getText(),txt_Position.getText(),
+                                    cmb_branch.getValue(),0,txt_ConfirmPassword.getText(),txt_Position.getText(),false,
                                     Timestamp.valueOf(LocalDateTime.now())));
                 }
 
                 if(isRegistered){
-                    Stage stage =  (Stage)btn_Register.getScene().getWindow();
-                    stage.close();
-                    ui.setUI(Screens.verifyCode);
                     sendVerifyCode();
                 }else{
                     ErrorHandler.setError("Something went wrong please try again !");
                     Alert alert = new Alert(Alert.AlertType.ERROR ,ErrorHandler.getMessage());
                     alert.show();
                 }
-            } catch (IOException | ClassNotFoundException | SQLException | MessagingException | InterruptedException e) {
+            } catch (IOException | ClassNotFoundException | SQLException e) {
                 ErrorHandler.setError(e.getMessage());
                 Alert alert = new Alert(Alert.AlertType.ERROR ,ErrorHandler.getMessage());
                 alert.show();
@@ -185,11 +185,48 @@ public class C_Register {
         txt_email.setText(null);
     }
 
-    private void sendVerifyCode() throws MessagingException, InterruptedException {
-        Utils.EmailSender.sendCode(txt_email.getText(),"Verification code for Registration");
-        for (int i = 0; i < 60; i++) {
-            System.out.println(i);
-            Thread.sleep(59000);
-        }
+    private void sendVerifyCode() throws IOException {
+        Thread t1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                C_VerifyCode.email = txt_email.getText();
+                try {
+                    Utils.EmailSender.sendCode(txt_email.getText(),"Verification code for Registration");
+                } catch (MessagingException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                t1.start();
+
+                while(t1.isAlive()){
+                    btn_Register.setVisible(false);
+                    img_loadingIndication.setVisible(true);
+                }
+
+                img_loadingIndication.setVisible(false);
+                btn_Register.setVisible(true);
+                System.out.println("running");
+
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Stage stage =  (Stage)btn_Register.getScene().getWindow();
+                            stage.close();
+                            System.out.println("running 2");
+                            new UI().setUI(Screens.verifyCode);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+
+            }
+        }).start();
     }
 }

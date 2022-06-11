@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane focusTraversable="true" prefHeight="500.0" prefWidth="320.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.C_VerifyCode">
    <children>
       <Label layoutX="122.0" layoutY="32.0" text="Verify Code">
@@ -21,12 +20,12 @@
             <Image url="@../Assets/verifyCode.jpg" />
          </image>
       </ImageView>
-      <JFXButton layoutX="45.0" layoutY="402.0" prefHeight="34.0" prefWidth="223.0" style="-fx-background-color: #2196f3;" text="Verify Code" textFill="WHITE" />
-      <JFXTextField focusColor="#2196f3" labelFloat="true" layoutX="46.0" layoutY="352.0" prefHeight="34.0" prefWidth="223.0" promptText="Verification code" />
+      <JFXButton fx:id="btn_VerifyCode" layoutX="45.0" layoutY="402.0" onAction="#btn_VerifyCodeOnAction" prefHeight="34.0" prefWidth="223.0" style="-fx-background-color: #2196f3;" text="Verify Code" textFill="WHITE" />
+      <JFXTextField fx:id="txt_verificationCode" focusColor="#2196f3" labelFloat="true" layoutX="46.0" layoutY="352.0" prefHeight="34.0" prefWidth="223.0" promptText="Verification code" />
       <Label layoutX="87.0" layoutY="253.0" prefHeight="17.0" prefWidth="139.0" text="Verification code sent to" />
       <Label layoutX="96.0" layoutY="271.0" text="example@gmail.com" textFill="#2196f3" />
-      <JFXButton layoutX="108.0" layoutY="444.0" text="Resend Code" />
+      <JFXButton fx:id="btn_ResendCode" layoutX="108.0" layoutY="444.0" onAction="#btn_ResendCodeOnAction" text="Resend Code" />
       <JFXButton layoutX="104.0" layoutY="289.0" prefHeight="25.0" prefWidth="94.0" text="Change Email" />
-      <Label layoutX="131.0" layoutY="469.0" text="59 sec" />
+      <Label fx:id="lbl_timerTxt" layoutX="131.0" layoutY="469.0" text="59 sec" />
    </children>
 </AnchorPane>

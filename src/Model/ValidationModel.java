@@ -59,8 +59,8 @@ public class ValidationModel {
             C_Register.isValidated = false;
             return "Password format error!";
         }else{
-            C_Register.isValidated = true;
             why.setVisible(false);
+            C_Register.isValidated = true;
             return null;
         }
     }

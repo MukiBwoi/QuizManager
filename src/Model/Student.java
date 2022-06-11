@@ -28,8 +28,8 @@ public class Student{
     }
 
     public Student( String first_name, String last_name, String email, Date DOB, int age, String batch,
-                   int auth_id, String password, String emp_type, Timestamp last_login) {
-        this.setAuthUser(new AuthUser(email , password , emp_type , last_login));
+                   int auth_id, String password, String emp_type,boolean isVerified, Timestamp last_login) {
+        this.setAuthUser(new AuthUser(email , password , emp_type ,isVerified, last_login));
         this.first_name = first_name;
         this.last_name = last_name;
         this.email = email;

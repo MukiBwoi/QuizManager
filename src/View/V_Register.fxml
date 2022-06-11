@@ -84,7 +84,7 @@
          <Font name="System Italic" size="11.0" />
       </font>
    </Label>
-   <Label fx:id="lbl_tcError" layoutX="189.0" layoutY="492.0" prefHeight="16.0" prefWidth="233.0" textFill="#ff3333">
+   <Label fx:id="lbl_tcError" layoutX="189.0" layoutY="501.0" prefHeight="16.0" prefWidth="233.0" textFill="#ff3333">
       <font>
          <Font name="System Italic" size="11.0" />
       </font>
@@ -101,5 +101,10 @@
       </tooltip>
    </Label>
    <JFXCheckBox fx:id="checkBox_TC" checkedColor="#2196f3" layoutX="201.0" layoutY="421.0" text="I agree to" textFill="#333333" unCheckedColor="#333333" />
-   <JFXButton id="register-btn" fx:id="btn_Register" buttonType="RAISED" layoutX="185.0" layoutY="457.0" onAction="#btn_RegisterOnAction" prefHeight="37.0" prefWidth="240.0" stylesheets="@../CSS/RegisterScreen.css" text="Register Now" textFill="WHITE" />
+   <JFXButton id="register-btn" fx:id="btn_Register" layoutX="185.0" layoutY="457.0" onAction="#btn_RegisterOnAction" prefHeight="37.0" prefWidth="240.0" stylesheets="@../CSS/RegisterScreen.css" text="Register Now" textFill="WHITE" />
+   <ImageView fx:id="img_loadingIndication" fitHeight="53.0" fitWidth="43.0" layoutX="284.0" layoutY="454.0" pickOnBounds="true" preserveRatio="true" visible="false">
+      <image>
+         <Image url="@../Assets/loading.gif" />
+      </image>
+   </ImageView>
 </AnchorPane>

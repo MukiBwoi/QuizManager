@@ -24,8 +24,8 @@ public class Lecturer {
     }
 
     public Lecturer( String first_name, String last_name, String email, String branch, int auth_id ,
-                    String password, String emp_type, Timestamp last_login) {
-        this.authUser = new AuthUser(email , password , emp_type , last_login);
+                    String password, String emp_type,boolean isVerified, Timestamp last_login) {
+        this.authUser = new AuthUser(email , password , emp_type,isVerified, last_login);
         this.setFirst_name(first_name);
         this.setLast_name(last_name);
         this.setEmail(email);

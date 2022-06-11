@@ -7,16 +7,19 @@ public class AuthUser {
     private String email;
     private String password;
     private String emp_type;
+    private boolean isVerified;
     private Timestamp last_login;
+
 
     public AuthUser() {
     }
 
-    public AuthUser(String email, String password, String emp_type, Timestamp last_login) {
+    public AuthUser(String email, String password, String emp_type,boolean isVerified, Timestamp last_login) {
         this.setEmail(email);
         this.setPassword(password);
         this.setEmp_type(emp_type);
         this.setLast_login(last_login);
+        this.setVerified(isVerified);
     }
 
     public int getId() {
@@ -57,5 +60,13 @@ public class AuthUser {
 
     public void setLast_login(Timestamp last_login) {
         this.last_login = last_login;
+    }
+
+    public boolean getIsVerified() {
+        return isVerified;
+    }
+
+    public void setVerified(boolean verified) {
+        isVerified = verified;
     }
 }
