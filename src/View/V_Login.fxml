@@ -33,7 +33,7 @@
          </cursor>
       </Label>
    </Pane>
-   <JFXButton id="forget-pass" fx:id="btn_forgotPassword" defaultButton="true" layoutX="150.0" layoutY="360.0" onAction="#btn_forgotPasswordOnAction" stylesheets="@../CSS/LoginScreen.css" text="Forgot Password?">
+   <JFXButton id="forget-pass" fx:id="btn_forgotPassword" defaultButton="true" layoutX="150.0" layoutY="356.0" onAction="#btn_forgotPasswordOnAction" stylesheets="@../CSS/LoginScreen.css" text="Forgot Password?">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>

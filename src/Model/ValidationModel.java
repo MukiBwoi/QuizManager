@@ -1,10 +1,11 @@
 package Model;
 
-import java.awt.*;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import Constants.Users;
 import Controller.C_Register;
 import javafx.scene.control.Label;
 
@@ -82,5 +83,27 @@ public class ValidationModel {
         }
         C_Register.isValidated = true;
         return  null;
+    }
+
+    public static boolean isEmailExist(String email , String emp_type){
+        try{
+            if(emp_type.equals(Users.student)){
+                for (Student student:DatabaseService.getAllStudents()) {
+                        if(student.getEmail().equalsIgnoreCase(email)){
+                            return  true;
+                        }
+                }
+            }else{
+                for (Lecturer lecturer:DatabaseService.getAllLecturers()) {
+                    if(lecturer.getEmail().equalsIgnoreCase(email)){
+                        return  true;
+                    }
+                }
+            }
+        }catch (ClassNotFoundException | SQLException e){
+            e.printStackTrace();
+        }
+       return  false;
+
     }
 }

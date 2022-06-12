@@ -10,6 +10,7 @@ public class EmailSender {
     static private String FromEmail = "companysf6@gmail.com";
     static private String FromEmailPassword = "xldcpqzsfghvygll";
     static private String Subjects;
+    static public int code;
 
     public static void sendCode(String toEmail , String subject) throws MessagingException {
         Subjects = subject;
@@ -29,7 +30,8 @@ public class EmailSender {
         message.setFrom(new InternetAddress(FromEmail));
         message.addRecipient(Message.RecipientType.TO, new InternetAddress(toEmail));
         message.setSubject(Subjects);
-        message.setText("Your verification code is " + new Random().nextInt(9999999));
+        code = new Random().nextInt(9999999);
+        message.setText("Your verification code is " + code);
         Transport.send(message);
 
     }

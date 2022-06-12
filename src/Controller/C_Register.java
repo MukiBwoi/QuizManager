@@ -13,10 +13,8 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import sun.security.jgss.GSSUtil;
-
 import javax.mail.MessagingException;
-import javax.rmi.CORBA.Util;
+
 import java.awt.*;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -54,7 +52,7 @@ public class C_Register {
     public JFXComboBox<String> cmb_branch;
     public JFXComboBox<String> current_cmb;
     public Label lbl_why;
-    public ImageView img_loadingIndication;
+    public ImageView img_loadingIndicator;
     private  String cmb_validation_message;
     public static boolean isValidated = false;
 
@@ -80,35 +78,42 @@ public class C_Register {
     public void btn_RegisterOnAction(ActionEvent actionEvent) {
         validateAllFields();
         if(isValidated){
-            try {
-                boolean isRegistered;
-                if(Users.current_user == Users.student){
-                    isRegistered = M_Register.registerStudent(
-                            new Student(txt_firstName.getText(),txt_lastName.getText() , txt_email.getText(),
-                                    java.sql.Date.valueOf(datePicker_DOB.getValue()),Integer.parseInt(txt_age.getText()),
-                                    cmb_batch.getValue(),1,txt_ConfirmPassword.getText(),txt_Position.getText(),false,
-                                    Timestamp.valueOf(LocalDateTime.now()))
-                    );
-                }else{
-                    isRegistered = M_Register.registerLecturer(
-                            new Lecturer(txt_firstName.getText(),txt_lastName.getText() , txt_email.getText(),
-                                    cmb_branch.getValue(),0,txt_ConfirmPassword.getText(),txt_Position.getText(),false,
-                                    Timestamp.valueOf(LocalDateTime.now())));
-                }
-
-                if(isRegistered){
-                    sendVerifyCode();
-                }else{
-                    ErrorHandler.setError("Something went wrong please try again !");
-                    Alert alert = new Alert(Alert.AlertType.ERROR ,ErrorHandler.getMessage());
-                    alert.show();
-                }
-            } catch (IOException | ClassNotFoundException | SQLException e) {
-                ErrorHandler.setError(e.getMessage());
+            if(ValidationModel.isEmailExist(txt_email.getText(),txt_Position.getText())){
+                ErrorHandler.setError("Email already exists ! Please use a different email.");
                 Alert alert = new Alert(Alert.AlertType.ERROR ,ErrorHandler.getMessage());
                 alert.show();
-                e.printStackTrace();
+            }else{
+                try {
+                    boolean isRegistered;
+                    if(Objects.equals(Users.current_user, Users.student)){
+                        isRegistered = M_Register.registerStudent(
+                                new Student(txt_firstName.getText(),txt_lastName.getText() , txt_email.getText(),
+                                        java.sql.Date.valueOf(datePicker_DOB.getValue()),Integer.parseInt(txt_age.getText()),
+                                        cmb_batch.getValue(),1,txt_ConfirmPassword.getText(),txt_Position.getText(),false,
+                                        Timestamp.valueOf(LocalDateTime.now()))
+                        );
+                    }else{
+                        isRegistered = M_Register.registerLecturer(
+                                new Lecturer(txt_firstName.getText(),txt_lastName.getText() , txt_email.getText(),
+                                        cmb_branch.getValue(),0,txt_ConfirmPassword.getText(),txt_Position.getText(),false,
+                                        Timestamp.valueOf(LocalDateTime.now())));
+                    }
+
+                    if(isRegistered){
+                        sendVerifyCode();
+                    }else{
+                        ErrorHandler.setError("Something went wrong please try again !");
+                        Alert alert = new Alert(Alert.AlertType.ERROR ,ErrorHandler.getMessage());
+                        alert.show();
+                    }
+                } catch (IOException | ClassNotFoundException | SQLException e) {
+                    ErrorHandler.setError(e.getMessage());
+                    Alert alert = new Alert(Alert.AlertType.ERROR ,ErrorHandler.getMessage());
+                    alert.show();
+                    e.printStackTrace();
+                }
             }
+
         }
 
     }
@@ -165,7 +170,7 @@ public class C_Register {
         lbl_FNameError.setText(ValidationModel.commonValidator(txt_firstName.getText() , "First Name required"));
         lbl_LNameError.setText(ValidationModel.commonValidator(txt_lastName.getText() , "Last Name required"));
         lbl_emailError.setText(ValidationModel.validateEmail(txt_email.getText()));
-        //lbl_DOBError.setText(ValidationModel.validateDOB(datePicker_DOB.getValue()));
+        lbl_DOBError.setText(ValidationModel.validateDOB(datePicker_DOB.getValue()));
         lbl_CityError.setText(ValidationModel.commonValidator(current_cmb.getValue() == null?
                         null : current_cmb.getValue(),
                 cmb_validation_message));
@@ -205,12 +210,11 @@ public class C_Register {
 
                 while(t1.isAlive()){
                     btn_Register.setVisible(false);
-                    img_loadingIndication.setVisible(true);
+                    img_loadingIndicator.setVisible(true);
                 }
 
-                img_loadingIndication.setVisible(false);
+                img_loadingIndicator.setVisible(false);
                 btn_Register.setVisible(true);
-                System.out.println("running");
 
                 Platform.runLater(new Runnable() {
                     @Override
@@ -218,7 +222,6 @@ public class C_Register {
                         try {
                             Stage stage =  (Stage)btn_Register.getScene().getWindow();
                             stage.close();
-                            System.out.println("running 2");
                             new UI().setUI(Screens.verifyCode);
                         } catch (IOException e) {
                             e.printStackTrace();
@@ -229,4 +232,6 @@ public class C_Register {
             }
         }).start();
     }
+
+
 }
