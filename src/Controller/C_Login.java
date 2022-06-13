@@ -3,6 +3,8 @@ package Controller;
 import Constants.Screens;
 import Constants.Users;
 import Model.DatabaseService;
+import Model.M_Login;
+import Model.Student;
 import Model.ValidationModel;
 import Utils.UI;
 import com.jfoenix.controls.JFXButton;
@@ -17,6 +19,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class C_Login {
     public JFXTextField txt_Email;
@@ -27,6 +30,7 @@ public class C_Login {
     public JFXButton btn_forgotPassword;
     public Label lbl_EmailError;
     public Label lbl_PasswordError;
+    public JFXButton btn_Login;
 
     UI ui = new UI();
 
@@ -38,7 +42,8 @@ public class C_Login {
 
     public void btn_LoginOnAction(ActionEvent actionEvent) {
         String emailValidation = ValidationModel.validateEmail(txt_Email.getText());
-        String passwordValidation = ValidationModel.commonValidator(txt_Password.getText(),"Password required!");
+        String passwordValidation = ValidationModel.commonValidator(txt_Password.getText(),
+                "Password required!");
         lbl_EmailError.setText(emailValidation);
         lbl_PasswordError.setText(passwordValidation);
 
@@ -46,7 +51,7 @@ public class C_Login {
             if(Users.current_user.equals(Users.lecturer)){
                 System.out.println(Users.lecturer);
             }else if(Users.current_user.equals(Users.student)){
-                System.out.println(Users.student);
+                loginProcess();
             }else{
                 System.out.println(Users.admin);
             }
@@ -80,5 +85,34 @@ public class C_Login {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void loginProcess(){
+        try{
+            if(Users.current_user.equals(Users.admin)){
+            }else if(Users.current_user.equals(Users.student)){
+                ArrayList<String> emails = new ArrayList<>();
+                for (Student student:DatabaseService.getAllStudents()) {
+                    if(student.getEmail().equalsIgnoreCase(txt_Email.getText())){
+                        emails.add(student.getEmail());
+                    }
+                }
+                if(emails.size()>0){
+                    if(M_Login.getPassword(txt_Email.getText()).equals(txt_Password.getText())){
+                        new Utils.UI().closeUIButton(btn_Login);
+                        new Utils.UI().setUI(Screens.dashboard);
+                    }else{
+                        new Utils.UI().showErrorAlert("Invalid password ! Please Try again.");
+                    }
+                }else{
+                    new Utils.UI().showErrorAlert(
+                            "Email doesn't exists ! if you don't have an account please register.");
+                }
+            }
+        }catch (SQLException | ClassNotFoundException | IOException e){
+                e.printStackTrace();
+            new Utils.UI().showErrorAlert(e.toString());
+        }
+
     }
 }
