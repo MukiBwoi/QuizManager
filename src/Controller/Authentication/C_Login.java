@@ -45,11 +45,17 @@ public class C_Login {
 
         if(emailValidation == null && passwordValidation == null){
             if(Users.current_user.equals(Users.lecturer)){
-                loginProcess();
+
+                loginProcess(Screens.lecturerDashboard);
+
             }else if(Users.current_user.equals(Users.student)){
-                loginProcess();
+
+                loginProcess(Screens.studentDashboard);
+
             }else{
-                loginProcess();
+
+                loginProcess(Screens.adminDashboard);
+
             }
         }
 
@@ -85,12 +91,12 @@ public class C_Login {
     }
 
     //process when click Lets login button
-    private void loginProcess(){
+    private void loginProcess(String dashboard){
         try{
             if(C_Validation.isEmailExist(txt_Email.getText())){
                 if(checkPassword()){
                     new Utils.UI().closeUIButton(btn_Login);
-                    new Utils.UI().setUI(Screens.dashboard);
+                    new Utils.UI().setUI(dashboard);
                 }else{
                     new Utils.UI().showErrorAlert("Invalid password ! Please Try again.");
                 }
