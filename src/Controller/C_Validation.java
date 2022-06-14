@@ -1,4 +1,4 @@
-package Model;
+package Controller;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -7,9 +7,13 @@ import java.util.regex.Pattern;
 
 import Constants.Users;
 import Controller.C_Register;
+import Model.AuthUser;
+import Model.DatabaseService;
+import Model.Lecturer;
+import Model.Student;
 import javafx.scene.control.Label;
 
-public class ValidationModel {
+public class C_Validation {
 
     public static String commonValidator(String input , String message){
         if(input == null || input == "" || input.equals(null)){
@@ -19,6 +23,8 @@ public class ValidationModel {
         C_Register.isValidated = true;
         return null;
     }
+
+
     private static boolean isValidMail(String email){
         String regex = "^(.+)@(.+)$";
         Pattern pattern = Pattern.compile(regex);
@@ -85,21 +91,13 @@ public class ValidationModel {
         return  null;
     }
 
-    public static boolean isEmailExist(String email , String emp_type){
+    public static boolean isEmailExist(String email){
         try{
-            if(emp_type.equals(Users.student)){
-                for (Student student:DatabaseService.getAllStudents()) {
-                        if(student.getEmail().equalsIgnoreCase(email)){
+                for (AuthUser authUser: DatabaseService.getAllAuthUsers()) {
+                        if(authUser.getEmail().equalsIgnoreCase(email)){
                             return  true;
                         }
                 }
-            }else{
-                for (Lecturer lecturer:DatabaseService.getAllLecturers()) {
-                    if(lecturer.getEmail().equalsIgnoreCase(email)){
-                        return  true;
-                    }
-                }
-            }
         }catch (ClassNotFoundException | SQLException e){
             e.printStackTrace();
         }

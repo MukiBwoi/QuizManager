@@ -1,6 +1,6 @@
 package Controller;
 
-import Constants.Screens;
+
 import Utils.EmailSender;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
@@ -9,7 +9,6 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 import javax.mail.MessagingException;
 import java.io.IOException;
 
@@ -23,34 +22,32 @@ public class C_VerifyCode{
     public Label lbl_Email;
     public JFXButton btn_ChangeEmail;
     public ImageView img_loadingIndicator;
+    public static String nextScreen;
+    public static String purpose;
 
     public void initialize(){
         lbl_Email.setText(email);
         txt_verificationCode.setText(null);
     }
+
     public void btn_VerifyCodeOnAction(ActionEvent actionEvent) {
-        String validator = Model.ValidationModel.commonValidator(txt_verificationCode.getText(),
+        String validator = C_Validation.commonValidator(txt_verificationCode.getText(),
                 "verification code required !");
         if(validator!= null){
-            System.out.println("Error");
             Model.ErrorHandler.setError(validator);
             new Alert(Alert.AlertType.ERROR , Model.ErrorHandler.getMessage());
 
         }else{
-            System.out.println("No Error");
             if(txt_verificationCode.getText().equals(String.valueOf(EmailSender.code))){
-                System.out.println("Verification done");
-                Stage stage =  (Stage)btn_VerifyCode.getScene().getWindow();
-                stage.close();
+
                 try {
-                    new Utils.UI().setUI(Screens.dashboard);
+                    new Utils.UI().closeUIButton(btn_VerifyCode);
+                    new Utils.UI().setUI(nextScreen);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }else{
-                System.out.println("Verification Error");
-                Model.ErrorHandler.setError("Wrong verification code !");
-                new Alert(Alert.AlertType.ERROR , Model.ErrorHandler.getMessage());
+               new Utils.UI().showErrorAlert("Wrong verification code !");
             }
 
         }
@@ -102,7 +99,7 @@ public class C_VerifyCode{
 
                 try {
                     btn_ResendCode.setDisable(true);
-                    EmailSender.sendCode(email,"Verification code for Registration");
+                    EmailSender.sendCode(email,"Verification code for " + purpose);
                     thread.start();
                 } catch (MessagingException e) {
                     e.printStackTrace();

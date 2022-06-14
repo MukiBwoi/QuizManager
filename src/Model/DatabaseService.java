@@ -7,8 +7,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class DatabaseService {
-    static ArrayList<Student> students = new ArrayList<>();
-    static ArrayList<Lecturer> lecturers = new ArrayList<>();
+    public static ArrayList<Student> students = new ArrayList<>();
+    public static ArrayList<Lecturer> lecturers = new ArrayList<>();
+    public static ArrayList<AuthUser> authUsers = new ArrayList<>();
 
     //Get Student
     public static Student getStudent(int id) throws SQLException, ClassNotFoundException {
@@ -86,5 +87,27 @@ public class DatabaseService {
             while (rst.next());
         }
         return lecturers;
+    }
+
+    //Authenticated users
+    public static ArrayList<AuthUser> getAllAuthUsers() throws SQLException, ClassNotFoundException {
+
+        Connection connection = DBConnection.getInstance().getConnection();
+        ResultSet rst = connection.createStatement().executeQuery("SELECT * FROM auth");
+        if(rst.next()){
+            do{
+                authUsers.add(
+                        new AuthUser(
+                                rst.getString(2),
+                                rst.getString(3),
+                                rst.getString(4),
+                                rst.getBoolean(5),
+                                rst.getTimestamp(6)
+                        )
+                );
+            }
+            while (rst.next());
+        }
+        return authUsers;
     }
 }

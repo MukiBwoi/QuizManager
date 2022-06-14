@@ -2,10 +2,10 @@ package Controller;
 
 import Constants.Screens;
 import Constants.Users;
+import Model.AuthUser;
 import Model.DatabaseService;
 import Model.M_Login;
 import Model.Student;
-import Model.ValidationModel;
 import Utils.UI;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
@@ -41,19 +41,19 @@ public class C_Login {
     }
 
     public void btn_LoginOnAction(ActionEvent actionEvent) {
-        String emailValidation = ValidationModel.validateEmail(txt_Email.getText());
-        String passwordValidation = ValidationModel.commonValidator(txt_Password.getText(),
+        String emailValidation = C_Validation.validateEmail(txt_Email.getText());
+        String passwordValidation = C_Validation.commonValidator(txt_Password.getText(),
                 "Password required!");
         lbl_EmailError.setText(emailValidation);
         lbl_PasswordError.setText(passwordValidation);
 
         if(emailValidation == null && passwordValidation == null){
             if(Users.current_user.equals(Users.lecturer)){
-                System.out.println(Users.lecturer);
+                loginProcess();
             }else if(Users.current_user.equals(Users.student)){
                 loginProcess();
             }else{
-                System.out.println(Users.admin);
+                loginProcess();
             }
         }
 
@@ -89,30 +89,32 @@ public class C_Login {
 
     private void loginProcess(){
         try{
-            if(Users.current_user.equals(Users.admin)){
-            }else if(Users.current_user.equals(Users.student)){
-                ArrayList<String> emails = new ArrayList<>();
-                for (Student student:DatabaseService.getAllStudents()) {
-                    if(student.getEmail().equalsIgnoreCase(txt_Email.getText())){
-                        emails.add(student.getEmail());
-                    }
-                }
-                if(emails.size()>0){
-                    if(M_Login.getPassword(txt_Email.getText()).equals(txt_Password.getText())){
-                        new Utils.UI().closeUIButton(btn_Login);
-                        new Utils.UI().setUI(Screens.dashboard);
-                    }else{
-                        new Utils.UI().showErrorAlert("Invalid password ! Please Try again.");
-                    }
+            if(C_Validation.isEmailExist(txt_Email.getText())){
+                if(checkPassword()){
+                    new Utils.UI().closeUIButton(btn_Login);
+                    new Utils.UI().setUI(Screens.dashboard);
                 }else{
-                    new Utils.UI().showErrorAlert(
-                            "Email doesn't exists ! if you don't have an account please register.");
+                    new Utils.UI().showErrorAlert("Invalid password ! Please Try again.");
                 }
+            }else{
+                new Utils.UI().showErrorAlert(
+                        "Email doesn't exists ! if you don't have an account please register.");
             }
-        }catch (SQLException | ClassNotFoundException | IOException e){
+
+        }catch (IOException e){
                 e.printStackTrace();
-            new Utils.UI().showErrorAlert(e.toString());
         }
 
+    }
+
+    private boolean checkPassword(){
+        for (AuthUser authuser:DatabaseService.authUsers) {
+            if(authuser.getEmail().equals(txt_Email.getText())){
+                if(authuser.getEmp_type().equals(Users.current_user)){
+                    return authuser.getPassword().equals(txt_Password.getText());
+                }
+            }
+        }
+        return  false;
     }
 }

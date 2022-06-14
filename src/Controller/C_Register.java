@@ -78,7 +78,7 @@ public class C_Register {
     public void btn_RegisterOnAction(ActionEvent actionEvent) {
         validateAllFields();
         if(isValidated){
-            if(ValidationModel.isEmailExist(txt_email.getText(),txt_Position.getText())){
+            if(C_Validation.isEmailExist(txt_email.getText())){
                 ErrorHandler.setError("Email already exists ! Please use a different email.");
                 Alert alert = new Alert(Alert.AlertType.ERROR ,ErrorHandler.getMessage());
                 alert.show();
@@ -88,19 +88,21 @@ public class C_Register {
                     if(Objects.equals(Users.current_user, Users.student)){
                         isRegistered = M_Register.registerStudent(
                                 new Student(txt_firstName.getText(),txt_lastName.getText() , txt_email.getText(),
-                                        java.sql.Date.valueOf(datePicker_DOB.getValue()),Integer.parseInt(txt_age.getText()),
-                                        cmb_batch.getValue(),1,txt_ConfirmPassword.getText(),txt_Position.getText(),false,
+                                        java.sql.Date.valueOf(datePicker_DOB.getValue()),
+                                        Integer.parseInt(txt_age.getText()), cmb_batch.getValue(),1,
+                                        txt_ConfirmPassword.getText(), txt_Position.getText(),false,
                                         Timestamp.valueOf(LocalDateTime.now()))
                         );
                     }else{
                         isRegistered = M_Register.registerLecturer(
                                 new Lecturer(txt_firstName.getText(),txt_lastName.getText() , txt_email.getText(),
-                                        cmb_branch.getValue(),0,txt_ConfirmPassword.getText(),txt_Position.getText(),false,
-                                        Timestamp.valueOf(LocalDateTime.now())));
+                                        cmb_branch.getValue(),0,txt_ConfirmPassword.getText(),
+                                        txt_Position.getText(),false, Timestamp.valueOf(LocalDateTime.now())));
                     }
 
                     if(isRegistered){
-                        sendVerifyCode();
+                        sendVerifyCode("Registration" , btn_Register,Screens.dashboard ,
+                                img_loadingIndicator,txt_email.getText());
                     }else{
                         ErrorHandler.setError("Something went wrong please try again !");
                         Alert alert = new Alert(Alert.AlertType.ERROR ,ErrorHandler.getMessage());
@@ -167,17 +169,17 @@ public class C_Register {
     }
 
     public void validateAllFields(){
-        lbl_FNameError.setText(ValidationModel.commonValidator(txt_firstName.getText() , "First Name required"));
-        lbl_LNameError.setText(ValidationModel.commonValidator(txt_lastName.getText() , "Last Name required"));
-        lbl_emailError.setText(ValidationModel.validateEmail(txt_email.getText()));
-        lbl_DOBError.setText(ValidationModel.validateDOB(datePicker_DOB.getValue()));
-        lbl_CityError.setText(ValidationModel.commonValidator(current_cmb.getValue() == null?
+        lbl_FNameError.setText(C_Validation.commonValidator(txt_firstName.getText() , "First Name required"));
+        lbl_LNameError.setText(C_Validation.commonValidator(txt_lastName.getText() , "Last Name required"));
+        lbl_emailError.setText(C_Validation.validateEmail(txt_email.getText()));
+        lbl_DOBError.setText(C_Validation.validateDOB(datePicker_DOB.getValue()));
+        lbl_CityError.setText(C_Validation.commonValidator(current_cmb.getValue() == null?
                         null : current_cmb.getValue(),
                 cmb_validation_message));
-        lbl_createPasswordError.setText(ValidationModel.validateNewPass(txt_createPassword.getText() ,lbl_why ));
-        lbl_confirmPasswordError.setText(ValidationModel.validateConfirmPassword(txt_createPassword.getText() ,
+        lbl_createPasswordError.setText(C_Validation.validateNewPass(txt_createPassword.getText() ,lbl_why ));
+        lbl_confirmPasswordError.setText(C_Validation.validateConfirmPassword(txt_createPassword.getText() ,
                 txt_ConfirmPassword.getText()));
-        lbl_tcError.setText(ValidationModel.validateTC(checkBox_TC.isSelected()));
+        lbl_tcError.setText(C_Validation.validateTC(checkBox_TC.isSelected()));
     }
 
     public void passwordWhyOnHovered(MouseEvent mouseEvent) {
@@ -190,13 +192,14 @@ public class C_Register {
         txt_email.setText(null);
     }
 
-    private void sendVerifyCode() throws IOException {
+    public void sendVerifyCode(
+            String purpose , JFXButton currentButton , String nextScreen , ImageView loading_image , String email) throws IOException {
         Thread t1 = new Thread(new Runnable() {
             @Override
             public void run() {
-                C_VerifyCode.email = txt_email.getText();
+                C_VerifyCode.email = email;
                 try {
-                    Utils.EmailSender.sendCode(txt_email.getText(),"Verification code for Registration");
+                    Utils.EmailSender.sendCode(email,"Verification code for " + purpose);
                 } catch (MessagingException e) {
                     e.printStackTrace();
                 }
@@ -209,19 +212,20 @@ public class C_Register {
                 t1.start();
 
                 while(t1.isAlive()){
-                    btn_Register.setVisible(false);
-                    img_loadingIndicator.setVisible(true);
+                    currentButton.setVisible(false);
+                    loading_image.setVisible(true);
                 }
 
-                img_loadingIndicator.setVisible(false);
-                btn_Register.setVisible(true);
+                loading_image.setVisible(false);
+                currentButton.setVisible(true);
 
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
                         try {
-                            Stage stage =  (Stage)btn_Register.getScene().getWindow();
-                            stage.close();
+                            C_VerifyCode.purpose = purpose;
+                            C_VerifyCode.nextScreen = nextScreen;
+                            new UI().closeUIButton(currentButton);
                             new UI().setUI(Screens.verifyCode);
                         } catch (IOException e) {
                             e.printStackTrace();

@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import java.io.IOException;
 
+
 public class C_SplashScreen {
 
 
@@ -15,6 +16,7 @@ public class C_SplashScreen {
     public Button btn_Admin;
     public Button btn_Lecturer;
     public void initialize(){
+
     }
 
 
