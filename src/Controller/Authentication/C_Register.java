@@ -1,14 +1,15 @@
-package Controller;
+package Controller.Authentication;
 
 import Constants.Screens;
 import Constants.Users;
-import Model.*;
+import Model.Authentication.M_Register;
+import Model.Entities.Lecturer;
+import Model.Entities.Student;
 import Utils.UI;
 import com.jfoenix.controls.*;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;

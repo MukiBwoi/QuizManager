@@ -1,5 +1,9 @@
-package Model;
+package Model.Authentication;
 
+import Model.Entities.AuthUser;
+import Model.Entities.Lecturer;
+import Model.Entities.Student;
+import Utils.ErrorHandler;
 import Utils.DBConnection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

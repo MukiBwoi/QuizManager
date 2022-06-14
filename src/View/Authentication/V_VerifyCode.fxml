@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane focusTraversable="true" prefHeight="500.0" prefWidth="320.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.C_VerifyCode">
+<AnchorPane focusTraversable="true" prefHeight="500.0" prefWidth="320.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Authentication.C_VerifyCode">
    <children>
       <Label layoutX="122.0" layoutY="32.0" text="Verify Code">
          <font>
@@ -17,7 +17,7 @@
       </Label>
       <ImageView fitHeight="170.0" fitWidth="230.0" layoutX="46.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Assets/verify_code.jpg" />
+            <Image url="@../../Assets/verify_code.jpg" />
          </image>
       </ImageView>
       <JFXButton fx:id="btn_VerifyCode" layoutX="45.0" layoutY="402.0" onAction="#btn_VerifyCodeOnAction" prefHeight="34.0" prefWidth="223.0" style="-fx-background-color: #2196f3;" text="Verify Code" textFill="WHITE" />
@@ -29,7 +29,7 @@
       <Label fx:id="lbl_timerTxt" layoutX="131.0" layoutY="471.0" text="59 sec" />
       <ImageView fx:id="img_loadingIndicator" fitHeight="34.0" fitWidth="43.0" layoutX="131.0" layoutY="440.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
-            <Image url="@../Assets/loading.gif" />
+            <Image url="@../../Assets/loading.gif" />
          </image>
       </ImageView>
    </children>

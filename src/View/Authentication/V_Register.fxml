@@ -14,9 +14,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="560.0" prefWidth="610.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.C_Register">
+<AnchorPane prefHeight="560.0" prefWidth="610.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Authentication.C_Register">
    <ImageView fitHeight="53.0" fitWidth="52.0" layoutX="35.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
-      <Image url="@../Assets/logo.png" />
+      <Image url="@../../Assets/logo.png" />
    </ImageView>
    <Label layoutX="95.0" layoutY="20.0" prefHeight="30.0" prefWidth="164.0" text="Register Here">
       <font>
@@ -105,10 +105,10 @@
       </tooltip>
    </Label>
    <JFXCheckBox fx:id="checkBox_TC" checkedColor="#2196f3" layoutX="201.0" layoutY="421.0" text="I agree to" textFill="#333333" unCheckedColor="#333333" />
-   <JFXButton id="register-btn" fx:id="btn_Register" layoutX="185.0" layoutY="457.0" onAction="#btn_RegisterOnAction" prefHeight="37.0" prefWidth="240.0" stylesheets="@../CSS/RegisterScreen.css" text="Register Now" textFill="WHITE" />
+   <JFXButton id="register-btn" fx:id="btn_Register" layoutX="185.0" layoutY="457.0" onAction="#btn_RegisterOnAction" prefHeight="37.0" prefWidth="240.0" stylesheets="@../../CSS/RegisterScreen.css" text="Register Now" textFill="WHITE" />
    <ImageView fx:id="img_loadingIndicator" fitHeight="53.0" fitWidth="43.0" layoutX="284.0" layoutY="454.0" pickOnBounds="true" preserveRatio="true" visible="false">
       <image>
-         <Image url="@../Assets/loading.gif" />
+         <Image url="@../../Assets/loading.gif" />
       </image>
    </ImageView>
 </AnchorPane>

@@ -1,11 +1,11 @@
-package Controller;
+package Controller.Authentication;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import Model.AuthUser;
-import Model.DatabaseService;
+import Model.Entities.AuthUser;
+import Model.Database.DatabaseService;
 import javafx.scene.control.Label;
 
 public class C_Validation {

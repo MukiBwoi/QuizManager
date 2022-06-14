@@ -1,9 +1,9 @@
-package Controller;
+package Controller.Authentication;
 
 import Constants.Screens;
 import Constants.Users;
-import Model.AuthUser;
-import Model.DatabaseService;
+import Model.Entities.AuthUser;
+import Model.Database.DatabaseService;
 import Utils.UI;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;

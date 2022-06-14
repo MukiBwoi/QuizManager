@@ -1,5 +1,4 @@
 package Utils;
-import Model.ErrorHandler;
 import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

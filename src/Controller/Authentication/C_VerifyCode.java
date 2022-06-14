@@ -1,7 +1,8 @@
-package Controller;
+package Controller.Authentication;
 
 
 import Utils.EmailSender;
+import Utils.ErrorHandler;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.application.Platform;
@@ -34,8 +35,8 @@ public class C_VerifyCode{
         String validator = C_Validation.commonValidator(txt_verificationCode.getText(),
                 "verification code required !");
         if(validator!= null){
-            Model.ErrorHandler.setError(validator);
-            new Alert(Alert.AlertType.ERROR , Model.ErrorHandler.getMessage());
+            ErrorHandler.setError(validator);
+            new Alert(Alert.AlertType.ERROR , ErrorHandler.getMessage());
 
         }else{
             if(txt_verificationCode.getText().equals(String.valueOf(EmailSender.code))){

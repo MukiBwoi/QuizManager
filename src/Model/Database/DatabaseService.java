@@ -1,5 +1,8 @@
-package Model;
+package Model.Database;
 
+import Model.Entities.AuthUser;
+import Model.Entities.Lecturer;
+import Model.Entities.Student;
 import Utils.DBConnection;
 import java.sql.Connection;
 import java.sql.ResultSet;

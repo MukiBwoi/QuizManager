@@ -1,7 +1,7 @@
-package Controller;
+package Controller.Authentication;
 
 import Constants.Screens;
-import Model.M_ChangePassword;
+import Model.Authentication.M_ChangePassword;
 import Utils.UI;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
