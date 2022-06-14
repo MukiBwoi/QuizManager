@@ -4,8 +4,6 @@ import Constants.Screens;
 import Constants.Users;
 import Model.AuthUser;
 import Model.DatabaseService;
-import Model.M_Login;
-import Model.Student;
 import Utils.UI;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
@@ -16,10 +14,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
+
 
 public class C_Login {
     public JFXTextField txt_Email;
@@ -70,13 +66,6 @@ public class C_Login {
     }
 
 
-    void ifAdmin(){
-        if(Users.current_user.equals(Users.admin)){
-            pane_RegisterRedirect.setVisible(false);
-            pane_Login.setPrefSize(313,460);
-        }
-    }
-
     public void btn_forgotPasswordOnAction(ActionEvent actionEvent) {
         try {
             Stage stage =  (Stage)btn_forgotPassword.getScene().getWindow();
@@ -87,6 +76,15 @@ public class C_Login {
         }
     }
 
+    //hide registration button for admin
+    void ifAdmin(){
+        if(Users.current_user.equals(Users.admin)){
+            pane_RegisterRedirect.setVisible(false);
+            pane_Login.setPrefSize(313,460);
+        }
+    }
+
+    //process when click Lets login button
     private void loginProcess(){
         try{
             if(C_Validation.isEmailExist(txt_Email.getText())){
@@ -107,6 +105,7 @@ public class C_Login {
 
     }
 
+    //Check if password correct
     private boolean checkPassword(){
         for (AuthUser authuser:DatabaseService.authUsers) {
             if(authuser.getEmail().equals(txt_Email.getText())){

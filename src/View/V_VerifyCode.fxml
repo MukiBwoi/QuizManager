@@ -15,9 +15,9 @@
             <Font name="System Bold" size="14.0" />
          </font>
       </Label>
-      <ImageView fitHeight="170.0" fitWidth="230.0" layoutX="76.0" layoutY="71.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="170.0" fitWidth="230.0" layoutX="46.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../Assets/verifyCode.jpg" />
+            <Image url="@../Assets/verify_code.jpg" />
          </image>
       </ImageView>
       <JFXButton fx:id="btn_VerifyCode" layoutX="45.0" layoutY="402.0" onAction="#btn_VerifyCodeOnAction" prefHeight="34.0" prefWidth="223.0" style="-fx-background-color: #2196f3;" text="Verify Code" textFill="WHITE" />

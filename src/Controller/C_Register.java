@@ -79,9 +79,7 @@ public class C_Register {
         validateAllFields();
         if(isValidated){
             if(C_Validation.isEmailExist(txt_email.getText())){
-                ErrorHandler.setError("Email already exists ! Please use a different email.");
-                Alert alert = new Alert(Alert.AlertType.ERROR ,ErrorHandler.getMessage());
-                alert.show();
+                ui.showErrorAlert("Email already exists ! Please use a different email.");
             }else{
                 try {
                     boolean isRegistered;
@@ -104,20 +102,15 @@ public class C_Register {
                         sendVerifyCode("Registration" , btn_Register,Screens.dashboard ,
                                 img_loadingIndicator,txt_email.getText());
                     }else{
-                        ErrorHandler.setError("Something went wrong please try again !");
-                        Alert alert = new Alert(Alert.AlertType.ERROR ,ErrorHandler.getMessage());
-                        alert.show();
+                        ui.showErrorAlert("Something went wrong please try again !");
                     }
                 } catch (IOException | ClassNotFoundException | SQLException e) {
-                    ErrorHandler.setError(e.getMessage());
-                    Alert alert = new Alert(Alert.AlertType.ERROR ,ErrorHandler.getMessage());
-                    alert.show();
+                    ui.showErrorAlert(e.getMessage());
                     e.printStackTrace();
                 }
             }
 
         }
-
     }
 
 
@@ -131,18 +124,24 @@ public class C_Register {
 
     }
 
+    public void datePickerOnAction(ActionEvent actionEvent) {
+        calculateAge();
+    }
+
+    //Load All Batched to Combo Box
     public void loadBatches(){
         current_cmb.setItems(FXCollections.observableArrayList(
                 "DSE 21.1F", "DSE 21.1P"
         ));
     }
 
+    //Load All Branches to Combo Box
     public void loadBranches(){
         current_cmb.setItems(FXCollections.observableArrayList(
                 "Colombo", "Galle"
         ));
     }
-
+    //Calculate Age from Birthday
     public void calculateAge(){
         int a = Period.between(datePicker_DOB.getValue(),new Date().toInstant().atZone(ZoneId.systemDefault())
                 .toLocalDate() ).getYears();
@@ -150,10 +149,7 @@ public class C_Register {
 
     }
 
-    public void datePickerOnAction(ActionEvent actionEvent) {
-        calculateAge();
-    }
-
+    //Change Combo Boxes according to Lecturer & Student
     void showCombo(){
         if(Objects.equals(Users.current_user, Users.lecturer)){
             cmb_batch.setVisible(false);
@@ -168,6 +164,7 @@ public class C_Register {
         }
     }
 
+    //Validate All Fields
     public void validateAllFields(){
         lbl_FNameError.setText(C_Validation.commonValidator(txt_firstName.getText() , "First Name required"));
         lbl_LNameError.setText(C_Validation.commonValidator(txt_lastName.getText() , "Last Name required"));
@@ -185,6 +182,7 @@ public class C_Register {
     public void passwordWhyOnHovered(MouseEvent mouseEvent) {
     }
 
+    //Set All Fields Null
     private void setFieldNull(){
         txt_Position.setText(Users.current_user);
         txt_firstName.setText(null);
@@ -192,8 +190,10 @@ public class C_Register {
         txt_email.setText(null);
     }
 
+    //Send Verify Code With Loading Indicator
     public void sendVerifyCode(
-            String purpose , JFXButton currentButton , String nextScreen , ImageView loading_image , String email) throws IOException {
+            String purpose , JFXButton currentButton , String nextScreen , ImageView loading_image ,
+            String email) throws IOException {
         Thread t1 = new Thread(new Runnable() {
             @Override
             public void run() {

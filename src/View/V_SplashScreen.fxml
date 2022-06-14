@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -16,25 +16,21 @@
          </font>
       </Label>
       <Label layoutX="280.0" layoutY="155.0" prefHeight="18.0" prefWidth="160.0" text="Test your knowledge" />
-      <Button fx:id="btn_Lecturer" layoutX="189.0" layoutY="244.0" mnemonicParsing="false" onAction="#btn_LecturerOnAction" prefHeight="42.0" prefWidth="160.0" style="-fx-background-color: #2196f3; -fx-text-fill: #ffffff;" text="Lecturer">
+      <JFXButton fx:id="btn_Lecturer" layoutX="189.0" layoutY="244.0" mnemonicParsing="false" onAction="#btn_LecturerOnAction" prefHeight="42.0" prefWidth="160.0" style="-fx-background-color: #2196f3; -fx-text-fill: #ffffff;" text="Lecturer">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
-      </Button>
-      <Button fx:id="btn_Student" layoutX="364.0" layoutY="244.0" mnemonicParsing="false" onAction="#btn_StudentOnAction" prefHeight="42.0" prefWidth="160.0" style="-fx-background-color: #2196f3; -fx-text-fill: #ffffff;" text="Student">
+      </JFXButton>
+      <JFXButton fx:id="btn_Student" layoutX="364.0" layoutY="244.0" mnemonicParsing="false" onAction="#btn_StudentOnAction" prefHeight="42.0" prefWidth="160.0" style="-fx-background-color: #2196f3; -fx-text-fill: #ffffff;" text="Student">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
-      </Button>
-      <Button fx:id="btn_Admin" layoutX="14.0" layoutY="244.0" mnemonicParsing="false" onAction="#btn_AdminOnAction" prefHeight="42.0" prefWidth="160.0" style="-fx-background-color: #2196f3; -fx-text-fill: #ffffff;" text="Administrator">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
+      </JFXButton>
       <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="80.0" layoutY="53.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../Assets/logo.png" />
          </image>
       </ImageView>
+      <JFXButton fx:id="btn_Admin" layoutX="14.0" layoutY="244.0" onAction="#btn_AdminOnAction" prefHeight="42.0" prefWidth="160.0" style="-fx-background-color: #2196f3; -fx-text-fill: #ffffff;" text="Administrator" />
    </children>
 </AnchorPane>

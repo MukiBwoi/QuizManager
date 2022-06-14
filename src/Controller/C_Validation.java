@@ -4,17 +4,13 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import Constants.Users;
-import Controller.C_Register;
 import Model.AuthUser;
 import Model.DatabaseService;
-import Model.Lecturer;
-import Model.Student;
 import javafx.scene.control.Label;
 
 public class C_Validation {
 
+    //Using for validate null values
     public static String commonValidator(String input , String message){
         if(input == null || input == "" || input.equals(null)){
             C_Register.isValidated = false;
@@ -47,6 +43,7 @@ public class C_Validation {
         }
     }
 
+
     public static String validateDOB(LocalDate localDate){
         if(localDate == null  || localDate.equals(null)){
             C_Register.isValidated = false;
@@ -55,6 +52,7 @@ public class C_Validation {
         C_Register.isValidated = true;
         return null;
     }
+
 
     public static String validateNewPass(String password , Label why){
         if(password == null || password.equals(null)){
@@ -72,6 +70,7 @@ public class C_Validation {
         }
     }
 
+
     public static String validateConfirmPassword(String npassword , String cpassword){
         if(!npassword.equalsIgnoreCase(cpassword)){
             C_Register.isValidated = false;
@@ -82,6 +81,7 @@ public class C_Validation {
         }
     }
 
+
     public static String validateTC(boolean isChecked){
         if(!isChecked){
             C_Register.isValidated = false;
@@ -90,6 +90,8 @@ public class C_Validation {
         C_Register.isValidated = true;
         return  null;
     }
+
+
 
     public static boolean isEmailExist(String email){
         try{
