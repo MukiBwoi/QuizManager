@@ -41,6 +41,9 @@ public class C_VerifyCode{
             if(txt_verificationCode.getText().equals(String.valueOf(EmailSender.code))){
 
                 try {
+                    if(purpose == "Reset Password"){
+                        C_ChangePassword.email = email;
+                    }
                     new Utils.UI().closeUIButton(btn_VerifyCode);
                     new Utils.UI().setUI(nextScreen);
                 } catch (IOException e) {

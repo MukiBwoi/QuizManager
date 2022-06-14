@@ -39,7 +39,8 @@ public class C_ResetPassword {
         String emailValidation = C_Validation.validateEmail(txt_email.getText());
         if(emailValidation == null){
             try {
-                new C_Register().sendVerifyCode("Reset Password",btn_SendVerification,Screens.dashboard,
+
+                new C_Register().sendVerifyCode("Reset Password",btn_SendVerification,Screens.changePassword,
                         img_loadingIndicator,txt_email.getText());
             } catch (IOException e) {
                 e.printStackTrace();

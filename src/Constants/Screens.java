@@ -7,4 +7,5 @@ public class Screens {
     public static String resetPassword = "/View/V_ResetPassword";
     public static String splashScreen = "/View/V_SplashScreen";
     public static String verifyCode = "/View/V_VerifyCode";
+    public static String changePassword = "/View/V_ChangePassword";
 }
