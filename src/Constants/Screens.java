@@ -11,4 +11,5 @@ public class Screens {
     public static String adminDashboard = "/View/Admin/V_AdminDashboard";
     public static String lecturerDashboard = "/View/Lecturer/V_LecturerDashboard";
     public static String studentDashboard = "/View/Student/V_StudentDashboard";
+    public static String LeadBoardCard = "/View/Student/V_LeadBoardCard.fxml";
 }
