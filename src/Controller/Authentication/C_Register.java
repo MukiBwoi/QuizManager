@@ -100,7 +100,7 @@ public class C_Register {
                     }
 
                     if(isRegistered){
-                        sendVerifyCode("Registration" , btn_Register,Screens.login ,
+                        sendVerifyCode("Registration" , btn_Register,Screens.uploadAvatar ,
                                 img_loadingIndicator,txt_email.getText());
                     }else{
                         ui.showErrorAlert("Something went wrong please try again !");

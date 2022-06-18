@@ -5,6 +5,8 @@ import Model.Entities.Lecturer;
 import Model.Entities.Student;
 import Utils.ErrorHandler;
 import Utils.DBConnection;
+
+import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,16 +29,17 @@ public class M_Register {
     public static boolean registerStudent(Student student) throws SQLException, ClassNotFoundException {
        if(authenticateUser(student.getAuthUser())){
            int authId = getAuthId(student.getEmail());
-           String sql = "INSERT INTO student values (?,?,?,?,?,?,?,?)";
+           String sql = "INSERT INTO student values (?,?,?,?,?,?,?,?,?)";
            PreparedStatement ps = DBConnection.getInstance().getConnection().prepareStatement(sql);
            ps.setInt(1 , 0);
-           ps.setString(2,student.getFirst_name());
-           ps.setString(3,student.getLast_name());
-           ps.setString(4,student.getEmail());
-           ps.setDate(5,student.getDOB());
-           ps.setInt(6,student.getAge());
-           ps.setString(7,student.getBatch());
-           ps.setInt(8,authId);
+           ps.setBlob(2, (InputStream) null);
+           ps.setString(3,student.getFirst_name());
+           ps.setString(4,student.getLast_name());
+           ps.setString(5,student.getEmail());
+           ps.setDate(6,student.getDOB());
+           ps.setInt(7,student.getAge());
+           ps.setString(8,student.getBatch());
+           ps.setInt(9,authId);
 
            return ps.executeUpdate()>0;
        }else{
@@ -48,14 +51,15 @@ public class M_Register {
     public static boolean registerLecturer(Lecturer lecturer) throws SQLException, ClassNotFoundException {
         if(authenticateUser(lecturer.getAuthUser())){
             int authId = getAuthId(lecturer.getEmail());
-            String sql = "INSERT INTO lecturer values (?,?,?,?,?,?)";
+            String sql = "INSERT INTO lecturer values (?,?,?,?,?,?,?)";
             PreparedStatement ps = DBConnection.getInstance().getConnection().prepareStatement(sql);
             ps.setInt(1 , 0);
-            ps.setString(2,lecturer.getFirst_name());
-            ps.setString(3,lecturer.getLast_name());
-            ps.setString(4,lecturer.getEmail());
-            ps.setString(5,lecturer.getBranch());
-            ps.setInt(6,authId);
+            ps.setBlob(2, (InputStream) null);
+            ps.setString(3,lecturer.getFirst_name());
+            ps.setString(4,lecturer.getLast_name());
+            ps.setString(5,lecturer.getEmail());
+            ps.setString(6,lecturer.getBranch());
+            ps.setInt(7,authId);
 
             return ps.executeUpdate()>0;
         }else{

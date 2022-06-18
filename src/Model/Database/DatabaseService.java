@@ -15,9 +15,9 @@ public class DatabaseService {
     public static ArrayList<AuthUser> authUsers = new ArrayList<>();
 
     //Get Student
-    public static Student getStudent(int id) throws SQLException, ClassNotFoundException {
+    public static Student getStudent(String email) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getInstance().getConnection();
-        ResultSet rst = connection.createStatement().executeQuery("SELECT * FROM student WHERE id = '"+id+"'");
+        ResultSet rst = connection.createStatement().executeQuery("SELECT * FROM student WHERE email = '"+email+"'");
         return rst.next()?new Student(
                rst.getInt("id"),
                 rst.getString("first_name"),
@@ -56,9 +56,9 @@ public class DatabaseService {
     }
 
     //Get Lecturer
-    public static Lecturer getLecturer(int id) throws SQLException, ClassNotFoundException {
+    public static Lecturer getLecturer(String email) throws SQLException, ClassNotFoundException {
         Connection connection = DBConnection.getInstance().getConnection();
-        ResultSet rst = connection.createStatement().executeQuery("SELECT * FROM lecturer WHERE id = '"+id+"'");
+        ResultSet rst = connection.createStatement().executeQuery("SELECT * FROM lecturer WHERE email = '"+email+"'");
         return rst.next()?new Lecturer(
                 rst.getInt("id"),
                 rst.getString("first_name"),
