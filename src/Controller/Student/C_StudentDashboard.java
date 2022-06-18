@@ -2,6 +2,7 @@ package Controller.Student;
 
 import Constants.Assets;
 import Constants.Screens;
+import Model.Authentication.CurrentUserModel;
 import Model.Entities.LeadBoardItem;
 import com.jfoenix.controls.JFXListView;
 import javafx.collections.FXCollections;
@@ -25,6 +26,13 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.io.OutputStream;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 
 public class C_StudentDashboard {
@@ -39,12 +47,16 @@ public class C_StudentDashboard {
     public Circle circle_Avatar;
     public Pane pane_Categories;
     public ImageView img_SidBarIcon;
+    public Label lbl_Name;
+    public Pane pane_Search;
+    public Label lbl_DateTime;
 
 
     public void initialize(){
         initPieChart();
         LoadLeadBoard();
-        LoadProfilePicture();
+        LoadPersonalDetails();
+        setCurrentDateTime();
     }
 
 
@@ -99,34 +111,6 @@ public class C_StudentDashboard {
         }).run();
     }
 
-    private void initPieChart(){
-        ObservableList<PieChart.Data> piechartData = FXCollections.observableArrayList(
-                new PieChart.Data("Android" , 15),
-                new PieChart.Data("JavaFx" , 30),
-                new PieChart.Data("C" , 3)
-        );
-        piechart_CategoryInterests.setData(piechartData);
-    }
-
-    private void LoadLeadBoard(){
-        Node node = null;
-        try {
-            for (int i = 0; i <10 ; i++) {
-                C_LeadBoardCard.leadBoardItem = new LeadBoardItem(
-                    new Image("./Assets/avatar.jpg"),"Will Smith",500,1
-                );
-                node = FXMLLoader.load(getClass().getResource(Screens.LeadBoardCard));
-                List_LeadBoard.getItems().add(node);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void LoadProfilePicture(){
-        circle_Avatar.setFill(new ImagePattern(new Image(Assets.defaultAvatar)));
-    }
-
 
     public void img_SidebarIconOnAction(MouseEvent mouseEvent) {
         Stage stage = new Stage();
@@ -143,5 +127,54 @@ public class C_StudentDashboard {
         stage.setResizable(false);
         stage.setAlwaysOnTop(true);
         stage.show();
+    }
+
+    private void LoadLeadBoard(){
+        Node node = null;
+        try {
+            for (int i = 0; i <10 ; i++) {
+                C_LeadBoardCard.leadBoardItem = new LeadBoardItem(
+                        new Image("./Assets/avatar.jpg"),"Will Smith",500,1
+                );
+                node = FXMLLoader.load(getClass().getResource(Screens.LeadBoardCard));
+                List_LeadBoard.getItems().add(node);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void initPieChart(){
+        ObservableList<PieChart.Data> piechartData = FXCollections.observableArrayList(
+                new PieChart.Data("Android" , 15),
+                new PieChart.Data("JavaFx" , 30),
+                new PieChart.Data("C" , 3)
+        );
+        piechart_CategoryInterests.setData(piechartData);
+    }
+
+    private void LoadPersonalDetails(){
+        lbl_Name.setText(CurrentUserModel.student.getLast_name());
+        circle_Avatar.setFill(new ImagePattern(new Image(Assets.defaultAvatar)));
+    }
+
+    public void OnSearchClicked(MouseEvent mouseEvent) {
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    for (Node pane:stackPane_Main.getChildren()) {
+                        pane.setVisible(false);
+                    }
+                    pane_Search.setVisible(true);
+                }
+            }).run();
+    }
+
+    public void setCurrentDateTime(){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy 'at' hh:mm a ");
+        ZonedDateTime zdt = ZonedDateTime.now();
+        String zdtString = formatter.format(zdt);
+        lbl_DateTime.setText(zdtString);
     }
 }

@@ -16,8 +16,9 @@
 
 <AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Student.C_StudentDashboard">
    <children>
-      <JFXTextField focusColor="#2196f3" layoutX="117.0" layoutY="16.0" prefHeight="31.0" prefWidth="184.0" promptText="Search Quizs" />
-      <Label alignment="TOP_RIGHT" layoutX="768.0" layoutY="10.0" prefHeight="17.0" prefWidth="69.0" text="Your Name" />
+
+      <Label fx:id="lbl_Name" alignment="TOP_RIGHT" layoutX="728.0" layoutY="27.0" prefHeight="17.0" prefWidth="109.0" text="Your Name" />
+      <JFXTextField focusColor="#2196f3" focusTraversable="false" layoutX="117.0" layoutY="16.0" onMouseClicked="#OnSearchClicked" prefHeight="31.0" prefWidth="184.0" promptText="Search Quizs" />
       <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="82.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../Assets/search.png" />
@@ -25,6 +26,11 @@
       </ImageView>
       <StackPane fx:id="stackPane_Main" layoutX="14.0" layoutY="73.0" prefHeight="516.0" prefWidth="870.0" style="-fx-background-color: white;">
          <children>
+            <Pane fx:id="pane_Search" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+               <children>
+                  <Label layoutX="408.0" layoutY="227.0" prefHeight="31.0" prefWidth="110.0" text="No Result found" />
+               </children>
+            </Pane>
             <Pane fx:id="pane_LeadBoard" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
                <children>
                   <Label layoutX="408.0" layoutY="227.0" prefHeight="31.0" prefWidth="110.0" text="LeadBoard" />
@@ -57,7 +63,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Pane layoutX="19.0" layoutY="57.0" opacity="0.72" prefHeight="100.0" prefWidth="260.0" style="-fx-background-color: #3f51b5; -fx-background-radius: 10;" stylesheets="@../../CSS/StudentDashboard.css">
+                  <Pane layoutX="18.0" layoutY="75.0" opacity="0.72" prefHeight="100.0" prefWidth="260.0" style="-fx-background-color: #3f51b5; -fx-background-radius: 10;" stylesheets="@../../CSS/StudentDashboard.css">
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="25.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -76,7 +82,7 @@
                         </Label>
                      </children>
                   </Pane>
-                  <Pane layoutX="305.0" layoutY="56.0" opacity="0.72" prefHeight="100.0" prefWidth="260.0" style="-fx-background-color: #e57373; -fx-background-radius: 10;" stylesheets="@../../CSS/StudentDashboard.css">
+                  <Pane layoutX="304.0" layoutY="74.0" opacity="0.72" prefHeight="100.0" prefWidth="260.0" style="-fx-background-color: #e57373; -fx-background-radius: 10;" stylesheets="@../../CSS/StudentDashboard.css">
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="23.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -95,7 +101,7 @@
                         </Label>
                      </children>
                   </Pane>
-                  <Pane layoutX="593.0" layoutY="53.0" opacity="0.72" prefHeight="100.0" prefWidth="260.0" style="-fx-background-color: #4db6ac; -fx-background-radius: 10;" stylesheets="@../../CSS/StudentDashboard.css">
+                  <Pane layoutX="592.0" layoutY="71.0" opacity="0.72" prefHeight="100.0" prefWidth="260.0" style="-fx-background-color: #4db6ac; -fx-background-radius: 10;" stylesheets="@../../CSS/StudentDashboard.css">
                      <children>
                         <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="29.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -115,11 +121,16 @@
                      </children>
                   </Pane>
                   <JFXListView fx:id="List_LeadBoard" layoutX="24.0" layoutY="237.0" prefHeight="264.0" prefWidth="550.0" style="-fx-background-color: white; -fx-background-radius: 10;" />
+                  <Label fx:id="lbl_DateTime" layoutX="690.0" layoutY="24.0" prefHeight="20.0" prefWidth="147.0" text="2022-06-18  04:15 AM">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
                </children>
             </Pane>
          </children>
       </StackPane>
-      <Label layoutX="782.0" layoutY="28.0" text="DSE 21.1F" />
+      <Label layoutX="802.0" layoutY="12.0" prefHeight="17.0" prefWidth="40.0" text="Hello !" />
       <ImageView fx:id="img_SidBarIcon" fitHeight="24.0" fitWidth="24.0" layoutX="22.0" layoutY="24.0" onMouseClicked="#img_SidebarIconOnAction" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../Assets/Menu_24px.png" />

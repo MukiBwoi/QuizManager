@@ -2,6 +2,7 @@ package Controller.Authentication;
 
 import Constants.Screens;
 import Constants.Users;
+import Model.Authentication.CurrentUserModel;
 import Model.Entities.AuthUser;
 import Model.Database.DatabaseService;
 import Utils.UI;
@@ -95,6 +96,8 @@ public class C_Login {
         try{
             if(C_Validation.isEmailExist(txt_Email.getText())){
                 if(checkPassword()){
+                    CurrentUserModel.currentUserEmail = txt_Email.getText();
+                    CurrentUserModel.getCurrentUser();
                     new Utils.UI().closeUIButton(btn_Login);
                     new Utils.UI().setUI(dashboard);
                 }else{
