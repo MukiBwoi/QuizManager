@@ -5,3 +5,23 @@
 #lbl_Home:hover{
     -fx-text-fill: #2196f3;
 }
+
+#btn_Home{
+    -fx-background-image: url(../Assets/home_24px.png);
+}
+#btn_Category{
+    -fx-background-image: url(../Assets/Cheque_24px.png);
+}
+#btn_MyProfile{
+    -fx-background-image: url(../Assets/account_24px.png);
+}
+#btn_LeadBoard{
+    -fx-background-image: url(../Assets/leaderboard_24px.png);
+}
+
+#btn_Home,
+#btn_Category,
+#btn_MyProfile,
+#btn_LeadBoard{
+    -fx-background-repeat: no-repeat;
+}

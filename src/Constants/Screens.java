@@ -12,4 +12,5 @@ public class Screens {
     public static String lecturerDashboard = "/View/Lecturer/V_LecturerDashboard";
     public static String studentDashboard = "/View/Student/V_StudentDashboard";
     public static String LeadBoardCard = "/View/Student/V_LeadBoardCard.fxml";
+    public static String sideBar = "/View/Student/V_SideBar";
 }

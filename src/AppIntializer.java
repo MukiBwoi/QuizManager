@@ -14,7 +14,7 @@ public class AppIntializer extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("View/V_SplashScreen.fxml")));
+        Scene scene = new Scene(FXMLLoader.load(getClass().getResource("View/Authentication/V_SplashScreen.fxml")));
         primaryStage.setScene(scene);
         primaryStage.setAlwaysOnTop(true);
         primaryStage.centerOnScreen();
