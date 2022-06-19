@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="136.0" prefWidth="386.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="136.0" prefWidth="386.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Student.C_GridTestItem">
    <children>
       <ImageView fitHeight="136.0" fitWidth="386.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -19,7 +18,7 @@
       </ImageView>
       <Pane opacity="0.6" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: black;">
          <children>
-            <Label layoutX="43.0" layoutY="30.0" text="Simple Test" textFill="WHITE" textOverrun="LEADING_ELLIPSIS">
+            <Label fx:id="lbl_TestName" layoutX="43.0" layoutY="30.0" text="Simple Test" textFill="WHITE" textOverrun="LEADING_ELLIPSIS">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -29,19 +28,27 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Label layoutX="106.0" layoutY="105.0" text="Nimal Senevirathne" textFill="WHITE" />
+            <Label fx:id="lbl_Author" layoutX="106.0" layoutY="105.0" text="Nimal Senevirathne" textFill="WHITE" />
             <Label layoutX="43.0" layoutY="58.0" text="Subject -" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label layoutX="106.0" layoutY="58.0" text="Software Engineering" textFill="WHITE">
+            <Label fx:id="lbl_Category" layoutX="106.0" layoutY="58.0" text="Software Engineering" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
             </Label>
-            <JFXSpinner layoutX="308.0" layoutY="32.0" prefHeight="50.0" prefWidth="50.0" progress="0.0" />
-            <JFXButton layoutX="292.0" layoutY="93.0" prefHeight="25.0" prefWidth="67.0" style="-fx-background-color: #2196f3;" textFill="WHITE" />
+            <JFXSpinner fx:id="progress_Marks" layoutX="308.0" layoutY="32.0" prefHeight="50.0" prefWidth="50.0" progress="0.0" />
+            <Pane layoutX="280.0" layoutY="93.0" prefHeight="33.0" prefWidth="88.0" style="-fx-background-color: #2196f3;">
+               <children>
+                  <JFXButton fx:id="btn_StartTest" onAction="#btn_StartTestOnAction" prefHeight="33.0" prefWidth="88.0" style="-fx-background-color: #2196f3;" text="Start Test" textFill="WHITE">
+                     <font>
+                        <Font name="System Bold" size="12.0" />
+                     </font>
+                  </JFXButton>
+               </children>
+            </Pane>
          </children>
       </Pane>
    </children>

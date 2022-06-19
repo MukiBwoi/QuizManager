@@ -3,6 +3,7 @@ package Model.Database;
 import Model.Entities.AuthUser;
 import Model.Entities.Lecturer;
 import Model.Entities.Student;
+import Model.Entities.TestTile;
 import Utils.DBConnection;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -13,6 +14,7 @@ public class DatabaseService {
     public static ArrayList<Student> students = new ArrayList<>();
     public static ArrayList<Lecturer> lecturers = new ArrayList<>();
     public static ArrayList<AuthUser> authUsers = new ArrayList<>();
+
 
     //Get Student
     public static Student getStudent(String email) throws SQLException, ClassNotFoundException {
