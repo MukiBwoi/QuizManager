@@ -5,6 +5,7 @@ import Constants.Screens;
 import Model.Authentication.CurrentUserModel;
 import Model.Entities.LeadBoardItem;
 import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -14,25 +15,22 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
 import java.io.IOException;
-import java.io.OutputStream;
-import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 
 public class C_StudentDashboard {
@@ -50,6 +48,9 @@ public class C_StudentDashboard {
     public Label lbl_Name;
     public Pane pane_Search;
     public Label lbl_DateTime;
+    public JFXTextField txt_Search;
+    public GridPane gridView_TestGrid;
+    public ScrollPane scrollPane_GridHolder;
 
 
     public void initialize(){
@@ -57,6 +58,8 @@ public class C_StudentDashboard {
         LoadLeadBoard();
         LoadPersonalDetails();
         setCurrentDateTime();
+        TestGrid();
+
     }
 
 
@@ -129,6 +132,18 @@ public class C_StudentDashboard {
         stage.show();
     }
 
+    public void txt_OnSearchAction(MouseEvent mouseEvent) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                for (Node pane:stackPane_Main.getChildren()) {
+                    pane.setVisible(false);
+                }
+                pane_Search.setVisible(true);
+            }
+        }).run();
+    }
+
     private void LoadLeadBoard(){
         Node node = null;
         try {
@@ -158,23 +173,31 @@ public class C_StudentDashboard {
         circle_Avatar.setFill(new ImagePattern(new Image(Assets.defaultAvatar)));
     }
 
-    public void OnSearchClicked(MouseEvent mouseEvent) {
-
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    for (Node pane:stackPane_Main.getChildren()) {
-                        pane.setVisible(false);
-                    }
-                    pane_Search.setVisible(true);
-                }
-            }).run();
-    }
 
     public void setCurrentDateTime(){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM-dd-yyyy 'at' hh:mm a ");
         ZonedDateTime zdt = ZonedDateTime.now();
         String zdtString = formatter.format(zdt);
         lbl_DateTime.setText(zdtString);
+    }
+
+    public void TestGrid(){
+
+        Node node = null;
+        try {
+            for (int i = 0; i <5 ; i++) {
+
+                for (int j = 0;j<2;j++){
+                    node = FXMLLoader.load(getClass().getResource(Screens.gridTestItem+".fxml"));
+                    gridView_TestGrid.add(node ,j ,i);
+                }
+                if(i>=4){
+                    System.out.println(gridView_TestGrid.getPrefHeight());
+                    gridView_TestGrid.setPrefHeight(gridView_TestGrid.getPrefHeight()+250);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

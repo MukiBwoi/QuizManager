@@ -5,9 +5,11 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
@@ -18,7 +20,7 @@
    <children>
 
       <Label fx:id="lbl_Name" alignment="TOP_RIGHT" layoutX="728.0" layoutY="27.0" prefHeight="17.0" prefWidth="109.0" text="Your Name" />
-      <JFXTextField focusColor="#2196f3" focusTraversable="false" layoutX="117.0" layoutY="16.0" onMouseClicked="#OnSearchClicked" prefHeight="31.0" prefWidth="184.0" promptText="Search Quizs" />
+      <JFXTextField fx:id="txt_Search" focusColor="#2196f3" focusTraversable="false" layoutX="117.0" layoutY="16.0" onMouseClicked="#txt_OnSearchAction" prefHeight="31.0" prefWidth="184.0" promptText="Search Quizs" />
       <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="82.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../Assets/search.png" />
@@ -26,11 +28,6 @@
       </ImageView>
       <StackPane fx:id="stackPane_Main" layoutX="14.0" layoutY="73.0" prefHeight="516.0" prefWidth="870.0" style="-fx-background-color: white;">
          <children>
-            <Pane fx:id="pane_Search" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
-               <children>
-                  <Label layoutX="408.0" layoutY="227.0" prefHeight="31.0" prefWidth="110.0" text="No Result found" />
-               </children>
-            </Pane>
             <Pane fx:id="pane_LeadBoard" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
                <children>
                   <Label layoutX="408.0" layoutY="227.0" prefHeight="31.0" prefWidth="110.0" text="LeadBoard" />
@@ -126,6 +123,22 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
+               </children>
+            </Pane>
+            <Pane fx:id="pane_Search" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+               <children>
+                  <StackPane prefHeight="516.0" prefWidth="870.0">
+                     <children>
+                        <Label prefHeight="31.0" prefWidth="110.0" text="No Result found" />
+                        <ScrollPane prefHeight="510.0" prefWidth="863.0" style="-fx-background-color: white;" StackPane.alignment="CENTER">
+                           <content>
+                              <GridPane fx:id="gridView_TestGrid" alignment="CENTER" hgap="5.0" prefHeight="510" prefWidth="850.0" style="-fx-background-color: white;" vgap="5.0">
+                              
+                              </GridPane>
+                           </content>
+                        </ScrollPane>
+                     </children>
+                  </StackPane>
                </children>
             </Pane>
          </children>

@@ -13,5 +13,6 @@ public class Screens {
     public static String studentDashboard = "/View/Student/V_StudentDashboard";
     public static String LeadBoardCard = "/View/Student/V_LeadBoardCard.fxml";
     public static String sideBar = "/View/Student/V_SideBar";
+    public static String gridTestItem = "/View/Student/V_GridTestItem";
     public static String uploadAvatar = "/View/Authentication/V_UploadAvatar";
 }
