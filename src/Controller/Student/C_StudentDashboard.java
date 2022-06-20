@@ -6,29 +6,27 @@ import Model.Authentication.CurrentUserModel;
 import Model.Entities.LeadBoardItem;
 import Model.Entities.TestTile;
 import Model.Student.M_GridTestTiles;
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.ZonedDateTime;
@@ -43,12 +41,9 @@ public class C_StudentDashboard {
     public StackPane stackPane_Main;
     public Pane pane_MyProfile;
     public Pane pane_Home;
-    public Pane pane_LeadBoard;
     public PieChart piechart_CategoryInterests;
     public JFXListView List_LeadBoard;
     public Circle circle_Avatar;
-    public Pane pane_Categories;
-    public ImageView img_SidBarIcon;
     public Label lbl_Name;
     public Pane pane_Search;
     public Label lbl_DateTime;
@@ -57,6 +52,11 @@ public class C_StudentDashboard {
     public StackPane stackPane_TestGrid;
     public Label lbl_NoResultFound;
     public ScrollPane scrollPane_TestGrid;
+    public AnchorPane anchorPane_Root;
+    public JFXButton btn_Home;
+    public JFXButton btn_MyProfile;
+    public JFXHamburger hamburger_SideBar;
+    HamburgerSlideCloseTransition transition;
 
 
     public void initialize(){
@@ -65,6 +65,8 @@ public class C_StudentDashboard {
         LoadPersonalDetails();
         setCurrentDateTime();
         LoadTestGrid();
+        transition = new HamburgerSlideCloseTransition(hamburger_SideBar);
+        transition.setRate(-1);
     }
 
     public void NavigatePane(Pane nextPane){
@@ -83,39 +85,16 @@ public class C_StudentDashboard {
        NavigatePane(pane_Home);
     }
 
-    public void btn_CategoryOnAction(ActionEvent actionEvent) {
-        NavigatePane(pane_Categories);
-    }
-
     public void btn_MyProfileOnAction(ActionEvent actionEvent) {
         NavigatePane(pane_MyProfile);
     }
 
-    public void btn_LeadBoardOnAction(ActionEvent actionEvent) {
-        NavigatePane(pane_LeadBoard);
-    }
 
     public void txt_OnSearchAction(MouseEvent mouseEvent) {
         NavigatePane(pane_Search);
         LoadTestGrid();
     }
 
-    public void img_SidebarIconOnAction(MouseEvent mouseEvent) {
-        Stage stage = new Stage();
-        Parent root = null;
-        try {
-            root = FXMLLoader.load(getClass().getResource(Screens.sideBar+ ".fxml"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        Scene scene= new Scene(root);
-        stage.initStyle(StageStyle.TRANSPARENT);
-        scene.setFill(Color.TRANSPARENT);
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.setAlwaysOnTop(true);
-        stage.show();
-    }
 
 
     private void LoadLeadBoard(){
@@ -200,11 +179,10 @@ public class C_StudentDashboard {
             }
 
             for(int i=0;i<M_GridTestTiles.testTiles.size()/2;i++) {
-                System.out.println(M_GridTestTiles.testTiles.size()/2);
+
                 for (int j = 0; j < 2; j++) {
                     if(j < 1){
                         grid.add(new ArrayList<>());
-                        System.out.println("added grid");
                     }
                     grid.get(i).add(M_GridTestTiles.testTiles.get((i*2)+j));
                 }
@@ -214,5 +192,11 @@ public class C_StudentDashboard {
         }
 
         return  grid;
+    }
+
+    public void hamburger_SideBarControlOnAction(MouseEvent mouseEvent) {
+
+        transition.setRate(transition.getRate() * -1);
+        transition.play();
     }
 }

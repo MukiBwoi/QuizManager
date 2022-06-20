@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXHamburger?>
 <?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -16,147 +19,110 @@
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Student.C_StudentDashboard">
-   <children>
+<AnchorPane fx:id="anchorPane_Root" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Student.C_StudentDashboard">
+   <Label fx:id="lbl_Name" alignment="TOP_RIGHT" layoutX="728.0" layoutY="27.0" prefHeight="17.0" prefWidth="109.0" text="Your Name" />
+   <JFXTextField fx:id="txt_Search" focusColor="#2196f3" focusTraversable="false" layoutX="97.0" layoutY="16.0" onMouseClicked="#txt_OnSearchAction" prefHeight="31.0" prefWidth="204.0" promptText="Browse &amp; Search Quizs" />
+   <StackPane fx:id="stackPane_Main" layoutX="14.0" layoutY="73.0" prefHeight="516.0" prefWidth="870.0" style="-fx-background-color: white;">
+      <Pane fx:id="pane_Search" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" StackPane.alignment="CENTER">
+         <StackPane fx:id="stackPane_TestGrid" prefHeight="516.0" prefWidth="870.0">
+            <Label fx:id="lbl_NoResultFound" prefHeight="31.0" prefWidth="110.0" text="No Result found" />
+            <ScrollPane fx:id="scrollPane_TestGrid" prefHeight="510.0" prefWidth="863.0" style="-fx-background-color: white; -fx-text-alignment: center;" StackPane.alignment="CENTER">
+               <GridPane fx:id="gridView_TestGrid" hgap="5.0" prefHeight="510" prefWidth="868.0" style="-fx-background-color: white;" vgap="5.0">
 
-      <Label fx:id="lbl_Name" alignment="TOP_RIGHT" layoutX="728.0" layoutY="27.0" prefHeight="17.0" prefWidth="109.0" text="Your Name" />
-      <JFXTextField fx:id="txt_Search" focusColor="#2196f3" focusTraversable="false" layoutX="117.0" layoutY="16.0" onMouseClicked="#txt_OnSearchAction" prefHeight="31.0" prefWidth="184.0" promptText="Search Quizs" />
-      <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="82.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../Assets/search.png" />
-         </image>
-      </ImageView>
-      <StackPane fx:id="stackPane_Main" layoutX="14.0" layoutY="73.0" prefHeight="516.0" prefWidth="870.0" style="-fx-background-color: white;">
-         <children>
-            <Pane fx:id="pane_Search" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" StackPane.alignment="CENTER">
-               <children>
-                  <StackPane fx:id="stackPane_TestGrid" prefHeight="516.0" prefWidth="870.0">
-                     <children>
-                        <Label fx:id="lbl_NoResultFound" prefHeight="31.0" prefWidth="110.0" text="No Result found" />
-                        <ScrollPane fx:id="scrollPane_TestGrid" prefHeight="510.0" prefWidth="863.0" style="-fx-background-color: white; -fx-text-alignment: center;" StackPane.alignment="CENTER">
-                           <content>
-                              <GridPane fx:id="gridView_TestGrid" hgap="5.0" prefHeight="510" prefWidth="868.0" style="-fx-background-color: white;" vgap="5.0">
-
-                              </GridPane>
-                           </content>
-                        </ScrollPane>
-                     </children>
-                  </StackPane>
-               </children>
-            </Pane>
-            <Pane fx:id="pane_LeadBoard" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" visible="false">
-               <children>
-                  <Label layoutX="408.0" layoutY="227.0" prefHeight="31.0" prefWidth="110.0" text="LeadBoard" />
-               </children>
-            </Pane>
-            <Pane fx:id="pane_MyProfile" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: White;" visible="false">
-               <children>
-                  <Label layoutX="408.0" layoutY="250.0" text="My Profile" />
-               </children>
-            </Pane>
-            <Pane fx:id="pane_Categories" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" visible="false">
-               <children>
-                  <Label layoutX="408.0" layoutY="227.0" prefHeight="31.0" prefWidth="110.0" text="Categories" />
-               </children>
-            </Pane>
-            <Pane fx:id="pane_Home" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #f5f5f5;" visible="false">
-               <children>
-                  <Label layoutX="23.0" layoutY="212.0" text="Community Ranking">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <Pane layoutX="582.0" layoutY="240.0" prefHeight="262.0" prefWidth="272.0" style="-fx-background-color: white; -fx-background-radius: 10;">
-                     <children>
-                        <PieChart fx:id="piechart_CategoryInterests" layoutX="17.0" layoutY="19.0" prefHeight="220.0" prefWidth="245.0" style="-fx-background-color: white;" />
-                     </children>
-                  </Pane>
-                  <Label layoutX="594.0" layoutY="213.0" text="My Category Interests">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <Pane layoutX="18.0" layoutY="75.0" opacity="0.72" prefHeight="100.0" prefWidth="260.0" style="-fx-background-color: #3f51b5; -fx-background-radius: 10;" stylesheets="@../../CSS/StudentDashboard.css">
-                     <children>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="25.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../Assets/test_24px.png" />
-                           </image>
-                        </ImageView>
-                        <Label layoutX="75.0" layoutY="39.0" text="Finished Tests" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="219.0" layoutY="38.0" text="10" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </Pane>
-                  <Pane layoutX="304.0" layoutY="74.0" opacity="0.72" prefHeight="100.0" prefWidth="260.0" style="-fx-background-color: #e57373; -fx-background-radius: 10;" stylesheets="@../../CSS/StudentDashboard.css">
-                     <children>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="23.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../Assets/check_all_24px.png" />
-                           </image>
-                        </ImageView>
-                        <Label layoutX="73.0" layoutY="39.0" text="Total Marks" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="203.0" layoutY="39.0" text="50XP" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </Pane>
-                  <Pane layoutX="592.0" layoutY="71.0" opacity="0.72" prefHeight="100.0" prefWidth="260.0" style="-fx-background-color: #4db6ac; -fx-background-radius: 10;" stylesheets="@../../CSS/StudentDashboard.css">
-                     <children>
-                        <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="29.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
-                           <image>
-                              <Image url="@../../Assets/prize_24px.png" />
-                           </image>
-                        </ImageView>
-                        <Label layoutX="79.0" layoutY="39.0" text="Rank" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                        <Label layoutX="223.0" layoutY="38.0" text="5" textFill="WHITE">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
-                     </children>
-                  </Pane>
-                  <JFXListView fx:id="List_LeadBoard" layoutX="24.0" layoutY="237.0" prefHeight="264.0" prefWidth="550.0" style="-fx-background-color: white; -fx-background-radius: 10;" />
-                  <Label fx:id="lbl_DateTime" layoutX="690.0" layoutY="24.0" prefHeight="20.0" prefWidth="147.0" text="2022-06-18  04:15 AM">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
-         </children>
-      </StackPane>
-      <Label layoutX="802.0" layoutY="12.0" prefHeight="17.0" prefWidth="40.0" text="Hello !" />
-      <ImageView fx:id="img_SidBarIcon" fitHeight="24.0" fitWidth="24.0" layoutX="22.0" layoutY="24.0" onMouseClicked="#img_SidebarIconOnAction" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../Assets/Menu_24px.png" />
-         </image>
-      </ImageView>
-      <Circle fx:id="circle_Avatar" fill="#2196f3" layoutX="864.0" layoutY="26.0" radius="19.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <HBox layoutX="319.0" layoutY="17.0" prefHeight="30.0" prefWidth="455.0">
-         <children>
-            <JFXButton id="btn_Home" fx:id="btn_Home" onAction="#btn_HomeOnAction" prefHeight="30.0" prefWidth="107.0" style="-fx-font-size: 14;" stylesheets="@../../CSS/StudentDashboard.css" text="Home" />
-            <JFXButton id="btn_Category" fx:id="btn_Category" layoutX="10.0" layoutY="10.0" onAction="#btn_CategoryOnAction" prefHeight="30.0" prefWidth="113.0" style="-fx-font-size: 14;" stylesheets="@../../CSS/StudentDashboard.css" text="Category" />
-            <JFXButton id="btn_MyProfile" fx:id="btn_MyProfile" layoutX="59.0" layoutY="10.0" onAction="#btn_MyProfileOnAction" prefHeight="30.0" prefWidth="114.0" style="-fx-font-size: 14;" stylesheets="@../../CSS/StudentDashboard.css" text="My Profile" />
-            <JFXButton id="btn_LeadBoard" fx:id="btn_LeadBoard" layoutX="123.0" layoutY="10.0" onAction="#btn_LeadBoardOnAction" prefHeight="30.0" prefWidth="136.0" style="-fx-font-size: 14;" stylesheets="@../../CSS/StudentDashboard.css" text="Lead Board" />
-         </children>
-      </HBox>
-   </children>
+               </GridPane>
+            </ScrollPane>
+         </StackPane>
+      </Pane>
+      <Pane fx:id="pane_MyProfile" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: White;">
+         <Label layoutX="408.0" layoutY="250.0" text="My Profile" />
+      </Pane>
+      <Pane fx:id="pane_Home" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #f5f5f5;">
+         <Label layoutX="23.0" layoutY="212.0" text="Community Ranking">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+         </Label>
+         <Pane layoutX="582.0" layoutY="240.0" prefHeight="262.0" prefWidth="272.0" style="-fx-background-color: white; -fx-background-radius: 10;">
+            <PieChart fx:id="piechart_CategoryInterests" layoutX="17.0" layoutY="19.0" prefHeight="220.0" prefWidth="245.0" style="-fx-background-color: white;" />
+         </Pane>
+         <Label layoutX="594.0" layoutY="213.0" text="My Category Interests">
+            <font>
+               <Font name="System Bold" size="14.0" />
+            </font>
+         </Label>
+         <Pane layoutX="18.0" layoutY="75.0" opacity="0.72" prefHeight="100.0" prefWidth="260.0" style="-fx-background-color: #3f51b5; -fx-background-radius: 10;" stylesheets="@../../CSS/StudentDashboard.css">
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="25.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../../Assets/test_24px.png" />
+            </ImageView>
+            <Label layoutX="75.0" layoutY="39.0" text="Finished Tests" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="219.0" layoutY="38.0" text="10" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+         </Pane>
+         <Pane layoutX="304.0" layoutY="74.0" opacity="0.72" prefHeight="100.0" prefWidth="260.0" style="-fx-background-color: #e57373; -fx-background-radius: 10;" stylesheets="@../../CSS/StudentDashboard.css">
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="23.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../../Assets/check_all_24px.png" />
+            </ImageView>
+            <Label layoutX="73.0" layoutY="39.0" text="Total Marks" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="203.0" layoutY="39.0" text="50XP" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+         </Pane>
+         <Pane layoutX="592.0" layoutY="71.0" opacity="0.72" prefHeight="100.0" prefWidth="260.0" style="-fx-background-color: #4db6ac; -fx-background-radius: 10;" stylesheets="@../../CSS/StudentDashboard.css">
+            <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="29.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+               <Image url="@../../Assets/prize_24px.png" />
+            </ImageView>
+            <Label layoutX="79.0" layoutY="39.0" text="Rank" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="223.0" layoutY="38.0" text="5" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+         </Pane>
+         <JFXListView fx:id="List_LeadBoard" layoutX="24.0" layoutY="237.0" prefHeight="264.0" prefWidth="550.0" style="-fx-background-color: white; -fx-background-radius: 10;" />
+         <Label fx:id="lbl_DateTime" layoutX="681.0" layoutY="24.0" prefHeight="20.0" prefWidth="156.0" text="2022-06-18  04:15 AM">
+            <font>
+               <Font size="14.0" />
+            </font>
+         </Label>
+      </Pane>
+   </StackPane>
+   <Label layoutX="802.0" layoutY="12.0" prefHeight="17.0" prefWidth="40.0" text="Hello !" />
+   <Circle fx:id="circle_Avatar" fill="#2196f3" layoutX="864.0" layoutY="26.0" radius="19.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+   <HBox layoutX="395.0" layoutY="16.0" prefHeight="30.0" prefWidth="266.0">
+      <JFXButton id="btn_Home" fx:id="btn_Home" alignment="CENTER" focusTraversable="false" onAction="#btn_HomeOnAction" prefHeight="30.0" prefWidth="107.0" style="-fx-font-size: 14;" text=" Home">
+         <HBox.margin>
+            <Insets left="20.0" />
+         </HBox.margin>
+         <graphic>
+            <FontAwesomeIconView glyphName="HOME" size="18" />
+         </graphic>
+      </JFXButton>
+      <JFXButton id="btn_MyProfile" fx:id="btn_MyProfile" alignment="CENTER" focusTraversable="false" layoutX="59.0" layoutY="10.0" onAction="#btn_MyProfileOnAction" prefHeight="30.0" prefWidth="114.0" style="-fx-font-size: 14;" text=" My Profile">
+         <HBox.margin>
+            <Insets left="20.0" />
+         </HBox.margin>
+         <graphic>
+            <FontAwesomeIconView glyphName="USER" size="18" />
+         </graphic>
+      </JFXButton>
+   </HBox>
+   <FontAwesomeIconView glyphName="SEARCH" layoutX="291.0" layoutY="36.0" size="14" />
+   <JFXHamburger fx:id="hamburger_SideBar" layoutX="23.0" layoutY="23.0" onMouseClicked="#hamburger_SideBarControlOnAction" prefHeight="27.0" prefWidth="27.0" />
 </AnchorPane>
