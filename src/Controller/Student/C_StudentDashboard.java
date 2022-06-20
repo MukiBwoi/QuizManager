@@ -6,11 +6,8 @@ import Model.Authentication.CurrentUserModel;
 import Model.Entities.LeadBoardItem;
 import Model.Entities.TestTile;
 import Model.Student.M_GridTestTiles;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXHamburger;
-import com.jfoenix.controls.JFXListView;
-import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.transitions.hamburger.HamburgerSlideCloseTransition;
+import com.jfoenix.controls.*;
+import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,10 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import java.io.IOException;
@@ -55,8 +49,13 @@ public class C_StudentDashboard {
     public AnchorPane anchorPane_Root;
     public JFXButton btn_Home;
     public JFXButton btn_MyProfile;
-    public JFXHamburger hamburger_SideBar;
-    HamburgerSlideCloseTransition transition;
+    public JFXButton btn_Logout;
+    public JFXListView listView_MyTests;
+    public Label lbl_Email;
+    public Label lbl_Batch;
+    public Label lbl_fullName;
+    public Circle circle_ProfilePic;
+    public Label lbl_Age;
 
 
     public void initialize(){
@@ -65,20 +64,18 @@ public class C_StudentDashboard {
         LoadPersonalDetails();
         setCurrentDateTime();
         LoadTestGrid();
-        transition = new HamburgerSlideCloseTransition(hamburger_SideBar);
-        transition.setRate(-1);
+
+        LoadMyTestList();
+
     }
 
     public void NavigatePane(Pane nextPane){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                for (Node pane:stackPane_Main.getChildren()) {
-                    pane.setVisible(false);
-                }
-                nextPane.setVisible(true);
+        new Thread(() -> {
+            for (Node pane : stackPane_Main.getChildren()) {
+                pane.setVisible(false);
             }
-        }).run();
+            nextPane.setVisible(true);
+        }).start();
     }
 
     public void btn_HomeOnAction(ActionEvent actionEvent) {
@@ -95,7 +92,19 @@ public class C_StudentDashboard {
         LoadTestGrid();
     }
 
-
+    public void LoadMyTestList(){
+        try {
+            if(M_GridTestTiles.getTestTiles().size()>0){
+                for (TestTile testile:M_GridTestTiles.testTiles) {
+                    C_GridTestItem.testTile = testile;
+                    listView_MyTests.getItems().add(FXMLLoader
+                            .load(getClass().getResource(Screens.gridTestItem+".fxml")));
+                }
+            }
+        } catch (SQLException | ClassNotFoundException | IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private void LoadLeadBoard(){
         gridView_TestGrid.getChildren().clear();
@@ -125,6 +134,11 @@ public class C_StudentDashboard {
     private void LoadPersonalDetails(){
         lbl_Name.setText(CurrentUserModel.student.getLast_name());
         circle_Avatar.setFill(new ImagePattern(new Image(Assets.defaultAvatar)));
+        lbl_fullName.setText(CurrentUserModel.student.getFirst_name()+" "+CurrentUserModel.student.getLast_name());
+        lbl_Email.setText(CurrentUserModel.student.getEmail());
+        lbl_Batch.setText(CurrentUserModel.student.getBatch());
+        lbl_Age.setText(String.valueOf(CurrentUserModel.student.getAge()));
+        circle_ProfilePic.setFill(new ImagePattern(new Image(Assets.defaultAvatar)));
     }
 
 
@@ -194,9 +208,7 @@ public class C_StudentDashboard {
         return  grid;
     }
 
-    public void hamburger_SideBarControlOnAction(MouseEvent mouseEvent) {
 
-        transition.setRate(transition.getRate() * -1);
-        transition.play();
+    public void btn_LogoutOnAction(ActionEvent actionEvent) {
     }
 }
