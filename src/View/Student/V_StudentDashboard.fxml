@@ -28,14 +28,14 @@
       </ImageView>
       <StackPane fx:id="stackPane_Main" layoutX="14.0" layoutY="73.0" prefHeight="516.0" prefWidth="870.0" style="-fx-background-color: white;">
          <children>
-            <Pane fx:id="pane_Search" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+            <Pane fx:id="pane_Search" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" StackPane.alignment="CENTER">
                <children>
                   <StackPane fx:id="stackPane_TestGrid" prefHeight="516.0" prefWidth="870.0">
                      <children>
                         <Label fx:id="lbl_NoResultFound" prefHeight="31.0" prefWidth="110.0" text="No Result found" />
                         <ScrollPane fx:id="scrollPane_TestGrid" prefHeight="510.0" prefWidth="863.0" style="-fx-background-color: white; -fx-text-alignment: center;" StackPane.alignment="CENTER">
                            <content>
-                              <GridPane fx:id="gridView_TestGrid" hgap="5.0" prefHeight="510" prefWidth="850.0" style="-fx-background-color: white;" vgap="5.0">
+                              <GridPane fx:id="gridView_TestGrid" hgap="5.0" prefHeight="510" prefWidth="868.0" style="-fx-background-color: white;" vgap="5.0">
 
                               </GridPane>
                            </content>
@@ -44,22 +44,22 @@
                   </StackPane>
                </children>
             </Pane>
-            <Pane fx:id="pane_LeadBoard" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+            <Pane fx:id="pane_LeadBoard" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" visible="false">
                <children>
                   <Label layoutX="408.0" layoutY="227.0" prefHeight="31.0" prefWidth="110.0" text="LeadBoard" />
                </children>
             </Pane>
-            <Pane fx:id="pane_MyProfile" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: White;">
+            <Pane fx:id="pane_MyProfile" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: White;" visible="false">
                <children>
                   <Label layoutX="408.0" layoutY="250.0" text="My Profile" />
                </children>
             </Pane>
-            <Pane fx:id="pane_Categories" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
+            <Pane fx:id="pane_Categories" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" visible="false">
                <children>
                   <Label layoutX="408.0" layoutY="227.0" prefHeight="31.0" prefWidth="110.0" text="Categories" />
                </children>
             </Pane>
-            <Pane fx:id="pane_Home" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #f5f5f5;">
+            <Pane fx:id="pane_Home" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #f5f5f5;" visible="false">
                <children>
                   <Label layoutX="23.0" layoutY="212.0" text="Community Ranking">
                      <font>

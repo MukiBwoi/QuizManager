@@ -21,7 +21,7 @@ public class M_GridTestTiles {
                         rs.getString("name"),
                         rs.getString("author"),
                         rs.getString("category"),
-                        rs.getInt("marks"),
+                        rs.getDouble("marks"),
                         rs.getBoolean("isDone")
                 ));
             }while (rs.next());

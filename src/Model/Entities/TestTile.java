@@ -4,10 +4,10 @@ public class TestTile {
     private String name;
     private String author;
     private String category;
-    private int marks;
+    private double marks;
     private boolean isDone;
 
-    public TestTile(String name, String author, String category, int marks, boolean isDone) {
+    public TestTile(String name, String author, String category, double marks, boolean isDone) {
         this.setName(name);
         this.setAuthor(author);
         this.setCategory(category);
@@ -39,11 +39,11 @@ public class TestTile {
         this.category = category;
     }
 
-    public int getMarks() {
+    public double getMarks() {
         return marks;
     }
 
-    public void setMarks(int marks) {
+    public void setMarks(double marks) {
         this.marks = marks;
     }
 

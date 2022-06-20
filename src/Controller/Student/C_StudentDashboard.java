@@ -34,7 +34,6 @@ import java.sql.SQLException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 
@@ -66,8 +65,6 @@ public class C_StudentDashboard {
         LoadPersonalDetails();
         setCurrentDateTime();
         LoadTestGrid();
-
-
     }
 
     public void NavigatePane(Pane nextPane){
@@ -163,36 +160,16 @@ public class C_StudentDashboard {
         try {
             if(M_GridTestTiles.getTestTiles().size()>0){
                 Node node;
-                int k=0;
-                int testLength = M_GridTestTiles.testTiles.size();
-
-                if(M_GridTestTiles.testTiles.size()%2==0){
-                    testLength = testLength/2;
-                }else{
-                    testLength = (int)(((double)testLength/2) + 0.5);
-                }
-
-                for (int i = 0; i < testLength; i++) {
-                    ArrayList<TestTile> tests = new ArrayList<>();
-                    tests.clear();
-                    if(M_GridTestTiles.testTiles.size()>1){
-                        tests.add(M_GridTestTiles.testTiles.get(k));
-                        tests.add(M_GridTestTiles.testTiles.get(k+1));
-                    }else{
-                        tests.add(M_GridTestTiles.testTiles.get(k));
-                    }
-
-                    for (int j = 0;j<tests.size();j++){
-                        C_GridTestItem.testTile = tests.get(j);
+                ArrayList<ArrayList<TestTile>> gridTests = moveTo2DArray();
+                for(int i= 0;i<gridTests.size();i++){
+                    for (int j = 0; j < 2; j++) {
+                        C_GridTestItem.testTile = gridTests.get(i).get(j);
                         node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(
                                 Screens.gridTestItem + ".fxml")));
                         gridView_TestGrid.add(node ,j ,i);
                     }
-                    if(i>=4){
-                        gridView_TestGrid.setPrefHeight(gridView_TestGrid.getPrefHeight()+250);
-                    }
-                   k = k+2;
                 }
+
             }else{
                 new Thread(new Runnable() {
                     @Override
@@ -208,5 +185,34 @@ public class C_StudentDashboard {
             e.printStackTrace();
         }
 
+    }
+
+    public ArrayList<ArrayList<TestTile>> moveTo2DArray(){
+
+        ArrayList<ArrayList<TestTile>> grid = new ArrayList<>();
+        grid.clear();
+        try {
+            M_GridTestTiles.getTestTiles();
+            if(M_GridTestTiles.testTiles.size() %2 !=0){
+                M_GridTestTiles.testTiles.add(new TestTile(
+                        "Sample Test","Sample author","Sample category",0.0,false
+                ));
+            }
+
+            for(int i=0;i<M_GridTestTiles.testTiles.size()/2;i++) {
+                System.out.println(M_GridTestTiles.testTiles.size()/2);
+                for (int j = 0; j < 2; j++) {
+                    if(j < 1){
+                        grid.add(new ArrayList<>());
+                        System.out.println("added grid");
+                    }
+                    grid.get(i).add(M_GridTestTiles.testTiles.get((i*2)+j));
+                }
+            }
+        } catch (SQLException | ClassNotFoundException | IndexOutOfBoundsException e) {
+            e.printStackTrace();
+        }
+
+        return  grid;
     }
 }
