@@ -98,6 +98,7 @@ public class C_Login {
                 if(checkPassword()){
                     CurrentUserModel.currentUserEmail = txt_Email.getText();
                     CurrentUserModel.getCurrentUser();
+                    CurrentUserModel.isLoggedIn = true;
                     new Utils.UI().closeUIButton(btn_Login);
                     new Utils.UI().setUI(dashboard);
                 }else{

@@ -2,16 +2,20 @@ package Controller.Student;
 
 import Constants.Assets;
 import Constants.Screens;
+import Controller.Authentication.C_UploadAvatar;
 import Model.Authentication.CurrentUserModel;
 import Model.Entities.LeadBoardItem;
+import Model.Entities.Student;
 import Model.Entities.TestTile;
 import Model.Student.M_GridTestTiles;
+import Utils.UI;
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Orientation;
 import javafx.scene.Node;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Label;
@@ -56,6 +60,9 @@ public class C_StudentDashboard {
     public Label lbl_fullName;
     public Circle circle_ProfilePic;
     public Label lbl_Age;
+    public JFXSpinner spinner_Done;
+    public JFXSpinner spinner_AverageMarks;
+    public JFXButton btn_ChangeProfilePic;
 
 
     public void initialize(){
@@ -64,8 +71,9 @@ public class C_StudentDashboard {
         LoadPersonalDetails();
         setCurrentDateTime();
         LoadTestGrid();
-
         LoadMyTestList();
+
+
 
     }
 
@@ -84,6 +92,11 @@ public class C_StudentDashboard {
 
     public void btn_MyProfileOnAction(ActionEvent actionEvent) {
         NavigatePane(pane_MyProfile);
+        LoadMyTestList();
+        UI.progressBarAnimation(spinner_Done,0.24);
+        UI.progressBarAnimation(spinner_AverageMarks,0.97);
+
+
     }
 
 
@@ -93,6 +106,7 @@ public class C_StudentDashboard {
     }
 
     public void LoadMyTestList(){
+        listView_MyTests.setOrientation(Orientation.HORIZONTAL);
         try {
             if(M_GridTestTiles.getTestTiles().size()>0){
                 for (TestTile testile:M_GridTestTiles.testTiles) {
@@ -131,14 +145,15 @@ public class C_StudentDashboard {
         piechart_CategoryInterests.setData(piechartData);
     }
 
-    private void LoadPersonalDetails(){
-        lbl_Name.setText(CurrentUserModel.student.getLast_name());
-        circle_Avatar.setFill(new ImagePattern(new Image(Assets.defaultAvatar)));
-        lbl_fullName.setText(CurrentUserModel.student.getFirst_name()+" "+CurrentUserModel.student.getLast_name());
-        lbl_Email.setText(CurrentUserModel.student.getEmail());
-        lbl_Batch.setText(CurrentUserModel.student.getBatch());
-        lbl_Age.setText(String.valueOf(CurrentUserModel.student.getAge()));
-        circle_ProfilePic.setFill(new ImagePattern(new Image(Assets.defaultAvatar)));
+    public void LoadPersonalDetails(){
+        Student student = CurrentUserModel.student;
+        lbl_Name.setText(student.getLast_name());
+        circle_Avatar.setFill(UI.pattern(new Image(student.getAvatar().toURI().toString()),20));
+        lbl_fullName.setText(student.getFirst_name()+" "+student.getLast_name());
+        lbl_Email.setText(student.getEmail());
+        lbl_Batch.setText(student.getBatch());
+        lbl_Age.setText(String.valueOf(student.getAge()));
+        circle_ProfilePic.setFill(UI.pattern(new Image(student.getAvatar().toURI().toString()),65));
     }
 
 
@@ -210,5 +225,30 @@ public class C_StudentDashboard {
 
 
     public void btn_LogoutOnAction(ActionEvent actionEvent) {
+
+        try {
+            new UI().closeUIButton(btn_Logout);
+            CurrentUserModel.student = null;
+            CurrentUserModel.isLoggedIn = false;
+            new UI().setUI(Screens.login);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
+    public void btn_ChangeProfilePicOnAction(ActionEvent actionEvent) {
+
+        try {
+            new UI().closeUIButton(btn_ChangeProfilePic);
+            C_UploadAvatar.email = CurrentUserModel.student.getEmail();
+            C_UploadAvatar.nextScreen = Screens.studentDashboard;
+            new UI().setUI(Screens.uploadAvatar);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+    }
+
 }

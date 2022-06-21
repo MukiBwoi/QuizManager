@@ -13,7 +13,7 @@ public class M_UploadAvatar {
 
         String sql = "UPDATE "+user.toLowerCase()+" SET avatar = ? WHERE email = ?";
         PreparedStatement ps = DBConnection.getInstance().getConnection().prepareStatement(sql);
-        ps.setBlob(1,avatar);
+        ps.setBinaryStream(1,avatar);
         ps.setString(2,email);
         return  ps.executeUpdate()>0;
     }

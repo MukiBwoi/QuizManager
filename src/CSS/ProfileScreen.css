@@ -1,0 +1,9 @@
+.hBox_Spinners .arc{
+    -fx-stroke:white;
+
+}
+
+.hBox_Spinners .percentage{
+    -fx-fill:white;
+}
+

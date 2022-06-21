@@ -1,9 +1,11 @@
 package Model.Entities;
+import java.io.File;
 import java.sql.Date;
 import java.sql.Timestamp;
 
 public class Student{
     private int id;
+    private File avatar;
     private String first_name;
     private String last_name;
     private String email;
@@ -13,11 +15,13 @@ public class Student{
     private int auth_id;
     private AuthUser authUser;
 
+
     public Student() {
     }
 
-    public Student(int id, String first_name, String last_name, String email, Date DOB, int age, String batch, int auth_id) {
+    public Student(int id,File avatar, String first_name, String last_name, String email, Date DOB, int age, String batch, int auth_id) {
         this.id = id;
+        this.setAvatar(avatar);
         this.first_name = first_name;
         this.last_name = last_name;
         this.email = email;
@@ -119,4 +123,11 @@ public class Student{
     }
 
 
+    public File getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(File avatar) {
+        this.avatar = avatar;
+    }
 }

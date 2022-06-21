@@ -2,6 +2,8 @@ package Controller.Authentication;
 
 import Constants.Screens;
 import Constants.Users;
+import Controller.Student.C_StudentDashboard;
+import Model.Authentication.CurrentUserModel;
 import Model.Authentication.M_UploadAvatar;
 import Utils.UI;
 import com.jfoenix.controls.JFXButton;
@@ -25,11 +27,12 @@ public class C_UploadAvatar {
     public JFXButton btn_Next;
     public JFXButton btn_Skip;
     public ImageView img_AddImage;
-    String email;
+    public static String email = C_VerifyCode.email;
     FileInputStream in = null;
+    public static String nextScreen = Screens.login;
 
     public void initialize(){
-        email = C_VerifyCode.email;
+        ifLoggedIn();
     }
 
     public void btn_NextOnAction(ActionEvent actionEvent) {
@@ -37,7 +40,7 @@ public class C_UploadAvatar {
             if(in != null){
                 if(M_UploadAvatar.UploadAvatar(in , email , Users.current_user)){
                     new UI().closeUIButton(btn_Next);
-                    new UI().setUI(Screens.login);
+                    new UI().setUI(nextScreen);
                 }else{
                     new UI().showErrorAlert("Image Not found");
                 }
@@ -54,7 +57,7 @@ public class C_UploadAvatar {
     public void btn_SkipOnAction(ActionEvent actionEvent) {
         try {
             new UI().closeUIButton(btn_Skip);
-            new UI().setUI(Screens.login);
+            new UI().setUI(nextScreen);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -68,7 +71,7 @@ public class C_UploadAvatar {
             Stage stage = (Stage)img_AddImage.getScene().getWindow();
             File file = fileChooser.showOpenDialog(stage);
             if(file != null){
-                circle_Avatar.setFill(new ImagePattern(new Image(file.toURI().toString())));
+                circle_Avatar.setFill(UI.pattern(new Image(file.toURI().toString()),80));
                 in = new FileInputStream(file);
             }else{
                 new UI().showErrorAlert("File Not Selected");
@@ -79,5 +82,18 @@ public class C_UploadAvatar {
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    private void ifLoggedIn(){
+        CurrentUserModel.getCurrentUser();
+        if(Users.current_user.equals(Users.student)){
+            circle_Avatar.setFill(UI.pattern(
+                    new Image(CurrentUserModel.student.getAvatar().toURI().toString()),80));
+
+        }else if(Users.current_user.equals(Users.lecturer)){
+            circle_Avatar.setFill(UI.pattern(
+                    new Image(CurrentUserModel.student.getAvatar().toURI().toString()),80));
+        }
+
     }
 }

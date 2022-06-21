@@ -6,6 +6,9 @@ import Model.Entities.Student;
 import Utils.ErrorHandler;
 import Utils.DBConnection;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,13 +29,13 @@ public class M_Register {
     }
 
 
-    public static boolean registerStudent(Student student) throws SQLException, ClassNotFoundException {
+    public static boolean registerStudent(Student student) throws SQLException, ClassNotFoundException, FileNotFoundException {
        if(authenticateUser(student.getAuthUser())){
            int authId = getAuthId(student.getEmail());
            String sql = "INSERT INTO student values (?,?,?,?,?,?,?,?,?)";
            PreparedStatement ps = DBConnection.getInstance().getConnection().prepareStatement(sql);
            ps.setInt(1 , 0);
-           ps.setBlob(2, (InputStream) null);
+           ps.setBinaryStream(2, new FileInputStream(new File("./Assets/defAvatar.png")));
            ps.setString(3,student.getFirst_name());
            ps.setString(4,student.getLast_name());
            ps.setString(5,student.getEmail());
@@ -48,13 +51,13 @@ public class M_Register {
        return  false;
     }
 
-    public static boolean registerLecturer(Lecturer lecturer) throws SQLException, ClassNotFoundException {
+    public static boolean registerLecturer(Lecturer lecturer) throws SQLException, ClassNotFoundException, FileNotFoundException {
         if(authenticateUser(lecturer.getAuthUser())){
             int authId = getAuthId(lecturer.getEmail());
             String sql = "INSERT INTO lecturer values (?,?,?,?,?,?,?)";
             PreparedStatement ps = DBConnection.getInstance().getConnection().prepareStatement(sql);
             ps.setInt(1 , 0);
-            ps.setBlob(2, (InputStream) null);
+            ps.setBinaryStream(2, new FileInputStream(new File("./Assets/defAvatar.png")));
             ps.setString(3,lecturer.getFirst_name());
             ps.setString(4,lecturer.getLast_name());
             ps.setString(5,lecturer.getEmail());

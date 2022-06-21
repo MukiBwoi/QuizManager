@@ -3,8 +3,9 @@ package Model.Database;
 import Model.Entities.AuthUser;
 import Model.Entities.Lecturer;
 import Model.Entities.Student;
-import Model.Entities.TestTile;
 import Utils.DBConnection;
+
+import java.io.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,13 +16,29 @@ public class DatabaseService {
     public static ArrayList<Lecturer> lecturers = new ArrayList<>();
     public static ArrayList<AuthUser> authUsers = new ArrayList<>();
 
+    public static File getFile(InputStream input) throws IOException {
+        File file = new File("avatar.png");
+        FileOutputStream output = new FileOutputStream(file);
+        System.out.println("Writing to file " + file.getAbsolutePath());
+
+        byte[] buffer = new byte[1024];
+        while (input.read(buffer)>0){
+            output.write(buffer);
+        }
+
+        return  file;
+
+    }
+
 
     //Get Student
-    public static Student getStudent(String email) throws SQLException, ClassNotFoundException {
+    public static Student getStudent(String email) throws SQLException, ClassNotFoundException, IOException {
         Connection connection = DBConnection.getInstance().getConnection();
         ResultSet rst = connection.createStatement().executeQuery("SELECT * FROM student WHERE email = '"+email+"'");
+
         return rst.next()?new Student(
                rst.getInt("id"),
+                getFile(rst.getBinaryStream("avatar")),
                 rst.getString("first_name"),
                 rst.getString("last_name"),
                 rst.getString("email"),
@@ -32,8 +49,10 @@ public class DatabaseService {
         ):null;
     }
 
+
+
     //Get All Students Student
-    public static ArrayList<Student> getAllStudents() throws SQLException, ClassNotFoundException {
+    public static ArrayList<Student> getAllStudents() throws SQLException, ClassNotFoundException, IOException {
 
         Connection connection = DBConnection.getInstance().getConnection();
         ResultSet rst = connection.createStatement().executeQuery("SELECT * FROM student");
@@ -42,6 +61,7 @@ public class DatabaseService {
                 students.add(
                         new Student(
                                 rst.getInt("id"),
+                                getFile(rst.getBinaryStream("avatar")),
                                 rst.getString("first_name"),
                                 rst.getString("last_name"),
                                 rst.getString("email"),
@@ -58,11 +78,12 @@ public class DatabaseService {
     }
 
     //Get Lecturer
-    public static Lecturer getLecturer(String email) throws SQLException, ClassNotFoundException {
+    public static Lecturer getLecturer(String email) throws SQLException, ClassNotFoundException, IOException {
         Connection connection = DBConnection.getInstance().getConnection();
         ResultSet rst = connection.createStatement().executeQuery("SELECT * FROM lecturer WHERE email = '"+email+"'");
         return rst.next()?new Lecturer(
                 rst.getInt("id"),
+                getFile(rst.getBinaryStream("avatar")),
                 rst.getString("first_name"),
                 rst.getString("last_name"),
                 rst.getString("email"),
@@ -72,7 +93,7 @@ public class DatabaseService {
     }
 
     //Get All Lecturers
-    public static ArrayList<Lecturer> getAllLecturers() throws SQLException, ClassNotFoundException {
+    public static ArrayList<Lecturer> getAllLecturers() throws SQLException, ClassNotFoundException, IOException {
 
         Connection connection = DBConnection.getInstance().getConnection();
         ResultSet rst = connection.createStatement().executeQuery("SELECT * FROM lecturer");
@@ -81,6 +102,7 @@ public class DatabaseService {
                 lecturers.add(
                        new Lecturer(
                                 rst.getInt("id"),
+                                getFile(rst.getBinaryStream("avatar")),
                                 rst.getString("first_name"),
                                 rst.getString("last_name"),
                                 rst.getString("email"),
@@ -115,4 +137,6 @@ public class DatabaseService {
         }
         return authUsers;
     }
+
+
 }
