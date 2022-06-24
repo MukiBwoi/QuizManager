@@ -74,21 +74,14 @@ public class C_StudentDashboard {
 
     }
 
-    public void NavigatePane(Pane nextPane){
-        new Thread(() -> {
-            for (Node pane : stackPane_Main.getChildren()) {
-                pane.setVisible(false);
-            }
-            nextPane.setVisible(true);
-        }).start();
-    }
+
 
     public void btn_HomeOnAction(ActionEvent actionEvent) {
-       NavigatePane(pane_Home);
+       new UI().NavigatePane(stackPane_Main,pane_Home);
     }
 
     public void btn_MyProfileOnAction(ActionEvent actionEvent) {
-        NavigatePane(pane_MyProfile);
+        new UI().NavigatePane(stackPane_Main, pane_MyProfile);
         LoadMyTestList();
         UI.progressBarAnimation(spinner_Done,0.24);
         UI.progressBarAnimation(spinner_AverageMarks,0.97);
@@ -98,7 +91,7 @@ public class C_StudentDashboard {
 
 
     public void txt_OnSearchAction(MouseEvent mouseEvent) {
-        NavigatePane(pane_Search);
+        new UI().NavigatePane(stackPane_Main,pane_Search);
         LoadTestGrid();
     }
 
