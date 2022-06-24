@@ -1,18 +1,18 @@
 package Model.Entities;
 
-public class TestTile {
+public class TestData {
     private String name;
     private String author;
     private String category;
-    private double marks;
-    private boolean isDone;
+    private int nofQuizs;
+    private int enrolledCount;
 
-    public TestTile(String name, String author, String category, double marks, boolean isDone) {
+    public TestData(String name, String author, String category, int nofQuizs, int enrolledCount) {
         this.setName(name);
         this.setAuthor(author);
         this.setCategory(category);
-        this.setMarks(marks);
-        this.setDone(isDone);
+        this.setNofQuizs(nofQuizs);
+        this.setEnrolledCount(enrolledCount);
     }
 
     public String getName() {
@@ -39,20 +39,19 @@ public class TestTile {
         this.category = category;
     }
 
-    public double getMarks() {
-        return marks;
+    public int getNofQuizs() {
+        return nofQuizs;
     }
 
-    public void setMarks(double marks) {
-        this.marks = marks;
+    public void setNofQuizs(int nofQuizs) {
+        this.nofQuizs = nofQuizs;
     }
 
-    public boolean isDone() {
-        return isDone;
+    public int getEnrolledCount() {
+        return enrolledCount;
     }
 
-    public void setDone(boolean done) {
-        isDone = done;
+    public void setEnrolledCount(int enrolledCount) {
+        this.enrolledCount = enrolledCount;
     }
 }
-

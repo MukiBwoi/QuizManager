@@ -5,11 +5,11 @@ import Model.Entities.Lecturer;
 import Model.Entities.Student;
 import Utils.ErrorHandler;
 import Utils.DBConnection;
+import com.jfoenix.controls.JFXDialog;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,9 +31,10 @@ public class M_Register {
 
     public static boolean registerStudent(Student student) throws SQLException, ClassNotFoundException, FileNotFoundException {
        if(authenticateUser(student.getAuthUser())){
-           int authId = getAuthId(student.getEmail());
+           int authId = getAuthId(student.getEmail()); //Dont think
            String sql = "INSERT INTO student values (?,?,?,?,?,?,?,?,?)";
-           PreparedStatement ps = DBConnection.getInstance().getConnection().prepareStatement(sql);
+
+           PreparedStatement ps = getStatement(sql);
            ps.setInt(1 , 0);
            ps.setBinaryStream(2, new FileInputStream(new File("./Assets/defAvatar.png")));
            ps.setString(3,student.getFirst_name());
@@ -55,7 +56,7 @@ public class M_Register {
         if(authenticateUser(lecturer.getAuthUser())){
             int authId = getAuthId(lecturer.getEmail());
             String sql = "INSERT INTO lecturer values (?,?,?,?,?,?,?)";
-            PreparedStatement ps = DBConnection.getInstance().getConnection().prepareStatement(sql);
+            PreparedStatement ps = getStatement(sql);
             ps.setInt(1 , 0);
             ps.setBinaryStream(2, new FileInputStream(new File("./Assets/defAvatar.png")));
             ps.setString(3,lecturer.getFirst_name());
@@ -67,6 +68,7 @@ public class M_Register {
             return ps.executeUpdate()>0;
         }else{
             ErrorHandler.setError("Authentication Error");
+
         }
         return  false;
     }
@@ -75,5 +77,9 @@ public class M_Register {
         ResultSet resultSet = DBConnection.getInstance().getConnection().createStatement()
                 .executeQuery("SELECT id FROM auth WHERE email = '"+email+"'");
         return  resultSet.next()?resultSet.getInt("id"):null;
+    }
+
+    public static PreparedStatement  getStatement(String sql) throws SQLException, ClassNotFoundException {
+        return  DBConnection.getInstance().getConnection().prepareStatement(sql);
     }
 }

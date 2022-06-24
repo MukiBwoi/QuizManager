@@ -1,0 +1,39 @@
+.tree-table-view{
+    -fx-tree-table-color: #2196f3;
+    -fx-tree-table-rippler-color : rgba(255, 0, 0, 0.9);
+}
+
+.tree-table-view:focused .tree-table-row-cell:selected {
+    -fx-background-color: -fx-tree-table-color  ;
+    -fx-table-cell-border-color: -fx-tree-table-color;
+}
+
+.tree-table-view:focused .tree-table-row-cell:selected .tree-table-cell{
+    -fx-text-fill: white;
+}
+
+.tree-table-view .jfx-rippler {
+    -fx-rippler-fill: -fx-tree-table-rippler-color;
+}
+
+.dashboard_Spinners .arc{
+    -fx-stroke:#2196f3;
+
+}
+
+.dashboard_Spinners .percentage{
+    -fx-fill:#2196f3;
+}
+
+.jfx-hamburger-icon{
+    -fx-spacing: 5;
+    -fx-cursor: hand;
+}
+.jfx-hamburger-icon StackPane{
+    -fx-pref-width: 40px;
+    -fx-pref-height: 7px;
+    -fx-background-color : white;
+    -fx-background-radius : 5px;
+}
+
+

@@ -24,7 +24,7 @@
    <Label fx:id="lbl_Name" alignment="TOP_RIGHT" layoutX="787.0" layoutY="28.0" prefHeight="17.0" prefWidth="92.0" text="Your Name" />
    <JFXTextField fx:id="txt_Search" focusColor="#2196f3" focusTraversable="false" layoutX="143.0" layoutY="16.0" onMouseClicked="#txt_OnSearchAction" prefHeight="31.0" prefWidth="227.0" promptText="Browse &amp; Search Quizs" />
    <StackPane fx:id="stackPane_Main" layoutX="45.0" layoutY="73.0" prefHeight="523.0" prefWidth="885.0" style="-fx-background-color: white;">
-      <Pane fx:id="pane_Search" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" visible="false" StackPane.alignment="CENTER">
+      <Pane fx:id="pane_Search" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" StackPane.alignment="CENTER">
          <StackPane fx:id="stackPane_TestGrid" prefHeight="516.0" prefWidth="870.0">
             <Label fx:id="lbl_NoResultFound" prefHeight="31.0" prefWidth="110.0" text="No Result found" />
             <ScrollPane fx:id="scrollPane_TestGrid" prefHeight="510.0" prefWidth="863.0" style="-fx-background-color: white; -fx-text-alignment: center;" StackPane.alignment="CENTER">
@@ -155,7 +155,7 @@
             </HBox>
          </children>
       </Pane>
-      <Pane fx:id="pane_Home" prefHeight="523.0" prefWidth="895.0" style="-fx-background-color: #ffffff;" visible="false">
+      <Pane fx:id="pane_Home" prefHeight="523.0" prefWidth="895.0" style="-fx-background-color: #ffffff;">
          <Label layoutX="23.0" layoutY="212.0" text="Community Ranking">
             <font>
                <Font name="System Bold" size="14.0" />

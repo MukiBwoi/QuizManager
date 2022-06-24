@@ -1,7 +1,7 @@
 package Model.Authentication;
 
 import Constants.Users;
-import Model.Database.DatabaseService;
+import Model.Database.UserService;
 import Model.Entities.Lecturer;
 import Model.Entities.Student;
 
@@ -17,9 +17,9 @@ public class CurrentUserModel {
     public static void getCurrentUser(){
             try {
                 if(Users.current_user.equals(Users.student)) {
-                    student = DatabaseService.getStudent(currentUserEmail);
+                    student = UserService.getStudent(currentUserEmail);
                 }else if(Users.current_user.equals(Users.lecturer)){
-                    lecturer = DatabaseService.getLecturer(currentUserEmail);
+                    lecturer = UserService.getLecturer(currentUserEmail);
                 }else{
 
                 }

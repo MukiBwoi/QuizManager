@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import Model.Entities.AuthUser;
-import Model.Database.DatabaseService;
+import Model.Database.UserService;
 import javafx.scene.control.Label;
 
 public class C_Validation {
@@ -95,7 +95,7 @@ public class C_Validation {
 
     public static boolean isEmailExist(String email){
         try{
-                for (AuthUser authUser: DatabaseService.getAllAuthUsers()) {
+                for (AuthUser authUser: UserService.getAllAuthUsers()) {
                         if(authUser.getEmail().equalsIgnoreCase(email)){
                             return  true;
                         }

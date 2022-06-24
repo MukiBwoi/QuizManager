@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXScrollPane?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="561.0" prefWidth="365.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Lecturer.C_AddTest">
+   <children>
+      <StackPane prefHeight="500.0" prefWidth="365.0" style="-fx-background-color: white;">
+         <children>
+            <Pane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" visible="false">
+               <children>
+                  <Label alignment="CENTER" layoutX="1.0" layoutY="19.0" prefHeight="17.0" prefWidth="365.0" text="Add Test Details">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <VBox layoutX="43.0" layoutY="78.0" prefHeight="398.0" prefWidth="280.0">
+                     <children>
+                        <JFXTextField focusColor="#2196f3" labelFloat="true" prefHeight="35.0" promptText="Test Name">
+                           <VBox.margin>
+                              <Insets bottom="30.0" />
+                           </VBox.margin>
+                        </JFXTextField>
+                        <JFXTextField focusColor="#2196f3" labelFloat="true" layoutX="10.0" layoutY="10.0" prefHeight="35.0" promptText="Author">
+                           <VBox.margin>
+                              <Insets bottom="30.0" />
+                           </VBox.margin>
+                        </JFXTextField>
+                        <JFXTextArea focusColor="#2196f3" labelFloat="true" prefHeight="75.0" prefWidth="280.0" promptText="Description and rules">
+                           <VBox.margin>
+                              <Insets bottom="30.0" />
+                           </VBox.margin>
+                        </JFXTextArea>
+                        <HBox prefHeight="40.0" prefWidth="280.0">
+                           <children>
+                              <JFXComboBox focusColor="#2196f3" labelFloat="true" prefHeight="35.0" prefWidth="143.0" promptText="Select Category">
+                                 <HBox.margin>
+                                    <Insets right="25.0" />
+                                 </HBox.margin>
+                              </JFXComboBox>
+                              <JFXButton prefHeight="35.0" style="-fx-background-color: #2196f3;" text="Add Category" textFill="WHITE" />
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="35.0" />
+                           </VBox.margin>
+                        </HBox>
+                        <Label text="Time Duration ">
+                           <VBox.margin>
+                              <Insets bottom="5.0" />
+                           </VBox.margin>
+                        </Label>
+                        <HBox prefHeight="39.0" prefWidth="280.0">
+                           <children>
+                              <JFXTextField editable="false" focusColor="#2196f3" prefHeight="35.0" prefWidth="25.0" promptText="hh">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </JFXTextField>
+                              <JFXTextField editable="false" focusColor="#2196f3" layoutX="10.0" layoutY="10.0" prefHeight="35.0" prefWidth="25.0" promptText="mm">
+                                 <HBox.margin>
+                                    <Insets right="10.0" />
+                                 </HBox.margin>
+                              </JFXTextField>
+                              <JFXTextField editable="false" focusColor="#2196f3" layoutX="65.0" layoutY="10.0" prefHeight="35.0" prefWidth="25.0" promptText="ss">
+                                 <HBox.margin>
+                                    <Insets right="30.0" />
+                                 </HBox.margin>
+                              </JFXTextField>
+                              <JFXCheckBox checkedColor="#2196f3" prefHeight="35.0" selected="true" text="Not time based test" />
+                           </children>
+                           <VBox.margin>
+                              <Insets bottom="30.0" />
+                           </VBox.margin>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+            <Pane prefHeight="500.0" prefWidth="365.0" style="-fx-background-color: white;" visible="false">
+               <children>
+                  <Label alignment="CENTER" layoutX="1.0" layoutY="19.0" prefHeight="20.0" prefWidth="365.0" text="Create Test">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="170.0" fitWidth="170.0" layoutX="98.0" layoutY="97.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../Assets/344201-PAOSF6-481.jpg" />
+                     </image>
+                  </ImageView>
+                  <Label alignment="CENTER" layoutY="56.0" prefHeight="20.0" prefWidth="365.0" text="Welcome to Test Wizard">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="1.0" layoutY="308.0" prefHeight="17.0" prefWidth="365.0" text="You have to follow few steps to create Test" />
+                  <VBox layoutX="98.0" layoutY="345.0" prefHeight="124.0" prefWidth="170.0">
+                     <children>
+                        <Label text="Add Test Details">
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding>
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIconView glyphName="ARROW_RIGHT" wrappingWidth="30.0" />
+                           </graphic>
+                        </Label>
+                        <Label text="Add Questions">
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding>
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIconView glyphName="ARROW_RIGHT" wrappingWidth="30.0" />
+                           </graphic>
+                        </Label>
+                        <Label text="Preview Questons">
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding>
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIconView glyphName="ARROW_RIGHT" wrappingWidth="30.0" />
+                           </graphic>
+                        </Label>
+                        <Label text="Deploy">
+                           <padding>
+                              <Insets bottom="10.0" />
+                           </padding>
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <graphic>
+                              <FontAwesomeIconView glyphName="ARROW_RIGHT" wrappingWidth="30.0" />
+                           </graphic>
+                        </Label>
+                     </children>
+                  </VBox>
+               </children>
+            </Pane>
+            <Pane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <Label alignment="CENTER" layoutX="1.0" layoutY="19.0" prefWidth="360.0" text="Add Questions">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <JFXButton fx:id="btn_AddQuiz" layoutX="274.0" layoutY="17.0" onAction="#btn_AddQuizOnAction" prefHeight="25.0" prefWidth="79.0" style="-fx-background-color: #2196f3;" text="Add" textFill="WHITE">
+                     <graphic>
+                        <FontAwesomeIconView fill="WHITE" glyphName="PLUS" />
+                     </graphic>
+                  </JFXButton>
+                  <StackPane fx:id="stackPane_AddQuestions" layoutX="3.0" layoutY="52.0" prefHeight="448.0" prefWidth="360.0">
+                     <children>
+                        <ScrollPane fx:id="scrollPane_Quizs" fitToHeight="true" fitToWidth="true" prefHeight="448.0" prefWidth="365.0">
+                           <content>
+                              <VBox fx:id="vBox_QuizList" prefHeight="446.0" prefWidth="344.0" spacing="10.0" style="-fx-background-color: white;">
+                                 <padding>
+                                    <Insets left="15.0" right="15.0" />
+                                 </padding>
+                              </VBox>
+                           </content>
+      
+                              </ScrollPane>
+                        <Pane prefHeight="200.0" prefWidth="200.0">
+                           <children>
+                              <JFXScrollPane layoutX="4.0" layoutY="57.0">
+                                 <children>
+                                    <VBox prefHeight="187.0" prefWidth="339.0" />
+                                 </children>
+                              </JFXScrollPane>
+                              <Label layoutX="22.0" layoutY="14.0" text="Question 1">
+                                 <font>
+                                    <Font name="System Bold" size="14.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </Pane>
+                     </children>
+                  </StackPane>
+               </children>
+            </Pane>
+         </children>
+      </StackPane>
+      <JFXButton fx:id="btn_Cancel" alignment="CENTER" layoutX="14.0" layoutY="517.0" onAction="#btn_CancelOnAction" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #f44336;" text="Cancel" textFill="WHITE">
+         <graphic>
+            <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" wrappingWidth="20.0" />
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="btn_Next" alignment="CENTER" contentDisplay="RIGHT" layoutX="261.0" layoutY="517.0" onAction="#btn_NextOnAction" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #2196f3;" text="Next" textFill="WHITE">
+         <graphic>
+            <FontAwesomeIconView fill="WHITE" glyphName="ARROW_RIGHT" textAlignment="RIGHT" wrappingWidth="20.0" />
+         </graphic>
+      </JFXButton>
+   </children>
+</AnchorPane>

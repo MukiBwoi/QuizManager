@@ -47,7 +47,7 @@ public class C_SplashScreen {
         try {
             new UI().closeUIButton(btn_Lecturer);
             Users.current_user = Users.lecturer;
-            new UI().setUI(Screens.login);
+            new UI().setUI(Screens.lecturerDashboard);
         } catch (IOException e) {
             e.printStackTrace();
         }

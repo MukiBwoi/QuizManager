@@ -1,16 +1,15 @@
 package Controller.Student;
 
-import Constants.Assets;
 import Constants.Screens;
 import Controller.Authentication.C_UploadAvatar;
 import Model.Authentication.CurrentUserModel;
 import Model.Entities.LeadBoardItem;
 import Model.Entities.Student;
-import Model.Entities.TestTile;
-import Model.Student.M_GridTestTiles;
+import Model.Entities.TestData;
+import Model.Entities.MyTest;
+import Model.Database.TestService;
 import Utils.UI;
 import com.jfoenix.controls.*;
-import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,7 +22,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -74,7 +72,6 @@ public class C_StudentDashboard {
         LoadMyTestList();
 
 
-
     }
 
     public void NavigatePane(Pane nextPane){
@@ -108,8 +105,8 @@ public class C_StudentDashboard {
     public void LoadMyTestList(){
         listView_MyTests.setOrientation(Orientation.HORIZONTAL);
         try {
-            if(M_GridTestTiles.getTestTiles().size()>0){
-                for (TestTile testile:M_GridTestTiles.testTiles) {
+            if(TestService.getTestTiles().size()>0){
+                for (MyTest testile: TestService.testTiles) {
                     C_GridTestItem.testTile = testile;
                     listView_MyTests.getItems().add(FXMLLoader
                             .load(getClass().getResource(Screens.gridTestItem+".fxml")));
@@ -166,9 +163,9 @@ public class C_StudentDashboard {
 
     public void LoadTestGrid(){
         try {
-            if(M_GridTestTiles.getTestTiles().size()>0){
+            if(TestService.getTestTiles().size()>0){
                 Node node;
-                ArrayList<ArrayList<TestTile>> gridTests = moveTo2DArray();
+                ArrayList<ArrayList<MyTest>> gridTests = moveTo2DArray();
                 for(int i= 0;i<gridTests.size();i++){
                     for (int j = 0; j < 2; j++) {
                         C_GridTestItem.testTile = gridTests.get(i).get(j);
@@ -195,25 +192,25 @@ public class C_StudentDashboard {
 
     }
 
-    public ArrayList<ArrayList<TestTile>> moveTo2DArray(){
+    public ArrayList<ArrayList<MyTest>> moveTo2DArray(){
 
-        ArrayList<ArrayList<TestTile>> grid = new ArrayList<>();
+        ArrayList<ArrayList<MyTest>> grid = new ArrayList<>();
         grid.clear();
         try {
-            M_GridTestTiles.getTestTiles();
-            if(M_GridTestTiles.testTiles.size() %2 !=0){
-                M_GridTestTiles.testTiles.add(new TestTile(
-                        "Sample Test","Sample author","Sample category",0.0,false
+            TestService.getTestTiles();
+            if(TestService.testTiles.size() %2 !=0){
+                TestService.testTiles.add(new MyTest(
+                        new TestData("Sample Test","Sample author","Sample category",10,5),0.0,false
                 ));
             }
 
-            for(int i=0;i<M_GridTestTiles.testTiles.size()/2;i++) {
+            for(int i = 0; i< TestService.testTiles.size()/2; i++) {
 
                 for (int j = 0; j < 2; j++) {
                     if(j < 1){
                         grid.add(new ArrayList<>());
                     }
-                    grid.get(i).add(M_GridTestTiles.testTiles.get((i*2)+j));
+                    grid.get(i).add(TestService.testTiles.get((i*2)+j));
                 }
             }
         } catch (SQLException | ClassNotFoundException | IndexOutOfBoundsException e) {

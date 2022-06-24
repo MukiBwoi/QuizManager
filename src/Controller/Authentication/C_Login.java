@@ -4,7 +4,7 @@ import Constants.Screens;
 import Constants.Users;
 import Model.Authentication.CurrentUserModel;
 import Model.Entities.AuthUser;
-import Model.Database.DatabaseService;
+import Model.Database.UserService;
 import Utils.UI;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
@@ -28,6 +28,8 @@ public class C_Login {
     public Label lbl_EmailError;
     public Label lbl_PasswordError;
     public JFXButton btn_Login;
+    public JFXButton btn_SwitchUser;
+    public Label lbl_UserType;
 
     UI ui = new UI();
 
@@ -35,6 +37,7 @@ public class C_Login {
         ifAdmin();
         txt_Email.setText(null);
         txt_Password.setText(null);
+        lbl_UserType.setText("Not "+ Users.current_user+"?" );
     }
 
     public void btn_LoginOnAction(ActionEvent actionEvent) {
@@ -54,9 +57,7 @@ public class C_Login {
                 loginProcess(Screens.studentDashboard);
 
             }else{
-
-                loginProcess(Screens.adminDashboard);
-
+                System.out.println("Admin Login");
             }
         }
 
@@ -117,7 +118,7 @@ public class C_Login {
 
     //Check if password correct
     private boolean checkPassword(){
-        for (AuthUser authuser:DatabaseService.authUsers) {
+        for (AuthUser authuser: UserService.authUsers) {
             if(authuser.getEmail().equals(txt_Email.getText())){
                 if(authuser.getEmp_type().equals(Users.current_user)){
                     return authuser.getPassword().equals(txt_Password.getText());
@@ -125,5 +126,15 @@ public class C_Login {
             }
         }
         return  false;
+    }
+
+    public void btn_SwitchUserOnAction(ActionEvent actionEvent) {
+
+        try {
+            new UI().closeUIButton(btn_SwitchUser);
+            new UI().setUI(Screens.splashScreen);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
