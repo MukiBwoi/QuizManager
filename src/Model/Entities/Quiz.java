@@ -1,25 +1,25 @@
 package Model.Entities;
-import java.io.File;
+
+import java.io.Serializable;
 
 public class Quiz {
+
     private String quiz;
-    private File image;
     private String type;
+    private Answer answer;
+
 
 
     public Quiz() {
     }
 
-    public Quiz( String quiz, String type) {
+    public Quiz( String quiz, String type , Answer answer) {
         this.setQuiz(quiz);
         this.setType(type);
+        this.setAnswer(answer);
+
     }
 
-    public Quiz( String quiz, File image, String type) {
-        this.setQuiz(quiz);
-        this.setImage(image);
-        this.setType(type);
-    }
 
     public String getQuiz() {
         return quiz;
@@ -29,13 +29,6 @@ public class Quiz {
         this.quiz = quiz;
     }
 
-    public File getImage() {
-        return image;
-    }
-
-    public void setImage(File image) {
-        this.image = image;
-    }
 
     public String getType() {
         return type;
@@ -43,5 +36,23 @@ public class Quiz {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+
+    public Answer getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(Answer answer) {
+        this.answer = answer;
+    }
+
+    @Override
+    public String toString() {
+        return "Quiz{" +
+                "quiz='" + quiz + '\'' +
+                ", type='" + type + '\'' +
+                ", answer=" + answer +
+                '}';
     }
 }

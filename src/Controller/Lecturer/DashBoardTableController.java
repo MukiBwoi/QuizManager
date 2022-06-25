@@ -1,6 +1,5 @@
 package Controller.Lecturer;
 
-import Model.Entities.TestData;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;

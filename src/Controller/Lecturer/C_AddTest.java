@@ -1,20 +1,19 @@
 package Controller.Lecturer;
 
 import Constants.Screens;
+import Model.Database.CategoryService;
+import Model.Database.QuizService;
+import Model.Database.TestService;
+import Model.Entities.Answer;
+import Model.Entities.Category;
 import Model.Entities.Quiz;
+import Model.Entities.Test;
 import Utils.UI;
-import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXRippler;
-import com.jfoenix.controls.JFXTextArea;
-import com.jfoenix.controls.JFXTextField;
-import de.jensd.fx.glyphs.GlyphsDude;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
-import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
-import de.jensd.fx.glyphs.materialicons.MaterialIcon;
-import de.jensd.fx.glyphs.materialicons.MaterialIconView;
+import com.jfoenix.controls.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -22,11 +21,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
+import java.io.*;
+import java.sql.SQLException;
 
-
-import java.io.IOException;
-import java.util.ArrayList;
 
 public class C_AddTest {
 
@@ -34,7 +31,7 @@ public class C_AddTest {
     public JFXButton btn_Next;
     public JFXButton btn_Cancel;
     public ScrollPane scrollPane_Quizs;
-    public VBox vBox_QuizList;
+    public  VBox vBox_QuizList;
     public StackPane stackPane_AddQuestions;
     public ScrollPane scrollPane_QuizContents;
     public VBox vBox_QuizContents;
@@ -46,14 +43,35 @@ public class C_AddTest {
     public JFXTextField txt_Answer4;
     public JFXTextField txt_CorrectAnswer;
     public JFXButton btn_AddQuiz;
-    public FontAwesomeIconView icon_Add_DoneQuiz;
-    private boolean isAddQuizClicked = false;
-    private  int quizindex = 0;
+    public StackPane stackPane_AddTest;
+    public Pane pane_SecondPane;
+    public Pane pane_firstPane;
+    public Pane pane_AddQuiz;
+    public JFXTextField txt_TestName;
+    public JFXTextField txt_Author;
+    public JFXTextArea txt_Description;
+    public JFXComboBox<String> cmb_Category;
+    public JFXButton btn_AddCategory;
+    public JFXTextField txt_DurationH;
+    public JFXTextField txt_DurationM;
+    public JFXTextField txt_DurationS;
+    public JFXCheckBox checkBox_IsTimeBased;
+    private boolean isAddQuizClicked;
+    public static int quizindex;
+    private int screenIndex;
+
+
 
 
     public void initialize(){
+        QuizService.quizs.clear();
+        quizindex = 0;
+        isAddQuizClicked = false;
         scrollPane_Quizs.setContent(vBox_QuizList);
         scrollPane_QuizContents.setContent(vBox_QuizContents);
+        screenIndex = 0;
+        loadCategoryCombo();
+
     }
 
     public void btn_CancelOnAction(ActionEvent actionEvent) {
@@ -67,17 +85,33 @@ public class C_AddTest {
     }
 
     public void btn_NextOnAction(ActionEvent actionEvent) {
-        try {
-            new UI().closeUIButton(btn_Next);
-            new UI().setUI(Screens.lecturerDashboard);
-        } catch (IOException e) {
-            e.printStackTrace();
+
+        screenIndex += 1;
+        System.out.println(screenIndex);
+        switch (screenIndex){
+            case 0:
+                UI.NavigatePane(stackPane_AddTest,pane_firstPane);
+                break;
+            case 1:
+                UI.NavigatePane(stackPane_AddTest,pane_SecondPane);
+                break;
+            case 2:
+                UI.NavigatePane(stackPane_AddTest,pane_AddQuiz);
+                btn_Next.setText("Finish");
+                break;
+            case 3:
+                setTestData();
+                addToDatabase();
+                break;
+            default:
+                System.out.println("Done");
         }
+
     }
 
     public void btn_AddQuizOnAction(ActionEvent actionEvent) {
         if(!isAddQuizClicked){
-
+            nullFields();
             isAddQuizClicked = true;
             quizindex = quizindex+1;
             lbl_QuestionNumber.setText("Question " + quizindex);
@@ -88,21 +122,20 @@ public class C_AddTest {
         }else{
 
             isAddQuizClicked = false;
-            //----------Add Quiz Object to Quiz List
-
+            AddObjects();
             new UI().NavigatePane(stackPane_AddQuestions,scrollPane_Quizs);
-
             btn_AddQuiz.setText("Add");
-
             btn_Next.setDisable(false);
             addToQuizList();
+
         }
 
     }
 
     private void addToQuizList(){
         try {
-            C_QuizTile.quizIndex = quizindex;
+           // System.out.println(quizindex);
+            C_QuizTile.quizIndex = this.quizindex;
             Node node = FXMLLoader.load(getClass().getResource(Screens.quizTile+".fxml"));
             JFXRippler ripple = new JFXRippler(node);
             ripple.setRipplerFill(Color.valueOf("#2196f3"));
@@ -110,8 +143,96 @@ public class C_AddTest {
 
         } catch (IOException e) {
             e.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
+    public void nullFields(){
+        textArea_Question.setText(null);
+        txt_Answer1.setText(null);
+        txt_Answer2.setText(null);
+        txt_Answer3.setText(null);
+        txt_Answer4.setText(null);
+        txt_CorrectAnswer.setText(null);
+    }
 
+
+    private void AddObjects(){
+
+        String[] answers = {txt_Answer1.getText(), txt_Answer2.getText(), txt_Answer3.getText(),
+                txt_Answer4.getText()};
+
+        QuizService.quizs.add(
+                new Quiz(
+                        textArea_Question.getText(),
+                        "MCQ",
+                        new Answer(answers,
+                                Integer.parseInt(txt_CorrectAnswer.getText()))
+                )
+        );
+
+    }
+
+    public void setTestData(){
+        TestService.test = new Test(
+                txt_TestName.getText(),
+                txt_Author.getText(),
+                (String) cmb_Category.getSelectionModel().getSelectedItem(),
+                txt_Description.getText(),
+                QuizService.quizs.size(),
+                0
+        );
+    }
+
+    public void updateVBox(){
+
+    }
+
+    public void addToDatabase(){
+
+        try {
+            if(TestService.addTest()){
+                int lastTestID = TestService.getLastTestID();
+                System.out.println("LID" + lastTestID);
+                if(QuizService.addQuiz(lastTestID)){
+                    new UI().closeUIButton(btn_Next);
+                    new UI().setUI(Screens.lecturerDashboard);
+                    System.out.println("Added");
+                }else{
+                    new UI().showErrorAlert("Something went wrong with quiz adding");
+                }
+            }else{
+                new UI().showErrorAlert("Something went wrong with test adding");
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException exception) {
+            exception.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void checkBox_IsTimeBasedOnAction(ActionEvent actionEvent) {
+    }
+
+
+    public void loadCategoryCombo(){
+        try {
+            cmb_Category.getItems().clear();
+            CategoryService.getCategories();
+            if(CategoryService.categories.size()>0){
+                ObservableList<String> categoryNames = FXCollections.observableArrayList();
+                for (Category category:CategoryService.categories) {
+                    categoryNames.add(category.getName());
+                }
+                cmb_Category.setItems(categoryNames);
+            }
+        } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 }

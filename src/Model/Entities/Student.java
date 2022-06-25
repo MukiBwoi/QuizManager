@@ -108,10 +108,20 @@ public class Student{
     }
 
 
+    public File getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(File avatar) {
+        this.avatar = avatar;
+    }
+
+
     @Override
     public String toString() {
         return "Student{" +
                 "id=" + id +
+                ", avatar=" + avatar +
                 ", first_name='" + first_name + '\'' +
                 ", last_name='" + last_name + '\'' +
                 ", email='" + email + '\'' +
@@ -119,15 +129,7 @@ public class Student{
                 ", age=" + age +
                 ", batch='" + batch + '\'' +
                 ", auth_id=" + auth_id +
+                ", authUser=" + authUser +
                 '}';
-    }
-
-
-    public File getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(File avatar) {
-        this.avatar = avatar;
     }
 }

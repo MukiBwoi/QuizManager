@@ -5,7 +5,7 @@ import Controller.Authentication.C_UploadAvatar;
 import Model.Authentication.CurrentUserModel;
 import Model.Entities.LeadBoardItem;
 import Model.Entities.Student;
-import Model.Entities.TestData;
+import Model.Entities.Test;
 import Model.Entities.MyTest;
 import Model.Database.TestService;
 import Utils.UI;
@@ -98,8 +98,8 @@ public class C_StudentDashboard {
     public void LoadMyTestList(){
         listView_MyTests.setOrientation(Orientation.HORIZONTAL);
         try {
-            if(TestService.getTestTiles().size()>0){
-                for (MyTest testile: TestService.testTiles) {
+            if(TestService.getMyTests().size()>0){
+                for (MyTest testile: TestService.myTests) {
                     C_GridTestItem.testTile = testile;
                     listView_MyTests.getItems().add(FXMLLoader
                             .load(getClass().getResource(Screens.gridTestItem+".fxml")));
@@ -156,7 +156,7 @@ public class C_StudentDashboard {
 
     public void LoadTestGrid(){
         try {
-            if(TestService.getTestTiles().size()>0){
+            if(TestService.getMyTests().size()>0){
                 Node node;
                 ArrayList<ArrayList<MyTest>> gridTests = moveTo2DArray();
                 for(int i= 0;i<gridTests.size();i++){
@@ -190,20 +190,20 @@ public class C_StudentDashboard {
         ArrayList<ArrayList<MyTest>> grid = new ArrayList<>();
         grid.clear();
         try {
-            TestService.getTestTiles();
-            if(TestService.testTiles.size() %2 !=0){
-                TestService.testTiles.add(new MyTest(
-                        new TestData("Sample Test","Sample author","Sample category",10,5),0.0,false
+            TestService.getMyTests();
+            if(TestService.myTests.size() %2 !=0){
+                TestService.myTests.add(new MyTest(0,
+                        new Test("Sample Test","Sample author","Sample category","",10,5),0.0,false
                 ));
             }
 
-            for(int i = 0; i< TestService.testTiles.size()/2; i++) {
+            for(int i = 0; i< TestService.myTests.size()/2; i++) {
 
                 for (int j = 0; j < 2; j++) {
                     if(j < 1){
                         grid.add(new ArrayList<>());
                     }
-                    grid.get(i).add(TestService.testTiles.get((i*2)+j));
+                    grid.get(i).add(TestService.myTests.get((i*2)+j));
                 }
             }
         } catch (SQLException | ClassNotFoundException | IndexOutOfBoundsException e) {
