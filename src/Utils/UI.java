@@ -11,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -50,7 +51,18 @@ public class UI {
         new Alert(Alert.AlertType.ERROR , ErrorHandler.getMessage()).show();
     }
 
+
     public static void NavigatePane(StackPane rootPane, Pane nextPane){
+        new Thread(() -> {
+            for (Node pane : rootPane.getChildren()) {
+                pane.setVisible(false);
+            }
+            nextPane.setVisible(true);
+        }).start();
+    }
+
+    //Overloading
+    public static void NavigatePane(StackPane rootPane, ScrollPane nextPane){
         new Thread(() -> {
             for (Node pane : rootPane.getChildren()) {
                 pane.setVisible(false);

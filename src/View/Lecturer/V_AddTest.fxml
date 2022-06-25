@@ -3,7 +3,6 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXCheckBox?>
 <?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXScrollPane?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
@@ -167,37 +166,42 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <JFXButton fx:id="btn_AddQuiz" layoutX="274.0" layoutY="17.0" onAction="#btn_AddQuizOnAction" prefHeight="25.0" prefWidth="79.0" style="-fx-background-color: #2196f3;" text="Add" textFill="WHITE">
-                     <graphic>
-                        <FontAwesomeIconView fill="WHITE" glyphName="PLUS" />
-                     </graphic>
-                  </JFXButton>
+                  <JFXButton fx:id="btn_AddQuiz" layoutX="274.0" layoutY="17.0" onAction="#btn_AddQuizOnAction" prefHeight="25.0" prefWidth="79.0" style="-fx-background-color: #2196f3;" text="Add" textFill="WHITE" />
                   <StackPane fx:id="stackPane_AddQuestions" layoutX="3.0" layoutY="52.0" prefHeight="448.0" prefWidth="360.0">
                      <children>
-                        <ScrollPane fx:id="scrollPane_Quizs" fitToHeight="true" fitToWidth="true" prefHeight="448.0" prefWidth="365.0">
+                        <ScrollPane fx:id="scrollPane_Quizs" fitToWidth="true">
                            <content>
-                              <VBox fx:id="vBox_QuizList" prefHeight="446.0" prefWidth="344.0" spacing="10.0" style="-fx-background-color: white;">
+                              <VBox fx:id="vBox_QuizList">
+                                 <padding>
+                                    <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                                 </padding></VBox>
+                           </content>
+                        </ScrollPane>
+                        <ScrollPane fx:id="scrollPane_QuizContents" fitToWidth="true" prefHeight="448.0" prefWidth="365.0" visible="false">
+                           <content>
+                              <VBox fx:id="vBox_QuizContents" spacing="30.0" style="-fx-background-color: white;">
                                  <padding>
                                     <Insets left="15.0" right="15.0" />
                                  </padding>
+                                 <children>
+                                    <Label fx:id="lbl_QuestionNumber" prefHeight="39.0" prefWidth="72.0" text="Question 1">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <JFXTextArea fx:id="textArea_Question" focusColor="#2196f3" labelFloat="true" prefHeight="82.0" prefWidth="328.0" promptText="Question" />
+                                    <JFXTextField fx:id="txt_Answer1" focusColor="#2196f3" labelFloat="true" prefHeight="35.0" promptText="Answer1" />
+                                    <JFXTextField fx:id="txt_Answer2" focusColor="#2196f3" labelFloat="true" prefHeight="35.0" promptText="Answer 2" />
+                                    <JFXTextField fx:id="txt_Answer3" focusColor="#2196f3" labelFloat="true" layoutX="25.0" layoutY="167.0" prefHeight="35.0" promptText="Answer 3" />
+                                    <JFXTextField fx:id="txt_Answer4" focusColor="#2196f3" labelFloat="true" layoutX="25.0" layoutY="202.0" prefHeight="35.0" promptText="Answer 4" />
+                                    <JFXTextField fx:id="txt_CorrectAnswer" focusColor="#2196f3" labelFloat="true" layoutX="25.0" layoutY="386.0" prefHeight="35.0" promptText="Correct Answer (Please enter answer index)">
+                                       <VBox.margin>
+                                          <Insets bottom="20.0" />
+                                       </VBox.margin></JFXTextField></children>
                               </VBox>
                            </content>
       
-                              </ScrollPane>
-                        <Pane prefHeight="200.0" prefWidth="200.0">
-                           <children>
-                              <JFXScrollPane layoutX="4.0" layoutY="57.0">
-                                 <children>
-                                    <VBox prefHeight="187.0" prefWidth="339.0" />
-                                 </children>
-                              </JFXScrollPane>
-                              <Label layoutX="22.0" layoutY="14.0" text="Question 1">
-                                 <font>
-                                    <Font name="System Bold" size="14.0" />
-                                 </font>
-                              </Label>
-                           </children>
-                        </Pane>
+                        </ScrollPane>
                      </children>
                   </StackPane>
                </children>
