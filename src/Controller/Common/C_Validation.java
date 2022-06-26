@@ -1,18 +1,24 @@
-package Controller.Authentication;
+package Controller.Common;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import Controller.Authentication.C_Register;
 import Model.Entities.AuthUser;
 import Model.Database.UserService;
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.validation.NumberValidator;
+import com.jfoenix.validation.RequiredFieldValidator;
 import javafx.scene.control.Label;
 
 public class C_Validation {
 
     //Using for validate null values
     public static String commonValidator(String input , String message){
-        if(input == null || input == "" || input.equals(null)){
+        if(input == null || input == "" || input.equals(null) || input.isEmpty()){
             C_Register.isValidated = false;
             return message;
         }
@@ -105,5 +111,27 @@ public class C_Validation {
         }
        return  false;
 
+    }
+
+    public static boolean requiredValidator(JFXTextField textField , String message){
+        RequiredFieldValidator validator = new RequiredFieldValidator();
+        textField.setValidators(validator);
+        textField.getValidators().get(0).setMessage(message);
+        return textField.validate();
+    }
+    public static boolean requiredValidator(JFXTextArea textField , String message){
+        RequiredFieldValidator validator = new RequiredFieldValidator();
+        textField.setValidators(validator);
+        textField.getValidators().get(0).setMessage(message);
+        return textField.validate();
+    }
+
+    public static boolean numberValidator(JFXTextField textField , String filedName){
+        RequiredFieldValidator requiredFieldValidator = new RequiredFieldValidator();
+        NumberValidator numberValidator = new NumberValidator();
+        textField.setValidators(requiredFieldValidator,numberValidator);
+        textField.getValidators().get(0).setMessage(filedName + " required ");
+        textField.getValidators().get(1).setMessage(filedName + " must be a number");
+        return textField.validate();
     }
 }

@@ -35,5 +35,7 @@
     -fx-background-color : white;
     -fx-background-radius : 5px;
 }
-
+.jfx-snackbar-content{
+    -fx-background-color: red;
+}
 

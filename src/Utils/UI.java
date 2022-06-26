@@ -1,6 +1,7 @@
 package Utils;
 import Model.Authentication.CurrentUserModel;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXSnackbar;
 import com.jfoenix.controls.JFXSpinner;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -13,6 +14,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.ImagePattern;
@@ -50,6 +52,12 @@ public class UI {
         ErrorHandler.setError(message);
         new Alert(Alert.AlertType.ERROR , ErrorHandler.getMessage()).show();
     }
+
+    public void showSuccessAlert(String message){
+        ErrorHandler.setError(message);
+        new Alert(Alert.AlertType.INFORMATION , ErrorHandler.getMessage()).show();
+    }
+
 
 
     public static void NavigatePane(StackPane rootPane, Pane nextPane){
@@ -101,4 +109,12 @@ public class UI {
         }
         return new ImagePattern(img, -hRad, -vRad, 2 * hRad, 2 * vRad, false);
     }
+
+    public static void showSnack(AnchorPane rootPane , String message){
+        JFXSnackbar snackbar = new JFXSnackbar(rootPane);
+        final JFXSnackbar.SnackbarEvent snackbarEvent = new JFXSnackbar.SnackbarEvent(message);
+        snackbar.enqueue(snackbarEvent);
+    }
+
+
 }

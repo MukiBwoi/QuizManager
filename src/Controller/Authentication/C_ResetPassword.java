@@ -1,6 +1,7 @@
 package Controller.Authentication;
 
 import Constants.Screens;
+import Controller.Common.C_Validation;
 import Utils.UI;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;

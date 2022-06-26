@@ -2,6 +2,7 @@ package Controller.Authentication;
 
 import Constants.Screens;
 import Constants.Users;
+import Controller.Common.C_Validation;
 import Model.Authentication.M_Register;
 import Model.Entities.Lecturer;
 import Model.Entities.Student;
@@ -55,13 +56,13 @@ public class C_Register {
     public Label lbl_why;
     public ImageView img_loadingIndicator;
     private  String cmb_validation_message;
-    public static boolean isValidated = false;
+    public static boolean isValidated;
 
 
 
     UI ui = new UI();
     public void initialize(){
-
+        isValidated = false;
         setFieldNull();
         showCombo();
 

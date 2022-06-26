@@ -1,6 +1,7 @@
 package Controller.Lecturer;
 
 import Constants.Screens;
+import Controller.Common.C_Validation;
 import Model.Database.CategoryService;
 import Model.Database.QuizService;
 import Model.Database.TestService;
@@ -10,6 +11,7 @@ import Model.Entities.Quiz;
 import Model.Entities.Test;
 import Utils.UI;
 import com.jfoenix.controls.*;
+import com.jfoenix.validation.RequiredFieldValidator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -17,12 +19,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+
 import java.io.*;
 import java.sql.SQLException;
+
+import static javafx.util.Duration.seconds;
 
 
 public class C_AddTest {
@@ -56,6 +64,8 @@ public class C_AddTest {
     public JFXTextField txt_DurationM;
     public JFXTextField txt_DurationS;
     public JFXCheckBox checkBox_IsTimeBased;
+    public AnchorPane rootPane;
+    public JFXButton btn_Back;
     private boolean isAddQuizClicked;
     public static int quizindex;
     private int screenIndex;
@@ -65,12 +75,16 @@ public class C_AddTest {
 
     public void initialize(){
         QuizService.quizs.clear();
+
         quizindex = 0;
+        vBox_QuizList.getChildren().clear();
+
         isAddQuizClicked = false;
         scrollPane_Quizs.setContent(vBox_QuizList);
         scrollPane_QuizContents.setContent(vBox_QuizContents);
         screenIndex = 0;
         loadCategoryCombo();
+
 
     }
 
@@ -86,22 +100,31 @@ public class C_AddTest {
 
     public void btn_NextOnAction(ActionEvent actionEvent) {
 
-        screenIndex += 1;
-        System.out.println(screenIndex);
+
+
         switch (screenIndex){
             case 0:
-                UI.NavigatePane(stackPane_AddTest,pane_firstPane);
-                break;
-            case 1:
+                screenIndex += 1;
+                System.out.println("case 0");
                 UI.NavigatePane(stackPane_AddTest,pane_SecondPane);
                 break;
-            case 2:
-                UI.NavigatePane(stackPane_AddTest,pane_AddQuiz);
-                btn_Next.setText("Finish");
+
+            case 1:
+                if(validateTestDetails()){
+                    screenIndex += 1;
+                    System.out.println("case 2");
+                    UI.NavigatePane(stackPane_AddTest,pane_AddQuiz);
+                    btn_Next.setText("Finish");
+                }
+
                 break;
-            case 3:
-                setTestData();
-                addToDatabase();
+            case 2:
+                System.out.println("case 3");
+                if(validateQuizList()){
+                    setTestData();
+                    addToDatabase();
+                }
+
                 break;
             default:
                 System.out.println("Done");
@@ -113,6 +136,7 @@ public class C_AddTest {
         if(!isAddQuizClicked){
             nullFields();
             isAddQuizClicked = true;
+            btn_Back.setVisible(true);
             quizindex = quizindex+1;
             lbl_QuestionNumber.setText("Question " + quizindex);
             new UI().NavigatePane(stackPane_AddQuestions,scrollPane_QuizContents);
@@ -121,12 +145,15 @@ public class C_AddTest {
 
         }else{
 
-            isAddQuizClicked = false;
-            AddObjects();
-            new UI().NavigatePane(stackPane_AddQuestions,scrollPane_Quizs);
-            btn_AddQuiz.setText("Add");
-            btn_Next.setDisable(false);
-            addToQuizList();
+            if(validateQuizFields()){
+                isAddQuizClicked = false;
+                btn_Back.setVisible(false);
+                AddObjects();
+                new UI().NavigatePane(stackPane_AddQuestions,scrollPane_Quizs);
+                btn_AddQuiz.setText("Add");
+                btn_Next.setDisable(false);
+                addToQuizList();
+            }
 
         }
 
@@ -134,7 +161,6 @@ public class C_AddTest {
 
     private void addToQuizList(){
         try {
-           // System.out.println(quizindex);
             C_QuizTile.quizIndex = this.quizindex;
             Node node = FXMLLoader.load(getClass().getResource(Screens.quizTile+".fxml"));
             JFXRippler ripple = new JFXRippler(node);
@@ -206,17 +232,14 @@ public class C_AddTest {
                 new UI().showErrorAlert("Something went wrong with test adding");
             }
 
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         }
 
     }
 
     public void checkBox_IsTimeBasedOnAction(ActionEvent actionEvent) {
+
     }
 
 
@@ -233,6 +256,57 @@ public class C_AddTest {
             }
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
+        }
+    }
+
+
+    private boolean validateTestDetails(){
+        boolean isTestName = C_Validation.requiredValidator(txt_TestName, "Test name required");
+        boolean isDescription = C_Validation.requiredValidator(txt_Description,"Description required");
+        String isCategory = C_Validation.commonValidator(cmb_Category.getSelectionModel().getSelectedItem(),
+                "Category required");
+        System.out.println(isCategory);
+        if(!(isTestName && isDescription)){
+            return false;
+        }else if(isCategory != null){
+            UI.showSnack(rootPane,"Category Required !");
+            return  false;
+        }else{
+            return  true;
+        }
+
+    }
+
+    public boolean validateQuizList(){
+        if(vBox_QuizList.getChildren().size()>0){
+            return  true;
+        }
+        UI.showSnack(rootPane,"Please add at least on quiz ");
+        return false;
+    }
+
+    public boolean validateQuizFields(){
+        boolean isQuiz = C_Validation.requiredValidator(textArea_Question , "Question required");
+        boolean isAnswer1 = C_Validation.requiredValidator(txt_Answer1,"First answer required");
+        boolean isAnswer2 = C_Validation.requiredValidator(txt_Answer2,"Second answer required");
+        boolean isAnswer3 = C_Validation.requiredValidator(txt_Answer3 , "Third answer required");
+        boolean isAnswer4 = C_Validation.requiredValidator(txt_Answer4 , "Fourth answer required");
+        boolean correctAnswer = C_Validation.numberValidator(txt_CorrectAnswer,"Correct answer index");
+
+        if(isQuiz && isAnswer1 && isAnswer2 && isAnswer3 && isAnswer4 && correctAnswer){
+            return true;
+        }
+        return  false;
+    }
+
+    public void btn_BackOnAction(ActionEvent actionEvent) {
+        if(isAddQuizClicked){
+            isAddQuizClicked = false;
+            quizindex -=1;
+            btn_Back.setVisible(false);
+            new UI().NavigatePane(stackPane_AddQuestions,scrollPane_Quizs);
+            btn_AddQuiz.setText("Add");
+            btn_Next.setDisable(false);
         }
     }
 }
