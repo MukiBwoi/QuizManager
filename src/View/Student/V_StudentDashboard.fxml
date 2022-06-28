@@ -178,7 +178,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label layoutX="219.0" layoutY="38.0" text="10" textFill="WHITE">
+            <Label fx:id="lbl_FinishedTests" alignment="TOP_RIGHT" layoutX="182.0" layoutY="38.0" prefHeight="20.0" prefWidth="53.0" text="10" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -193,7 +193,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label layoutX="203.0" layoutY="39.0" text="50XP" textFill="WHITE">
+            <Label fx:id="lbl_totalMarks" alignment="CENTER_RIGHT" layoutX="168.0" layoutY="39.0" prefHeight="20.0" prefWidth="69.0" text="50XP" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
@@ -208,7 +208,7 @@
                   <Font name="System Bold" size="14.0" />
                </font>
             </Label>
-            <Label layoutX="223.0" layoutY="38.0" text="5" textFill="WHITE">
+            <Label fx:id="lbl_Rank" alignment="CENTER_RIGHT" layoutX="156.0" layoutY="38.0" prefHeight="20.0" prefWidth="75.0" text="5" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>

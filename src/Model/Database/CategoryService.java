@@ -14,6 +14,7 @@ public class CategoryService {
     public static ArrayList<Category> getCategories()throws SQLException, ClassNotFoundException{
         String sql = "SELECT * FROM category";
         ResultSet rst = DBConnection.getInstance().getConnection().prepareStatement(sql).executeQuery();
+        categories.clear();
         if(rst.next()){
             do{
                 Category category = new Category(

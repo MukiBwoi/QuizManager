@@ -18,7 +18,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="rootPane" prefHeight="561.0" prefWidth="365.0" style="-fx-background-color: white;" stylesheets="@../../CSS/main.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Lecturer.C_AddTest">
+<AnchorPane fx:id="rootPane" prefHeight="561.0" prefWidth="365.0" style="-fx-background-color: white;"
+            stylesheets="@../../CSS/main.css" xmlns="http://javafx.com/javafx/8.0.171"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Lecturer.C_AddTest">
    <children>
       <StackPane fx:id="stackPane_AddTest" prefHeight="500.0" prefWidth="365.0" style="-fx-background-color: white;">
          <children>
@@ -29,13 +31,17 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <JFXButton fx:id="btn_AddQuiz" layoutX="274.0" layoutY="17.0" onAction="#btn_AddQuizOnAction" prefHeight="25.0" prefWidth="79.0" style="-fx-background-color: #2196f3;" text="Add" textFill="WHITE" />
-                  <JFXButton fx:id="btn_Back" layoutX="14.0" layoutY="17.0" onAction="#btn_BackOnAction" prefHeight="25.0" prefWidth="79.0" text="Back" textFill="#2196f3" visible="false">
+                  <JFXButton fx:id="btn_AddQuiz" layoutX="274.0" layoutY="17.0" onAction="#btn_AddQuizOnAction"
+                             prefHeight="25.0" prefWidth="79.0" style="-fx-background-color: #2196f3;" text="Add"
+                             textFill="WHITE" />
+                  <JFXButton fx:id="btn_Back" layoutX="14.0" layoutY="17.0" onAction="#btn_BackOnAction"
+                             prefHeight="25.0" prefWidth="79.0" text="Back" textFill="#2196f3" visible="false">
                      <graphic>
                         <FontAwesomeIconView fill="#2196f3" glyphName="LEFT_ARROW" />
                      </graphic>
                   </JFXButton>
-                  <StackPane fx:id="stackPane_AddQuestions" layoutX="3.0" layoutY="52.0" prefHeight="448.0" prefWidth="360.0" style="-fx-background-color: white;">
+                  <StackPane fx:id="stackPane_AddQuestions" layoutX="3.0" layoutY="52.0" prefHeight="448.0"
+                             prefWidth="360.0" style="-fx-background-color: white;">
                      <children>
                         <ScrollPane fx:id="scrollPane_Quizs" fitToWidth="true" style="-fx-background-color: white;">
                            <content>
@@ -45,7 +51,8 @@
                                  </padding></VBox>
                            </content>
                         </ScrollPane>
-                        <ScrollPane fx:id="scrollPane_QuizContents" fitToWidth="true" prefHeight="448.0" prefWidth="365.0" visible="false">
+                        <ScrollPane fx:id="scrollPane_QuizContents" fitToWidth="true" prefHeight="448.0"
+                                    prefWidth="365.0" visible="false">
                            <content>
                               <VBox fx:id="vBox_QuizContents" spacing="30.0" style="-fx-background-color: white;">
                                  <padding>
@@ -60,27 +67,34 @@
                                           <Insets bottom="15.0" />
                                        </VBox.margin>
                                     </Label>
-                                    <JFXTextArea fx:id="textArea_Question" focusColor="#2196f3" labelFloat="true" prefHeight="82.0" prefWidth="328.0" promptText="Question">
+                                    <JFXTextArea fx:id="textArea_Question" focusColor="#2196f3" labelFloat="true"
+                                                 prefHeight="82.0" prefWidth="328.0" promptText="Question">
                                        <VBox.margin>
                                           <Insets bottom="30.0" />
                                        </VBox.margin></JFXTextArea>
-                                    <JFXTextField fx:id="txt_Answer1" focusColor="#2196f3" labelFloat="true" prefHeight="35.0" promptText="Answer1">
+                                    <JFXTextField fx:id="txt_Answer1" focusColor="#2196f3" labelFloat="true"
+                                                  prefHeight="35.0" promptText="Answer1">
                                        <VBox.margin>
                                           <Insets bottom="30.0" />
                                        </VBox.margin></JFXTextField>
-                                    <JFXTextField fx:id="txt_Answer2" focusColor="#2196f3" labelFloat="true" prefHeight="35.0" promptText="Answer 2">
+                                    <JFXTextField fx:id="txt_Answer2" focusColor="#2196f3" labelFloat="true"
+                                                  prefHeight="35.0" promptText="Answer 2">
                                        <VBox.margin>
                                           <Insets bottom="30.0" />
                                        </VBox.margin></JFXTextField>
-                                    <JFXTextField fx:id="txt_Answer3" focusColor="#2196f3" labelFloat="true" layoutX="25.0" layoutY="167.0" prefHeight="35.0" promptText="Answer 3">
+                                    <JFXTextField fx:id="txt_Answer3" focusColor="#2196f3" labelFloat="true"
+                                                  layoutX="25.0" layoutY="167.0" prefHeight="35.0" promptText="Answer 3">
                                        <VBox.margin>
                                           <Insets bottom="30.0" />
                                        </VBox.margin></JFXTextField>
-                                    <JFXTextField fx:id="txt_Answer4" focusColor="#2196f3" labelFloat="true" layoutX="25.0" layoutY="202.0" prefHeight="35.0" promptText="Answer 4">
+                                    <JFXTextField fx:id="txt_Answer4" focusColor="#2196f3" labelFloat="true"
+                                                  layoutX="25.0" layoutY="202.0" prefHeight="35.0" promptText="Answer 4">
                                        <VBox.margin>
                                           <Insets bottom="30.0" />
                                        </VBox.margin></JFXTextField>
-                                    <JFXTextField fx:id="txt_CorrectAnswer" focusColor="#2196f3" labelFloat="true" layoutX="25.0" layoutY="386.0" prefHeight="35.0" promptText="Correct Answer (Please enter answer index)">
+                                    <JFXTextField fx:id="txt_CorrectAnswer" focusColor="#2196f3" labelFloat="true"
+                                                  layoutX="25.0" layoutY="386.0" prefHeight="35.0"
+                                                  promptText="Correct Answer (Please enter answer index)">
                                        <VBox.margin>
                                           <Insets bottom="30.0" />
                                        </VBox.margin></JFXTextField></children>
@@ -94,36 +108,42 @@
             </Pane>
             <Pane fx:id="pane_SecondPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;">
                <children>
-                  <Label alignment="CENTER" layoutX="1.0" layoutY="19.0" prefHeight="17.0" prefWidth="365.0" text="Add Test Details">
+                  <Label alignment="CENTER" layoutX="1.0" layoutY="19.0" prefHeight="17.0" prefWidth="365.0"
+                         text="Add Test Details">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
                   <VBox layoutX="43.0" layoutY="64.0" stylesheets="@../../CSS/main.css">
                      <children>
-                        <JFXTextField fx:id="txt_TestName" focusColor="#2196f3" labelFloat="true" prefHeight="35.0" promptText="Test Name">
+                        <JFXTextField fx:id="txt_TestName" focusColor="#2196f3" labelFloat="true" prefHeight="35.0"
+                                      promptText="Test Name">
                            <VBox.margin>
                               <Insets bottom="45.0" />
                            </VBox.margin>
                         </JFXTextField>
-                        <JFXTextField fx:id="txt_Author" focusColor="#2196f3" labelFloat="true" layoutX="10.0" layoutY="10.0" prefHeight="35.0" promptText="Author">
+                        <JFXTextField fx:id="txt_Author" focusColor="#2196f3" labelFloat="true" layoutX="10.0"
+                                      layoutY="10.0" prefHeight="35.0" promptText="Author">
                            <VBox.margin>
                               <Insets bottom="45.0" />
                            </VBox.margin>
                         </JFXTextField>
-                        <JFXTextArea fx:id="txt_Description" focusColor="#2196f3" labelFloat="true" prefHeight="75.0" prefWidth="280.0" promptText="Description and rules">
+                        <JFXTextArea fx:id="txt_Description" focusColor="#2196f3" labelFloat="true" prefHeight="75.0"
+                                     prefWidth="280.0" promptText="Description and rules">
                            <VBox.margin>
                               <Insets bottom="45.0" />
                            </VBox.margin>
                         </JFXTextArea>
                         <HBox prefHeight="40.0" prefWidth="280.0">
                            <children>
-                              <JFXComboBox fx:id="cmb_Category" focusColor="#2196f3" labelFloat="true" prefHeight="35.0" prefWidth="143.0" promptText="Select Category">
+                              <JFXComboBox fx:id="cmb_Category" focusColor="#2196f3" labelFloat="true" prefHeight="35.0"
+                                           prefWidth="143.0" promptText="Select Category">
                                  <HBox.margin>
                                     <Insets right="25.0" />
                                  </HBox.margin>
                               </JFXComboBox>
-                              <JFXButton fx:id="btn_AddCategory" prefHeight="35.0" style="-fx-background-color: #2196f3;" text="Add Category" textFill="WHITE" />
+                              <JFXButton fx:id="btn_AddCategory" prefHeight="35.0" style="-fx-background-color: #2196f3;"
+                                         text="Add Category" textFill="WHITE" />
                            </children>
                            <VBox.margin>
                               <Insets bottom="35.0" />
@@ -136,22 +156,27 @@
                         </Label>
                         <HBox prefHeight="39.0" prefWidth="280.0">
                            <children>
-                              <JFXTextField fx:id="txt_DurationH" editable="false" focusColor="#2196f3" prefHeight="35.0" prefWidth="25.0" promptText="hh">
+                              <JFXTextField fx:id="txt_DurationH" editable="false" focusColor="#2196f3" prefHeight="35.0"
+                                            prefWidth="25.0" promptText="hh">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </JFXTextField>
-                              <JFXTextField fx:id="txt_DurationM" editable="false" focusColor="#2196f3" layoutX="10.0" layoutY="10.0" prefHeight="35.0" prefWidth="25.0" promptText="mm">
+                              <JFXTextField fx:id="txt_DurationM" editable="false" focusColor="#2196f3" layoutX="10.0"
+                                            layoutY="10.0" prefHeight="35.0" prefWidth="25.0" promptText="mm">
                                  <HBox.margin>
                                     <Insets right="10.0" />
                                  </HBox.margin>
                               </JFXTextField>
-                              <JFXTextField fx:id="txt_DurationS" editable="false" focusColor="#2196f3" layoutX="65.0" layoutY="10.0" prefHeight="35.0" prefWidth="25.0" promptText="ss">
+                              <JFXTextField fx:id="txt_DurationS" editable="false" focusColor="#2196f3" layoutX="65.0"
+                                            layoutY="10.0" prefHeight="35.0" prefWidth="25.0" promptText="ss">
                                  <HBox.margin>
                                     <Insets right="30.0" />
                                  </HBox.margin>
                               </JFXTextField>
-                              <JFXCheckBox fx:id="checkBox_IsTimeBased" checkedColor="#2196f3" onAction="#checkBox_IsTimeBasedOnAction" prefHeight="35.0" selected="true" text="Not time based test" />
+                              <JFXCheckBox fx:id="checkBox_IsTimeBased" checkedColor="#2196f3"
+                                           onAction="#checkBox_IsTimeBasedOnAction" prefHeight="35.0" selected="true"
+                                           text="Not time based test" />
                            </children>
                            <VBox.margin>
                               <Insets bottom="30.0" />
@@ -163,12 +188,14 @@
             </Pane>
             <Pane fx:id="pane_firstPane" prefHeight="500.0" prefWidth="365.0" style="-fx-background-color: white;">
                <children>
-                  <Label alignment="CENTER" layoutX="1.0" layoutY="19.0" prefHeight="20.0" prefWidth="365.0" text="Create Test">
+                  <Label alignment="CENTER" layoutX="1.0" layoutY="19.0" prefHeight="20.0" prefWidth="365.0"
+                         text="Create Test">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <ImageView fitHeight="170.0" fitWidth="170.0" layoutX="98.0" layoutY="97.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="170.0" fitWidth="170.0" layoutX="98.0" layoutY="97.0" pickOnBounds="true"
+                             preserveRatio="true">
                      <image>
                         <Image url="@../../Assets/344201-PAOSF6-481.jpg" />
                      </image>
@@ -178,7 +205,8 @@
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" layoutX="1.0" layoutY="308.0" prefHeight="17.0" prefWidth="365.0" text="You have to follow few steps to create Test" />
+                  <Label alignment="CENTER" layoutX="1.0" layoutY="308.0" prefHeight="17.0" prefWidth="365.0"
+                         text="You have to follow few steps to create Test" />
                   <VBox layoutX="98.0" layoutY="345.0" prefHeight="124.0" prefWidth="170.0">
                      <children>
                         <Label text="Add Test Details">
@@ -231,12 +259,15 @@
             </Pane>
          </children>
       </StackPane>
-      <JFXButton fx:id="btn_Cancel" alignment="CENTER" layoutX="14.0" layoutY="517.0" onAction="#btn_CancelOnAction" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #f44336;" text="Cancel" textFill="WHITE">
+      <JFXButton fx:id="btn_Cancel" alignment="CENTER" layoutX="14.0" layoutY="517.0" onAction="#btn_CancelOnAction"
+                 prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #f44336;" text="Cancel" textFill="WHITE">
          <graphic>
             <FontAwesomeIconView fill="WHITE" glyphName="CLOSE" wrappingWidth="20.0" />
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="btn_Next" alignment="CENTER" contentDisplay="RIGHT" layoutX="261.0" layoutY="517.0" onAction="#btn_NextOnAction" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #2196f3;" text="Next" textFill="WHITE">
+      <JFXButton fx:id="btn_Next" alignment="CENTER" contentDisplay="RIGHT" layoutX="261.0" layoutY="517.0"
+                 onAction="#btn_NextOnAction" prefHeight="30.0" prefWidth="90.0" style="-fx-background-color: #2196f3;"
+                 text="Next" textFill="WHITE">
          <graphic>
             <FontAwesomeIconView fill="WHITE" glyphName="ARROW_RIGHT" textAlignment="RIGHT" wrappingWidth="20.0" />
          </graphic>

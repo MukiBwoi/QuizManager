@@ -2,8 +2,10 @@ package Controller.Student;
 
 import Constants.Screens;
 import Controller.Authentication.C_UploadAvatar;
+import Controller.Common.C_LeadBoardCard;
 import Model.Authentication.CurrentUserModel;
-import Model.Entities.LeadBoardItem;
+import Model.Database.LeadBoardService;
+import Model.Entities.LeadBoardCard;
 import Model.Entities.Student;
 import Model.Entities.Test;
 import Model.Entities.MyTest;
@@ -61,6 +63,9 @@ public class C_StudentDashboard {
     public JFXSpinner spinner_Done;
     public JFXSpinner spinner_AverageMarks;
     public JFXButton btn_ChangeProfilePic;
+    public Label lbl_FinishedTests;
+    public Label lbl_totalMarks;
+    public Label lbl_Rank;
 
 
     public void initialize(){
@@ -70,6 +75,7 @@ public class C_StudentDashboard {
         setCurrentDateTime();
         LoadTestGrid();
         LoadMyTestList();
+        loadDashboardTiles();
 
 
     }
@@ -96,6 +102,7 @@ public class C_StudentDashboard {
     }
 
     public void LoadMyTestList(){
+        listView_MyTests.getItems().clear();
         listView_MyTests.setOrientation(Orientation.HORIZONTAL);
         try {
             if(TestService.getMyTests().size()>0){
@@ -111,17 +118,21 @@ public class C_StudentDashboard {
     }
 
     private void LoadLeadBoard(){
-        gridView_TestGrid.getChildren().clear();
+        List_LeadBoard.getItems().clear();
         Node node = null;
         try {
-            for (int i = 0; i <10 ; i++) {
-                C_LeadBoardCard.leadBoardItem = new LeadBoardItem(
-                        new Image("./Assets/avatar.jpg"),"Will Smith",500,1
-                );
-                node = FXMLLoader.load(getClass().getResource(Screens.LeadBoardCard));
-                List_LeadBoard.getItems().add(node);
+            if(LeadBoardService.getLeadBoardCards().size()>0){
+
+                for (LeadBoardCard leadBoardCard : LeadBoardService.leadBoardCards) {
+                    C_LeadBoardCard.leadBoardCard = leadBoardCard;
+                    node = FXMLLoader.load(getClass().getResource(Screens.leadBoardCard + ".fxml"));
+                    List_LeadBoard.getItems().add(node);
+                }
             }
-        } catch (IOException e) {
+
+        } catch (SQLException | ClassNotFoundException | IOException e) {
+            e.printStackTrace();
+        }catch (Exception e){
             e.printStackTrace();
         }
     }
@@ -155,6 +166,7 @@ public class C_StudentDashboard {
     }
 
     public void LoadTestGrid(){
+        gridView_TestGrid.getChildren().clear();
         try {
             if(TestService.getMyTests().size()>0){
                 Node node;
@@ -193,7 +205,7 @@ public class C_StudentDashboard {
             TestService.getMyTests();
             if(TestService.myTests.size() %2 !=0){
                 TestService.myTests.add(new MyTest(0,
-                        new Test("Sample Test","Sample author","Sample category","",10,5),0.0,false
+                        new Test("Sample Test","Sample author","Sample category","",10,5),0.0,false,0
                 ));
             }
 
@@ -239,6 +251,33 @@ public class C_StudentDashboard {
             e.printStackTrace();
         }
 
+    }
+
+    private void loadDashboardTiles(){
+        try {
+            int mytestCount = 0;
+            int marks = 0;
+
+            for (MyTest myTest:TestService.getMyTests()) {
+                if(myTest.getAuth_id() == CurrentUserModel.student.getAuth_id()){
+                    marks = marks + (int) (myTest.getMarks() * 10.0);
+                    mytestCount += 1;
+                }
+
+            }
+            lbl_FinishedTests.setText(mytestCount+"");
+            lbl_totalMarks.setText(marks+"");
+            for (LeadBoardCard leadBoardcard:LeadBoardService.getLeadBoardCards()) {
+                    if(leadBoardcard.getAuth_id() == CurrentUserModel.student.getAuth_id()){
+                        lbl_Rank.setText("#"+leadBoardcard.getRank());
+                    }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
 }

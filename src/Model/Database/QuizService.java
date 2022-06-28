@@ -16,7 +16,6 @@ public class QuizService {
     public static  int lastId;
 
     public static boolean addQuiz(int testID) throws SQLException, ClassNotFoundException {
-        System.out.println("DB "+ Arrays.toString(quizs.toArray()));
         ArrayList<Boolean> booleans = new ArrayList<>();
         for (Quiz quiz:quizs) {
             String sql = "INSERT INTO quiz VALUES(?,?,?,?)";

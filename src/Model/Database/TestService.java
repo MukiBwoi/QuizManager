@@ -20,28 +20,30 @@ public class TestService {
 
 
     public static ArrayList<MyTest> getMyTests() throws SQLException, ClassNotFoundException {
-        String sql = "SELECT name , author , category , marks " +
-                " FROM test t INNER JOIN my_test myt ON t.test_id = myt.test_id";
+        String sql = "SELECT * FROM test t INNER JOIN my_test myt ON t.test_id = myt.test_id";
 
         ResultSet rs = DBConnection.getInstance().getConnection().createStatement().executeQuery(sql);
         myTests.clear();
         if(rs.next()){
             do{
                 Test test = new Test(
-                        rs.getInt("id"),
+                        rs.getInt("test_id"),
                         rs.getString("name"),
                         rs.getString("author"),
                         rs.getString("category"),
                         rs.getString("description"),
                         rs.getInt("nofQuizs"),
-                        rs.getInt("enrolled_count")
+                        rs.getInt("enrolledCount")
+
                 );
                 tests.add(test);
                 myTests.add(new MyTest(
+
                         rs.getInt("id"),
                         test,
                         rs.getDouble("marks"),
-                        false
+                        false,
+                        rs.getInt("auth_id")
                 ));
             }while (rs.next());
         }
@@ -56,13 +58,13 @@ public class TestService {
         if(rs.next()){
             do{
                 Test test = new Test(
-                        rs.getInt("id"),
+                        rs.getInt("test_id"),
                         rs.getString("name"),
                         rs.getString("author"),
                         rs.getString("category"),
                         rs.getString("description"),
                         rs.getInt("nofQuizs"),
-                        rs.getInt("enrolled_count")
+                        rs.getInt("enrolledCount")
                 );
                 tests.add(test);
 

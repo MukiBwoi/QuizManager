@@ -130,9 +130,9 @@ public class C_Login {
     }
 
     public void btn_SwitchUserOnAction(ActionEvent actionEvent) {
-
         try {
             new UI().closeUIButton(btn_SwitchUser);
+            Users.current_user = null;
             new UI().setUI(Screens.splashScreen);
         } catch (IOException e) {
             e.printStackTrace();

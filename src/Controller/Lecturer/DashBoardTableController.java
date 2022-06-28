@@ -1,5 +1,6 @@
 package Controller.Lecturer;
 
+import Model.Entities.Test;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
@@ -13,6 +14,9 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.util.Callback;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 public class DashBoardTableController {
     public void initialize(){
 
@@ -20,7 +24,7 @@ public class DashBoardTableController {
 
     }
 
-    public static void createTable(JFXTreeTableView tableView){
+    public static void createTable(JFXTreeTableView tableView , ArrayList<Model.Entities.Test> dbTests){
         JFXTreeTableColumn<Test, String> name = new JFXTreeTableColumn<>("Name");
         name.setPrefWidth(150);
         name.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Test, String>, ObservableValue<String>>() {
@@ -67,7 +71,10 @@ public class DashBoardTableController {
         });
 
         ObservableList<Test> tests = FXCollections.observableArrayList();
-        tests.add(new Test("Test 1","Hello","Nothing","15","30"));
+        for (Model.Entities.Test test:dbTests) {
+                tests.add(new Test(test.getName() , test.getAuthor(),test.getCategory(),test.getNofQuizs()+"",
+                        test.getEnrolledCount()+""));
+        }
         final TreeItem<Test> root = new RecursiveTreeItem<Test>(tests, RecursiveTreeObject::getChildren);
         tableView.getColumns().setAll(name, author, category,nofQuiz,enrollCount);
         tableView.setRoot(root);

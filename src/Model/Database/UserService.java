@@ -56,6 +56,7 @@ public class UserService {
 
         Connection connection = DBConnection.getInstance().getConnection();
         ResultSet rst = connection.createStatement().executeQuery("SELECT * FROM student");
+        students.clear();
         if(rst.next()){
             do{
                 students.add(
@@ -97,6 +98,7 @@ public class UserService {
 
         Connection connection = DBConnection.getInstance().getConnection();
         ResultSet rst = connection.createStatement().executeQuery("SELECT * FROM lecturer");
+        lecturers.clear();
         if(rst.next()){
             do{
                 lecturers.add(
@@ -121,6 +123,7 @@ public class UserService {
 
         Connection connection = DBConnection.getInstance().getConnection();
         ResultSet rst = connection.createStatement().executeQuery("SELECT * FROM auth");
+        authUsers.clear();
         if(rst.next()){
             do{
                 authUsers.add(

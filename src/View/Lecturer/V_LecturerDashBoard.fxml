@@ -9,15 +9,17 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="577.0" prefWidth="800.0" styleClass="lectureDashboard" stylesheets="@../../CSS/LectureTableStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Lecturer.C_LecturerDashboard">
+<AnchorPane fx:id="rootPane" prefHeight="577.0" prefWidth="800.0" styleClass="lectureDashboard" stylesheets="@../../CSS/LectureTableStyle.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Lecturer.C_LecturerDashboard">
    <children>
+      <JFXDrawer fx:id="Drawer_leftDrawer" />
       <Pane prefHeight="48.0" prefWidth="800.0" style="-fx-background-color: #2196f3;">
          <children>
             <JFXHamburger fx:id="hamburger_Drawer" layoutX="14.0" layoutY="14.0" onMouseClicked="#hamburger_ToggleDrawerOnActionPerformed" prefHeight="20.0" prefWidth="25.0" styleClass="jfx-hamburger-icon" stylesheets="@../../CSS/LectureTableStyle.css" />
@@ -26,7 +28,7 @@
                   <FontAwesomeIconView fill="WHITE" glyphName="SIGN_OUT" glyphStyle="MaterialIcon" size="18" />
                </graphic>
             </JFXButton>
-            <Label fx:id="lbl_Name" alignment="TOP_RIGHT" layoutX="555.0" layoutY="25.0" prefHeight="17.0" prefWidth="92.0" text="Your Name" textFill="WHITE" />
+            <Label fx:id="lbl_Name" alignment="TOP_RIGHT" layoutX="437.0" layoutY="25.0" prefHeight="17.0" prefWidth="210.0" text="Your Name" textFill="WHITE" />
             <Label layoutX="612.0" layoutY="10.0" prefHeight="17.0" prefWidth="40.0" text="Hello !" textFill="WHITE" />
             <Circle fx:id="circle_Avatar" fill="WHITE" layoutX="674.0" layoutY="24.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
             <Label layoutX="63.0" layoutY="9.0" text="Quizzy Bank" textFill="WHITE">
@@ -36,8 +38,8 @@
             </Label>
          </children>
       </Pane>
-      <JFXTreeTableView fx:id="tableView_TestTable" layoutX="10.0" layoutY="124.0" prefHeight="211.0" prefWidth="778.0" stylesheets="@../../CSS/LectureTableStyle.css" />
-      <HBox layoutX="40.0" layoutY="355.0" prefHeight="204.0" prefWidth="712.0">
+      <JFXTreeTableView fx:id="tableView_TestTable" layoutX="10.0" layoutY="120.0" prefHeight="211.0" prefWidth="778.0" stylesheets="@../../CSS/LectureTableStyle.css" />
+      <HBox layoutX="589.0" layoutY="351.0" prefHeight="204.0" prefWidth="197.0">
          <children>
             <Pane opacity="0.9" prefHeight="193.0" prefWidth="155.0" style="-fx-background-color: #ffffff; -fx-background-radius: 15;" styleClass="dashboard_Spinners" stylesheets="@../../CSS/LectureTableStyle.css">
                <children>
@@ -52,77 +54,43 @@
                   <Insets left="20.0" right="20.0" />
                </HBox.margin>
             </Pane>
-            <Pane layoutX="10.0" layoutY="10.0" opacity="0.9" prefHeight="193.0" prefWidth="155.0" style="-fx-background-color: #ffffff; -fx-background-radius: 15;" styleClass="dashboard_Spinners" stylesheets="@../../CSS/LectureTableStyle.css">
-               <children>
-                  <JFXSpinner fx:id="spinner_TestEnrollement111" layoutX="45.0" layoutY="32.0" prefHeight="65.0" prefWidth="65.0" progress="0.24" stylesheets="@../../CSS/LectureTableStyle.css" />
-                  <Label layoutX="28.0" layoutY="134.0" text="Average Marks">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-               </children>
-               <HBox.margin>
-                  <Insets left="20.0" right="20.0" />
-               </HBox.margin>
-            </Pane>
-            <Pane layoutX="165.0" layoutY="10.0" opacity="0.9" prefHeight="193.0" prefWidth="155.0" style="-fx-background-color: #ffffff; -fx-background-radius: 15;" styleClass="dashboard_Spinners" stylesheets="@../../CSS/LectureTableStyle.css">
-               <children>
-                  <JFXSpinner fx:id="spinner_TestEnrollement1111" layoutX="45.0" layoutY="32.0" prefHeight="65.0" prefWidth="65.0" progress="0.24" stylesheets="@../../CSS/LectureTableStyle.css" />
-                  <Label layoutX="28.0" layoutY="134.0" text="Average Marks">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-               </children>
-               <HBox.margin>
-                  <Insets left="20.0" right="20.0" />
-               </HBox.margin>
-            </Pane>
-            <Pane layoutX="420.0" layoutY="10.0" opacity="0.9" prefHeight="193.0" prefWidth="155.0" style="-fx-background-color: #ffffff; -fx-background-radius: 15;" styleClass="dashboard_Spinners" stylesheets="@../../CSS/LectureTableStyle.css">
-               <children>
-                  <JFXSpinner fx:id="spinner_TestEnrollement11111" layoutX="45.0" layoutY="32.0" prefHeight="65.0" prefWidth="65.0" progress="0.24" stylesheets="@../../CSS/LectureTableStyle.css" />
-                  <Label layoutX="28.0" layoutY="134.0" text="Average Marks">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-               </children>
-               <HBox.margin>
-                  <Insets left="20.0" right="20.0" />
-               </HBox.margin>
-            </Pane>
          </children>
       </HBox>
-      <JFXNodesList fx:id="nodeList_optionNodes" layoutX="50.0" layoutY="78.0" prefHeight="0.0" prefWidth="0.0" />
-      <JFXButton fx:id="btn_Insert" layoutX="226.0" layoutY="78.0" onAction="#btn_InsertOnAction" prefHeight="25.0" prefWidth="92.0" text="INSERT">
-         <graphic>
-            <FontAwesomeIconView glyphName="PLUS" />
-         </graphic>
-      </JFXButton>
-      <JFXButton fx:id="btn_Delete" layoutX="348.0" layoutY="78.0" text="DELETE">
-         <graphic>
-            <FontAwesomeIconView glyphName="TRASH" />
-         </graphic>
-      </JFXButton>
-      <JFXButton fx:id="btn_GenerateReport" layoutX="435.0" layoutY="78.0" text="GENERATE REPORT">
-         <graphic>
-            <FontAwesomeIconView glyphName="FILE" />
-         </graphic>
-      </JFXButton>
-      <JFXButton fx:id="btn_Option" layoutX="149.0" layoutY="77.0" text="Open Options">
-         <graphic>
-            <FontAwesomeIconView glyphName="COG" />
-         </graphic>
-      </JFXButton>
+      <JFXNodesList fx:id="nodeList_optionNodes" layoutX="50.0" layoutY="79.0" prefHeight="0.0" prefWidth="0.0" />
       <Label fx:id="lbl_DateTime" layoutX="635.0" layoutY="81.0" prefHeight="20.0" prefWidth="145.0" text="2022-05-04 15:04 AM">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <StackPane fx:id="stackPane_DrawerPane" layoutY="2.0" prefHeight="577.0" prefWidth="236.0" visible="false">
-         <children>
-            <JFXDrawer fx:id="Drawer_leftDrawer" />
-         </children>
-      </StackPane>
+      <JFXButton fx:id="btn_Option" layoutX="73.0" layoutY="79.0" style="-fx-background-radius: 10;" text="Open Options">
+         <graphic>
+            <FontAwesomeIconView glyphName="COG" />
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="btn_Insert" layoutX="188.0" layoutY="79.0" onAction="#btn_InsertOnAction" prefHeight="25.0" prefWidth="92.0" style="-fx-background-radius: 10; -fx-background-color: #2196f3; -fx-text-fill: #ffffff;" text="INSERT">
+         <graphic>
+            <FontAwesomeIconView fill="WHITE" glyphName="PLUS" />
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="btn_Delete" layoutX="290.0" layoutY="79.0" style="-fx-background-radius: 10; -fx-background-color: #f44336;" text="DELETE" textFill="WHITE">
+         <graphic>
+            <FontAwesomeIconView fill="WHITE" glyphName="TRASH" />
+         </graphic>
+      </JFXButton>
+      <JFXButton fx:id="btn_GenerateReport" layoutX="368.0" layoutY="79.0" style="-fx-background-radius: 10;" text="GENERATE REPORT">
+         <graphic>
+            <FontAwesomeIconView glyphName="FILE" />
+         </graphic>
+      </JFXButton>
+      <Label layoutX="14.0" layoutY="342.0" prefHeight="20.0" prefWidth="155.0" text="Student Leadboard">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ScrollPane fx:id="scrollPane_LeadBoard" fitToWidth="true" layoutX="14.0" layoutY="371.0" prefHeight="186.0" prefWidth="578.0">
+         <content>
+            <VBox fx:id="vBox_LeadBoardList" />
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>
