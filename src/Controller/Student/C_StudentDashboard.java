@@ -29,8 +29,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Objects;
+import java.util.*;
 
 
 public class C_StudentDashboard {
@@ -138,12 +137,40 @@ public class C_StudentDashboard {
     }
 
     private void initPieChart(){
-        ObservableList<PieChart.Data> piechartData = FXCollections.observableArrayList(
-                new PieChart.Data("Android" , 15),
-                new PieChart.Data("JavaFx" , 30),
-                new PieChart.Data("C" , 3)
-        );
-        piechart_CategoryInterests.setData(piechartData);
+        try {
+            List<String> categories = new ArrayList<String>();
+            List<String> uniqueCategories = new ArrayList<>();
+            TestService.getMyTests().forEach( myTest ->categories.add(myTest.getTestData().getCategory()));
+            Map<String ,Integer>  categoryCount = new HashMap<String , Integer>();
+            categories.forEach(category->{
+                if(!uniqueCategories.contains(category)){
+                    uniqueCategories.add(category);
+                }
+            });
+            final int[] i = {0};
+            uniqueCategories.forEach(uniqueCategory->{
+
+                categories.forEach(category->{
+                    if(Objects.equals(category, uniqueCategory)){
+                        i[0]++;
+                    }
+                });
+                categoryCount.put(uniqueCategory , i[0]);
+                i[0] = 0;
+            });
+            System.out.println(categoryCount);
+            ObservableList<PieChart.Data> piechartData = FXCollections.observableArrayList();
+            categoryCount.forEach((k,v)->{
+                piechartData.add(new PieChart.Data(k,v));
+            });
+            piechart_CategoryInterests.setData(piechartData);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void LoadPersonalDetails(){

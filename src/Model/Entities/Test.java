@@ -76,6 +76,14 @@ public class Test {
         this.description = description;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public String toString() {
         return "Test{" +
@@ -88,11 +96,5 @@ public class Test {
                 '}';
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 }
