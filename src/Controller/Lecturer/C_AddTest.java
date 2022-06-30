@@ -194,7 +194,7 @@ public class C_AddTest {
                         textArea_Question.getText(),
                         "MCQ",
                         new Answer(answers,
-                                Integer.parseInt(txt_CorrectAnswer.getText()))
+                                Integer.parseInt(txt_CorrectAnswer.getText())),0
                 )
         );
 

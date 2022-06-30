@@ -9,11 +9,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class QuizService {
 
     public static ArrayList<Quiz> quizs = new ArrayList<>();
     public static  int lastId;
+    public static int quizIndex = 0;
+    public static Quiz currentQuiz;
+    public static Map<Integer,Integer> result = new HashMap<>();
 
     public static boolean addQuiz(int testID) throws SQLException, ClassNotFoundException {
         ArrayList<Boolean> booleans = new ArrayList<>();
@@ -47,9 +52,11 @@ public class QuizService {
     }
 
     public static ArrayList<Quiz> getQuizs(int testID) throws SQLException, ClassNotFoundException {
-        String sql = "SELECT * FROM quiz WHERE test_id = '"+testID+"'";
+        String sql = "SELECT * FROM quiz JOIN answer ON quiz.id = answer.question_id WHERE quiz.test_id = ?";
 
-        ResultSet rs = DBConnection.getInstance().getConnection().createStatement().executeQuery(sql);
+        PreparedStatement ps = DBConnection.getInstance().getConnection().prepareStatement(sql);
+        ps.setInt(1,testID);
+        ResultSet rs = ps.executeQuery();
         quizs.clear();
         if(rs.next()){
             do{
@@ -62,9 +69,10 @@ public class QuizService {
                 Quiz quiz = new Quiz(
                         rs.getString("quiz"),
                         rs.getString("type"),
-                        new Answer(answers,rs.getInt("correct_answer"))
-                );
+                        new Answer(answers,rs.getInt("correct_answer")),
+                                rs.getInt("id"));
 
+                quizs.add(quiz);
 
             }while (rs.next());
         }

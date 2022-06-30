@@ -53,12 +53,11 @@ public class TestService {
         return myTests;
     }
 
-    public static boolean isTestDone(int test_id , int auth_id) throws SQLException, ClassNotFoundException {
-        String sql = "SELECT * FROM my_test WHERE test_id = ? && my_test.auth_id = ?";
+    public static boolean isTestDone(int auth_id) throws SQLException, ClassNotFoundException {
+        String sql = "SELECT * FROM my_test WHERE  my_test.auth_id = ?";
 
         PreparedStatement ps = DBConnection.getInstance().getConnection().prepareStatement(sql);
-        ps.setInt(1,test_id);
-        ps.setInt(2,auth_id);
+        ps.setInt(1,auth_id);
         ResultSet rs = ps.executeQuery();
         myTests.clear();
         if(rs.next()){
@@ -156,8 +155,6 @@ public class TestService {
                     testListByCategory.add(test);
 
                 }while (rs.next());
-
-
             }
         }
         return  testListByCategory;

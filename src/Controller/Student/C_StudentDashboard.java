@@ -79,7 +79,7 @@ public class C_StudentDashboard {
         LoadPersonalDetails();
         setCurrentDateTime();
         loadCategories();
-        LoadTestGrid(null);
+        LoadTestTiles(null);
         loadDashboardTiles();
 
 
@@ -103,13 +103,15 @@ public class C_StudentDashboard {
 
     public void txt_OnSearchAction(MouseEvent mouseEvent) {
         new UI().NavigatePane(stackPane_Main,pane_Search);
-        LoadTestGrid(null);
+        LoadTestTiles(null);
     }
 
     public void LoadMyTestList(){
         listView_MyTests.getItems().clear();
         listView_MyTests.setOrientation(Orientation.HORIZONTAL);
+
         try {
+
             if(TestService.getMyTests(CurrentUserModel.student.getAuth_id()).size()>0){
 
                 for (MyTest testile: TestService.myTests) {
@@ -203,21 +205,31 @@ public class C_StudentDashboard {
         lbl_DateTime.setText(zdtString);
     }
 
-    public void LoadTestGrid(@Nullable  String category){
+    public void LoadTestTiles(@Nullable  String category){
 
         try {
-
+            C_GridTestItem.myTest = null;
+            C_GridTestItem.test = null;
             if(TestService.getTestsByCategory(category).size()>0){
 
                 vBox_SearchList.getChildren().clear();
                 TestService.testListByCategory.forEach(test -> {
                     try {
-                        C_GridTestItem.test = test;
-                        Node node = FXMLLoader.load(getClass().getResource(Screens.gridTestItem+".fxml"));
-                        JFXRippler rippler = new JFXRippler(node);
-                        vBox_SearchList.getChildren().add(rippler);
+                        TestService.getMyTests(CurrentUserModel.student.getAuth_id()).forEach(myTest -> {
+                            if(myTest.getTestData().getId() == test.getId()){
+                                try {
+                                    addTestItem(myTest,null);
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
 
-                    } catch (IOException e) {
+                        if(C_GridTestItem.myTest == null){
+                            addTestItem(null,test);
+                        }
+
+                    } catch (IOException | SQLException | ClassNotFoundException e) {
                         e.printStackTrace();
                     }
                 });
@@ -301,9 +313,9 @@ public class C_StudentDashboard {
                 @Override
                 public void changed(ObservableValue observable, Object oldValue, Object newValue) {
                     if(newValue == "All Categories"){
-                        LoadTestGrid(null);
+                        LoadTestTiles(null);
                     }else{
-                        LoadTestGrid(newValue.toString());
+                        LoadTestTiles(newValue.toString());
                     }
                 }
             });
@@ -312,4 +324,11 @@ public class C_StudentDashboard {
         }
     }
 
+    public void addTestItem(@Nullable  MyTest mt , @Nullable Test t) throws IOException {
+        C_GridTestItem.test = t;
+        C_GridTestItem.myTest = mt;
+        Node node = FXMLLoader.load(getClass().getResource(Screens.gridTestItem+".fxml"));
+        JFXRippler rippler = new JFXRippler(node);
+        vBox_SearchList.getChildren().add(rippler);
+    }
 }

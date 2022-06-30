@@ -26,7 +26,6 @@ public class C_GridTestItem {
     public static Test test;
 
     public void initialize(){
-        System.out.println(myTest + "  " + test );
         if(test == null && myTest != null){
 
             lbl_TestName.setText(myTest.getTestData().getName());
@@ -61,19 +60,11 @@ public class C_GridTestItem {
                 new UI().closeUIButton(btn_StartTest);
                 new UI().setUI(Screens.startTest);
             }else{
-                System.out.println("null");
+                C_StartTest.setData(null,null);
             }
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
-
-
-    public void dividerTests(){
-
-    }
-
-
 }

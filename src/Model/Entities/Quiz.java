@@ -1,9 +1,10 @@
 package Model.Entities;
 
-import java.io.Serializable;
+import com.sun.istack.internal.Nullable;
 
 public class Quiz {
 
+    private int id;
     private String quiz;
     private String type;
     private Answer answer;
@@ -13,10 +14,11 @@ public class Quiz {
     public Quiz() {
     }
 
-    public Quiz( String quiz, String type , Answer answer) {
+    public Quiz( String quiz, String type , Answer answer,@Nullable int id) {
         this.setQuiz(quiz);
         this.setType(type);
         this.setAnswer(answer);
+        this.setId(id);
 
     }
 
@@ -54,5 +56,13 @@ public class Quiz {
                 ", type='" + type + '\'' +
                 ", answer=" + answer +
                 '}';
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
