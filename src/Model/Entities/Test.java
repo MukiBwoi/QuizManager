@@ -9,6 +9,7 @@ public class Test {
     private String description;
     private int nofQuizs;
     private int enrolledCount;
+    private boolean isDone;
 
     public Test(int id,String name, String author, String category, String description, int nofQuizs, int enrolledCount) {
         this.setName(name);
@@ -84,6 +85,14 @@ public class Test {
         this.id = id;
     }
 
+    public boolean isDone() {
+        return isDone;
+    }
+
+    public void setDone(boolean done) {
+        isDone = done;
+    }
+
     @Override
     public String toString() {
         return "Test{" +
@@ -95,6 +104,7 @@ public class Test {
                 ", enrolledCount=" + enrolledCount +
                 '}';
     }
+
 
 
 }

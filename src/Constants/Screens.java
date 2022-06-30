@@ -16,4 +16,5 @@ public class Screens {
     public static String uploadAvatar = "/View/Authentication/V_UploadAvatar";
     public static String addTest = "/View/Lecturer/V_AddTest";
     public static String quizTile = "/View/Lecturer/V_QuizTile";
+    public static String startTest =  "/View/Student/V_StarTest";
 }

@@ -11,3 +11,12 @@
 #btn_LeadBoard{
     -fx-background-repeat: no-repeat;
 }
+
+.jfx-spinner .arc{
+    -fx-stroke:#2196f3;
+
+}
+
+.jfx-spinner .percentage{
+    -fx-fill:#2196f3;
+}

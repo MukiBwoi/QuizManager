@@ -4,6 +4,7 @@ import Constants.Screens;
 import Controller.Authentication.C_UploadAvatar;
 import Controller.Common.C_LeadBoardCard;
 import Model.Authentication.CurrentUserModel;
+import Model.Database.CategoryService;
 import Model.Database.LeadBoardService;
 import Model.Entities.LeadBoardCard;
 import Model.Entities.Student;
@@ -12,9 +13,13 @@ import Model.Entities.MyTest;
 import Model.Database.TestService;
 import Utils.UI;
 import com.jfoenix.controls.*;
+import com.sun.istack.internal.Nullable;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Orientation;
 import javafx.scene.Node;
@@ -45,7 +50,6 @@ public class C_StudentDashboard {
     public Pane pane_Search;
     public Label lbl_DateTime;
     public JFXTextField txt_Search;
-    public GridPane gridView_TestGrid;
     public StackPane stackPane_TestGrid;
     public Label lbl_NoResultFound;
     public ScrollPane scrollPane_TestGrid;
@@ -65,6 +69,8 @@ public class C_StudentDashboard {
     public Label lbl_FinishedTests;
     public Label lbl_totalMarks;
     public Label lbl_Rank;
+    public VBox vBox_SearchList;
+    public JFXListView listView_CategoryList;
 
 
     public void initialize(){
@@ -72,8 +78,8 @@ public class C_StudentDashboard {
         LoadLeadBoard();
         LoadPersonalDetails();
         setCurrentDateTime();
-        LoadTestGrid();
-        LoadMyTestList();
+        loadCategories();
+        LoadTestGrid(null);
         loadDashboardTiles();
 
 
@@ -82,7 +88,7 @@ public class C_StudentDashboard {
 
 
     public void btn_HomeOnAction(ActionEvent actionEvent) {
-       new UI().NavigatePane(stackPane_Main,pane_Home);
+        new UI().NavigatePane(stackPane_Main,pane_Home);
     }
 
     public void btn_MyProfileOnAction(ActionEvent actionEvent) {
@@ -97,21 +103,26 @@ public class C_StudentDashboard {
 
     public void txt_OnSearchAction(MouseEvent mouseEvent) {
         new UI().NavigatePane(stackPane_Main,pane_Search);
-        LoadTestGrid();
+        LoadTestGrid(null);
     }
 
     public void LoadMyTestList(){
         listView_MyTests.getItems().clear();
         listView_MyTests.setOrientation(Orientation.HORIZONTAL);
         try {
-            if(TestService.getMyTests().size()>0){
+            if(TestService.getMyTests(CurrentUserModel.student.getAuth_id()).size()>0){
+
                 for (MyTest testile: TestService.myTests) {
-                    C_GridTestItem.testTile = testile;
+
+                    C_GridTestItem.myTest = testile;
                     listView_MyTests.getItems().add(FXMLLoader
                             .load(getClass().getResource(Screens.gridTestItem+".fxml")));
+
                 }
             }
         } catch (SQLException | ClassNotFoundException | IOException e) {
+            e.printStackTrace();
+        }catch (Exception e){
             e.printStackTrace();
         }
     }
@@ -140,7 +151,8 @@ public class C_StudentDashboard {
         try {
             List<String> categories = new ArrayList<String>();
             List<String> uniqueCategories = new ArrayList<>();
-            TestService.getMyTests().forEach( myTest ->categories.add(myTest.getTestData().getCategory()));
+            TestService.getMyTests(CurrentUserModel.student.getAuth_id()).forEach( myTest ->categories
+                    .add(myTest.getTestData().getCategory()));
             Map<String ,Integer>  categoryCount = new HashMap<String , Integer>();
             categories.forEach(category->{
                 if(!uniqueCategories.contains(category)){
@@ -158,7 +170,6 @@ public class C_StudentDashboard {
                 categoryCount.put(uniqueCategory , i[0]);
                 i[0] = 0;
             });
-            System.out.println(categoryCount);
             ObservableList<PieChart.Data> piechartData = FXCollections.observableArrayList();
             categoryCount.forEach((k,v)->{
                 piechartData.add(new PieChart.Data(k,v));
@@ -192,64 +203,30 @@ public class C_StudentDashboard {
         lbl_DateTime.setText(zdtString);
     }
 
-    public void LoadTestGrid(){
-        gridView_TestGrid.getChildren().clear();
-        try {
-            if(TestService.getMyTests().size()>0){
-                Node node;
-                ArrayList<ArrayList<MyTest>> gridTests = moveTo2DArray();
-                for(int i= 0;i<gridTests.size();i++){
-                    for (int j = 0; j < 2; j++) {
-                        C_GridTestItem.testTile = gridTests.get(i).get(j);
-                        node = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(
-                                Screens.gridTestItem + ".fxml")));
-                        gridView_TestGrid.add(node ,j ,i);
-                    }
-                }
+    public void LoadTestGrid(@Nullable  String category){
 
-            }else{
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        for (Node pane:stackPane_TestGrid.getChildren()) {
-                            pane.setVisible(false);
-                        }
-                        lbl_NoResultFound.setVisible(true);
+        try {
+
+            if(TestService.getTestsByCategory(category).size()>0){
+
+                vBox_SearchList.getChildren().clear();
+                TestService.testListByCategory.forEach(test -> {
+                    try {
+                        C_GridTestItem.test = test;
+                        Node node = FXMLLoader.load(getClass().getResource(Screens.gridTestItem+".fxml"));
+                        JFXRippler rippler = new JFXRippler(node);
+                        vBox_SearchList.getChildren().add(rippler);
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-                }).run();
+                });
             }
-        } catch (SQLException | ClassNotFoundException |IOException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 
-    }
 
-    public ArrayList<ArrayList<MyTest>> moveTo2DArray(){
-
-        ArrayList<ArrayList<MyTest>> grid = new ArrayList<>();
-        grid.clear();
-        try {
-            TestService.getMyTests();
-            if(TestService.myTests.size() %2 !=0){
-                TestService.myTests.add(new MyTest(0,
-                        new Test("Sample Test","Sample author","Sample category","",10,5),0.0,false,0
-                ));
-            }
-
-            for(int i = 0; i< TestService.myTests.size()/2; i++) {
-
-                for (int j = 0; j < 2; j++) {
-                    if(j < 1){
-                        grid.add(new ArrayList<>());
-                    }
-                    grid.get(i).add(TestService.myTests.get((i*2)+j));
-                }
-            }
-        } catch (SQLException | ClassNotFoundException | IndexOutOfBoundsException e) {
-            e.printStackTrace();
-        }
-
-        return  grid;
     }
 
 
@@ -285,12 +262,9 @@ public class C_StudentDashboard {
             int mytestCount = 0;
             int marks = 0;
 
-            for (MyTest myTest:TestService.getMyTests()) {
-                if(myTest.getAuth_id() == CurrentUserModel.student.getAuth_id()){
+            for (MyTest myTest:TestService.getMyTests(CurrentUserModel.student.getAuth_id())) {
                     marks = marks + (int) (myTest.getMarks() * 10.0);
                     mytestCount += 1;
-                }
-
             }
             lbl_FinishedTests.setText(mytestCount+"");
             lbl_totalMarks.setText(marks+"");
@@ -303,6 +277,37 @@ public class C_StudentDashboard {
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadCategories(){
+        listView_CategoryList.getItems().clear();
+        listView_CategoryList.setStyle("-fx-font-size: 15");
+
+
+        try {
+            ObservableList<String> observableList = FXCollections.observableArrayList("All Categories");
+
+            CategoryService.getCategories().forEach(category -> {
+                observableList.add(category.getName());
+            });
+
+            listView_CategoryList.getItems().addAll(observableList);
+            listView_CategoryList.getSelectionModel().select(0);
+            listView_CategoryList.getFocusModel().focus(0);
+            listView_CategoryList.scrollTo(0);
+            listView_CategoryList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener() {
+                @Override
+                public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+                    if(newValue == "All Categories"){
+                        LoadTestGrid(null);
+                    }else{
+                        LoadTestGrid(newValue.toString());
+                    }
+                }
+            });
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

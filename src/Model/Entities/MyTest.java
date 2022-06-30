@@ -7,6 +7,7 @@ public class MyTest {
     private boolean isDone;
     private int auth_id;
 
+    public MyTest(){}
     public MyTest(int id , Test testData, double marks, boolean isDone,int auth_id) {
         this.setId(id);
         this.setTestData(testData);

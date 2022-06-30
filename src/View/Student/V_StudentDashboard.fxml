@@ -7,12 +7,12 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
@@ -25,16 +25,17 @@
    <JFXTextField fx:id="txt_Search" focusColor="#2196f3" focusTraversable="false" layoutX="143.0" layoutY="16.0" onMouseClicked="#txt_OnSearchAction" prefHeight="31.0" prefWidth="227.0" promptText="Browse &amp; Search Quizs" />
    <StackPane fx:id="stackPane_Main" layoutX="45.0" layoutY="73.0" prefHeight="523.0" prefWidth="885.0" style="-fx-background-color: white;">
       <Pane fx:id="pane_Search" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: white;" StackPane.alignment="CENTER">
-         <StackPane fx:id="stackPane_TestGrid" prefHeight="516.0" prefWidth="870.0">
+         <StackPane fx:id="stackPane_TestGrid" layoutX="345.0" prefHeight="523.0" prefWidth="540.0">
             <Label fx:id="lbl_NoResultFound" prefHeight="31.0" prefWidth="110.0" text="No Result found" />
-            <ScrollPane fx:id="scrollPane_TestGrid" prefHeight="510.0" prefWidth="863.0" style="-fx-background-color: white; -fx-text-alignment: center;" StackPane.alignment="CENTER">
-               <GridPane fx:id="gridView_TestGrid" hgap="5.0" prefHeight="510" prefWidth="868.0" style="-fx-background-color: white;" vgap="5.0">
-
-               </GridPane>
+            <ScrollPane fx:id="scrollPane_TestGrid" fitToWidth="true" prefHeight="523.0" prefWidth="540.0" style="-fx-background-color: white; -fx-text-alignment: center;" StackPane.alignment="CENTER">
+               <content>
+                  <VBox fx:id="vBox_SearchList" spacing="20.0" />
+               </content>
             </ScrollPane>
          </StackPane>
+         <JFXListView fx:id="listView_CategoryList" layoutX="-1.0" prefHeight="523.0" prefWidth="332.0" />
       </Pane>
-      <Pane fx:id="pane_MyProfile" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: White;">
+      <Pane fx:id="pane_MyProfile" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: White;" visible="false">
          <children>
             <VBox opacity="0.9" prefHeight="523.0" prefWidth="260.0" style="-fx-background-color: #2196f3;">
                <children>
@@ -155,7 +156,7 @@
             </HBox>
          </children>
       </Pane>
-      <Pane fx:id="pane_Home" prefHeight="523.0" prefWidth="895.0" style="-fx-background-color: #ffffff;">
+      <Pane fx:id="pane_Home" prefHeight="523.0" prefWidth="895.0" style="-fx-background-color: #ffffff;" visible="false">
          <Label layoutX="23.0" layoutY="212.0" text="Community Ranking">
             <font>
                <Font name="System Bold" size="14.0" />
