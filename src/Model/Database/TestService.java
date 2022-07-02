@@ -5,6 +5,7 @@ import Model.Entities.MyTest;
 import Utils.DBConnection;
 import com.sun.istack.internal.Nullable;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -160,4 +161,37 @@ public class TestService {
         return  testListByCategory;
     }
 
+    public static boolean deleteTest(int testID) throws SQLException, ClassNotFoundException {
+        String getSql = "SELECT * FROM my_test WHERE test_id = ?";
+
+        String sql = "DELETE FROM my_test WHERE test_id = ?";
+        Connection conn = DBConnection.getInstance().getConnection();
+        PreparedStatement getPs = conn.prepareStatement(getSql);
+        getPs.setInt(1,testID);
+
+        PreparedStatement ps = conn.prepareStatement(sql);
+        if(getPs.executeQuery().next()){
+
+            ps.setInt(1,testID);
+            if(ps.executeUpdate()>0){
+                String testSql ="DELETE FROM test WHERE test_id = ?";
+                ps = conn.prepareStatement(testSql);
+                ps.setInt(1,testID);
+                if(ps.executeUpdate()>0){
+                    return true;
+                }else{
+                    conn.rollback();
+                }
+            }
+        }else{
+            String testSql ="DELETE FROM test WHERE test_id = ?";
+            ps = conn.prepareStatement(testSql);
+            ps.setInt(1,testID);
+            if(ps.executeUpdate()>0){
+                return true;
+            }
+        }
+
+        return  false;
+    }
 }

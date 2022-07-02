@@ -18,8 +18,10 @@ public class CurrentUserModel {
             try {
                 if(Users.current_user.equals(Users.student)) {
                     student = UserService.getStudent(currentUserEmail);
+                    System.out.println(student);
                 }else if(Users.current_user.equals(Users.lecturer)){
                     lecturer = UserService.getLecturer(currentUserEmail);
+                    System.out.println(student);
                 }else{
 
                 }

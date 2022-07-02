@@ -5,8 +5,11 @@ import Model.Entities.Lecturer;
 import Model.Entities.Student;
 import Utils.ErrorHandler;
 import Utils.DBConnection;
-import com.jfoenix.controls.JFXDialog;
+import Utils.UI;
+import com.sun.javafx.iio.ImageLoader;
+import javafx.scene.image.Image;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -15,6 +18,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class M_Register {
+
+    private static byte[] getDefaultAvatar(){
+        return  UI.imageToByte(new Image("Assets/defAvatar.png"));
+    }
 
     private static boolean authenticateUser(AuthUser auth) throws SQLException, ClassNotFoundException {
         String sql = "INSERT INTO auth VALUES(?,?,?,?,?,?)";
@@ -31,12 +38,12 @@ public class M_Register {
 
     public static boolean registerStudent(Student student) throws SQLException, ClassNotFoundException, FileNotFoundException {
        if(authenticateUser(student.getAuthUser())){
-           int authId = getAuthId(student.getEmail()); //Dont think
+           int authId = getAuthId(student.getEmail());
            String sql = "INSERT INTO student values (?,?,?,?,?,?,?,?,?)";
 
            PreparedStatement ps = getStatement(sql);
            ps.setInt(1 , 0);
-           ps.setBinaryStream(2, new FileInputStream(new File("./Assets/defAvatar.png")));
+           ps.setBinaryStream(2, new ByteArrayInputStream(getDefaultAvatar()));
            ps.setString(3,student.getFirst_name());
            ps.setString(4,student.getLast_name());
            ps.setString(5,student.getEmail());
@@ -58,7 +65,7 @@ public class M_Register {
             String sql = "INSERT INTO lecturer values (?,?,?,?,?,?,?)";
             PreparedStatement ps = getStatement(sql);
             ps.setInt(1 , 0);
-            ps.setBinaryStream(2, new FileInputStream(new File("./Assets/defAvatar.png")));
+            ps.setBinaryStream(2, new ByteArrayInputStream(getDefaultAvatar()));
             ps.setString(3,lecturer.getFirst_name());
             ps.setString(4,lecturer.getLast_name());
             ps.setString(5,lecturer.getEmail());
@@ -82,4 +89,6 @@ public class M_Register {
     public static PreparedStatement  getStatement(String sql) throws SQLException, ClassNotFoundException {
         return  DBConnection.getInstance().getConnection().prepareStatement(sql);
     }
+
+
 }

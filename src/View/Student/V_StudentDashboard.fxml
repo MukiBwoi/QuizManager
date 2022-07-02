@@ -35,7 +35,7 @@
          </StackPane>
          <JFXListView fx:id="listView_CategoryList" layoutX="-1.0" prefHeight="523.0" prefWidth="332.0" />
       </Pane>
-      <Pane fx:id="pane_MyProfile" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: White;" visible="false">
+      <Pane fx:id="pane_MyProfile" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: White;" visible="true">
          <children>
             <VBox opacity="0.9" prefHeight="523.0" prefWidth="260.0" style="-fx-background-color: #2196f3;">
                <children>
@@ -156,7 +156,7 @@
             </HBox>
          </children>
       </Pane>
-      <Pane fx:id="pane_Home" prefHeight="523.0" prefWidth="895.0" style="-fx-background-color: #ffffff;" visible="false">
+      <Pane fx:id="pane_Home" prefHeight="523.0" prefWidth="895.0" style="-fx-background-color: #ffffff;" visible="true">
          <Label layoutX="23.0" layoutY="212.0" text="Community Ranking">
             <font>
                <Font name="System Bold" size="14.0" />

@@ -7,7 +7,8 @@ import Model.Database.LeadBoardService;
 import Model.Database.TestService;
 import Model.Entities.LeadBoardCard;
 import Model.Entities.Lecturer;
-import Model.Entities.Test;
+import Utils.DBConnection;
+import Utils.ReportGenerator;
 import Utils.UI;
 import com.jfoenix.controls.*;
 import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
@@ -22,14 +23,18 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-
-import static Model.Authentication.CurrentUserModel.student;
+import java.util.HashMap;
 
 public class C_LecturerDashboard {
     public JFXTreeTableView tableView_TestTable;
@@ -170,4 +175,34 @@ public class C_LecturerDashboard {
         }
     }
 
+    public void btn_GenerateReportOnAction(ActionEvent actionEvent) {
+        HashMap parameters = new HashMap();
+        parameters.put("Author_Name",CurrentUserModel.lecturer.getFirst_name()+" "
+                +CurrentUserModel.lecturer.getLast_name());
+        ReportGenerator.showReport(parameters,"MyTest");
+
+    }
+
+    public void btn_deleteOnAction(ActionEvent actionEvent) {
+        if(tableView_TestTable.getSelectionModel().getSelectedIndices().size()>0){
+            try {
+                RecursiveTreeItem selectedItem = (RecursiveTreeItem) tableView_TestTable.getSelectionModel().getSelectedItem();
+                DashBoardTableController.Test test = (DashBoardTableController.Test) selectedItem.getValue();
+                boolean isDeleted = TestService.deleteTest(test.getId().getValue());
+                if(isDeleted){
+                    new UI().showSuccessAlert("Data Deleted Successfully");
+                    crateAndLoadMyTestTable();
+                }else{
+                    new UI().showErrorAlert("Something went wrong !");
+                }
+
+            } catch (SQLException | ClassNotFoundException throwables) {
+                throwables.printStackTrace();
+            }
+
+        }else{
+            UI.showSnack(rootPane,"Please Select a Row !");
+        }
+
+    }
 }

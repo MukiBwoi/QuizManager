@@ -62,7 +62,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <JFXButton fx:id="btn_Option" layoutX="73.0" layoutY="79.0" style="-fx-background-radius: 10;" text="Open Options">
+      <JFXButton fx:id="btn_Option" layoutX="86.0" layoutY="79.0" style="-fx-background-radius: 10;" text="Open Options">
          <graphic>
             <FontAwesomeIconView glyphName="COG" />
          </graphic>
@@ -72,12 +72,12 @@
             <FontAwesomeIconView fill="WHITE" glyphName="PLUS" />
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="btn_Delete" layoutX="290.0" layoutY="79.0" style="-fx-background-radius: 10; -fx-background-color: #f44336;" text="DELETE" textFill="WHITE">
+      <JFXButton fx:id="btn_Delete" onAction="#btn_deleteOnAction" layoutX="290.0" layoutY="79.0" style="-fx-background-radius: 10; -fx-background-color: #f44336;" text="DELETE" textFill="WHITE">
          <graphic>
             <FontAwesomeIconView fill="WHITE" glyphName="TRASH" />
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="btn_GenerateReport" layoutX="368.0" layoutY="79.0" style="-fx-background-radius: 10;" text="GENERATE REPORT">
+      <JFXButton fx:id="btn_GenerateReport"  onAction="#btn_GenerateReportOnAction" layoutX="392.0" layoutY="79.0" style="-fx-background-radius: 10;" text="GENERATE REPORT">
          <graphic>
             <FontAwesomeIconView glyphName="FILE" />
          </graphic>

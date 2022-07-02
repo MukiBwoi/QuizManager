@@ -32,13 +32,14 @@ public class C_UploadAvatar {
     public static String nextScreen = Screens.login;
 
     public void initialize(){
-        ifLoggedIn();
+       // ifLoggedIn();
     }
 
     public void btn_NextOnAction(ActionEvent actionEvent) {
         try{
             if(in != null){
                 if(M_UploadAvatar.UploadAvatar(in , email , Users.current_user)){
+                    CurrentUserModel.getCurrentUser();
                     new UI().closeUIButton(btn_Next);
                     new UI().setUI(nextScreen);
                 }else{
@@ -85,15 +86,20 @@ public class C_UploadAvatar {
     }
 
     private void ifLoggedIn(){
-        CurrentUserModel.getCurrentUser();
-        if(Users.current_user.equals(Users.student)){
-            circle_Avatar.setFill(UI.pattern(
-                    new Image(CurrentUserModel.student.getAvatar().toURI().toString()),80));
+        try{
+            CurrentUserModel.getCurrentUser();
+            if(Users.current_user.equals(Users.student)){
+                circle_Avatar.setFill(UI.pattern(
+                        new Image(CurrentUserModel.student.getAvatar().toString()),80));
 
-        }else if(Users.current_user.equals(Users.lecturer)){
-            circle_Avatar.setFill(UI.pattern(
-                    new Image(CurrentUserModel.student.getAvatar().toURI().toString()),80));
+            }else if(Users.current_user.equals(Users.lecturer)){
+                circle_Avatar.setFill(UI.pattern(
+                        new Image(CurrentUserModel.student.getAvatar().getAbsolutePath()),80));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
+
 
     }
 }

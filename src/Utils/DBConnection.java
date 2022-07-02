@@ -10,7 +10,7 @@ public class DBConnection {
 
     private DBConnection() throws SQLException, ClassNotFoundException{
         Class.forName("com.mysql.cj.jdbc.Driver");
-        connection = DriverManager.getConnection("jdbc:mysql://localhost/nibm","root","");
+        connection = DriverManager.getConnection("jdbc:mysql://localhost/nibm?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC","root","");
     }
 
     public static DBConnection getInstance() throws SQLException, ClassNotFoundException{
