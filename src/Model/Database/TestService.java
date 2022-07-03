@@ -18,6 +18,7 @@ public class TestService {
     public static ArrayList<Test> testListByCategory = new ArrayList<>();
     public static Test test;
     public static int lastId;
+    public static  MyTest myTest;
 
 
 
@@ -107,12 +108,12 @@ public class TestService {
         return ps.executeUpdate()>0;
     }
 
-    public boolean addMyTest(MyTest myTest , int uid) throws SQLException, ClassNotFoundException {
+    public static boolean addMyTest(MyTest myTest) throws SQLException, ClassNotFoundException {
         String sql = "INSERT INTO my_test VALUES(?,?,?,?)";
         PreparedStatement ps = DBConnection.getInstance().getConnection().prepareStatement(sql);
         ps.setInt(1,0);
         ps.setInt(2, myTest.getId());
-        ps.setInt(3, uid);
+        ps.setInt(3, myTest.getAuth_id());
         ps.setDouble(4,myTest.getMarks());
 
 

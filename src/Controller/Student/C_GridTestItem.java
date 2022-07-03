@@ -34,6 +34,7 @@ public class C_GridTestItem {
             progress_Marks.setProgress(myTest.getMarks());
             btn_StartTest.setText("Redo Test");
             UI.progressBarAnimation(progress_Marks,myTest.getMarks());
+            btn_StartTest.setDisable(true);
 
         }else if(myTest == null && test != null){
             lbl_TestName.setText(test.getName());

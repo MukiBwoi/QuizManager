@@ -2,6 +2,7 @@ package Controller.Student;
 
 import Constants.Screens;
 import Model.Database.QuizService;
+import Model.Database.TestService;
 import Model.Entities.MyTest;
 import Model.Entities.Test;
 import Utils.UI;
@@ -95,8 +96,8 @@ public class C_StartTest {
         try {
             new UI().closeUIButton(btn_EnrollNow);
             new UI().setUI(Screens.doQuizs);
-            test = null;
-            myTest = null;
+            TestService.test = test;
+            TestService.myTest = myTest;
         } catch (IOException e) {
             e.printStackTrace();
         }

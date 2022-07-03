@@ -105,7 +105,7 @@
                               </JFXButton>
                            </children>
                         </HBox>
-                        <JFXButton prefHeight="30.0" text="Back to Dashboard" textFill="#2196f3" />
+                        <JFXButton fx:id="btn_BackToDashboard" onAction="#btn_BackToDashboardOnAction" prefHeight="30.0" text="Back to Dashboard" textFill="#2196f3" />
                      </children>
                   </VBox>
                </children>

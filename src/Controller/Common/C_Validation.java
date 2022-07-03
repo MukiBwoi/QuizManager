@@ -65,7 +65,7 @@ public class C_Validation {
             C_Register.isValidated = false;
             return  "Password required!";
         }
-        else if(!Pattern.compile("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,}$").matcher(password).matches()){
+        else if(!Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[#$@!%&*?])[A-Za-z\\d#$@!%&*?]{8,30}$").matcher(password).matches()){
             why.setVisible(true);
             C_Register.isValidated = false;
             return "Password format error!";

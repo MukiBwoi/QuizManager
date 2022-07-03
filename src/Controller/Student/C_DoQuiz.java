@@ -1,8 +1,13 @@
 package Controller.Student;
 
+import Constants.Screens;
+import Model.Authentication.CurrentUserModel;
 import Model.Database.QuizService;
 import Model.Database.TestService;
+import Model.Entities.MyTest;
+import Model.Entities.Quiz;
 import Model.Entities.Result;
+import Model.Entities.Test;
 import Utils.UI;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXProgressBar;
@@ -19,6 +24,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -45,6 +52,7 @@ public class C_DoQuiz {
     public JFXButton btn_ViewReport;
     public JFXButton btn_RedoTest;
     public ScrollPane scrollPane_Quizs;
+    public JFXButton btn_BackToDashboard;
 
 
     public void initialize(){
@@ -119,6 +127,20 @@ public class C_DoQuiz {
                 lbl_Status.setText("Fail");
                 lbl_Status.setTextFill(Color.valueOf("#27ae60"));
             }
+
+            try {
+                if(TestService.test != null && TestService.myTest == null){
+                    TestService.addMyTest(new MyTest(TestService.test.getId(),TestService.test,calculateTotalMarks(),true,
+                            CurrentUserModel.student.getAuth_id()));
+                }else if (TestService.myTest != null && TestService.test == null){
+
+                }else{
+
+                }
+
+            } catch (SQLException | ClassNotFoundException throwables) {
+                throwables.printStackTrace();
+            }
         }else{
             UI.showSnack(rootPane,"Please Select an answer !");
         }
@@ -128,9 +150,7 @@ public class C_DoQuiz {
     }
 
     public void btn_RedoTestOnAction(ActionEvent actionEvent) {
-        QuizService.quizIndex = 0;
-        UI.NavigatePane(stackPane_Quizs,scrollPane_Quizs);
-        QuizService.result = 
+       UI.showSnack(rootPane , "You can not redo this quiz");
     }
 
     public ArrayList<Result> checkAnswers(){
@@ -161,4 +181,15 @@ public class C_DoQuiz {
     }
 
 
+    public void btn_BackToDashboardOnAction(ActionEvent actionEvent) {
+        try {
+            QuizService.quizIndex = 0;
+            QuizService.currentQuiz = null;
+            QuizService.result.clear();
+
+            new UI().setUIWithLogout(Screens.studentDashboard);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
