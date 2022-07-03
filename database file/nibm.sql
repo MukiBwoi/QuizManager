@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jul 03, 2022 at 10:22 AM
+-- Generation Time: Jul 03, 2022 at 05:00 PM
 -- Server version: 10.4.10-MariaDB
 -- PHP Version: 7.3.12
 
@@ -137,7 +137,14 @@ CREATE TABLE IF NOT EXISTS `my_test` (
   `auth_id` int(11) NOT NULL,
   `marks` double NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `my_test`
+--
+
+INSERT INTO `my_test` (`id`, `test_id`, `auth_id`, `marks`) VALUES
+(1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
