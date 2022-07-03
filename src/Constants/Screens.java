@@ -18,4 +18,5 @@ public class Screens {
     public static String quizTile = "/View/Lecturer/V_QuizTile";
     public static String startTest =  "/View/Student/V_StartTest";
     public static String doQuizs =  "/View/Student/V_DoQuiz";
+    public static String addCategory = "/View/Lecturer/V_AddCategory";
 }

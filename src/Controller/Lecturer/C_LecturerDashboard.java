@@ -7,6 +7,7 @@ import Model.Database.LeadBoardService;
 import Model.Database.TestService;
 import Model.Entities.LeadBoardCard;
 import Model.Entities.Lecturer;
+import Model.Lecturer.DashboardData;
 import Utils.DBConnection;
 import Utils.ReportGenerator;
 import Utils.UI;
@@ -61,7 +62,18 @@ public class C_LecturerDashboard {
         setNodebtnList();
         handleDrawer();
         setPersonalDetails();
+        setTestEnrollementProgressBar();
 
+    }
+
+    public void  setTestEnrollementProgressBar(){
+        try {
+            UI.progressBarAnimation(spinner_TestEnrollement, DashboardData.totalEnrollement(
+                    CurrentUserModel.lecturer
+            ));
+        } catch (SQLException | ClassNotFoundException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     public void btn_LogoutOnAction(ActionEvent actionEvent) {

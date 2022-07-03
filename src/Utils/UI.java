@@ -3,6 +3,7 @@ import Model.Authentication.CurrentUserModel;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXSnackbar;
 import com.jfoenix.controls.JFXSpinner;
+import com.sun.istack.internal.Nullable;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -19,6 +20,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.ImagePattern;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -34,10 +36,31 @@ public class UI {
 
         stage.setScene(new Scene(FXMLLoader.load(getClass().getResource(location+ ".fxml"))));
         stage.setResizable(false);
+        stage.show();
+
+        return  stage;
+    }
+
+    public  Stage setUIWithLogout(String location) throws IOException {
+        Stage stage = new Stage();
+
+        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource(location+ ".fxml"))));
+        stage.setResizable(false);
         stage.setOnCloseRequest(event -> {
             CurrentUserModel.isLoggedIn = false;
             Platform.exit();
         });
+        stage.show();
+
+        return  stage;
+    }
+
+    public  Stage setUIWithInitiModility(String location) throws IOException {
+        Stage stage = new Stage();
+
+        stage.setScene(new Scene(FXMLLoader.load(getClass().getResource(location+ ".fxml"))));
+        stage.setResizable(false);
+        stage.initModality(Modality.APPLICATION_MODAL);
         stage.show();
 
         return  stage;

@@ -142,7 +142,7 @@
                                     <Insets right="25.0" />
                                  </HBox.margin>
                               </JFXComboBox>
-                              <JFXButton fx:id="btn_AddCategory" prefHeight="35.0" style="-fx-background-color: #2196f3;"
+                              <JFXButton fx:id="btn_AddCategory" onAction="#btn_AddCategoryOnAction" prefHeight="35.0" style="-fx-background-color: #2196f3;"
                                          text="Add Category" textFill="WHITE" />
                            </children>
                            <VBox.margin>

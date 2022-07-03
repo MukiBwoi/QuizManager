@@ -2,6 +2,7 @@ package Controller.Lecturer;
 
 import Constants.Screens;
 import Controller.Common.C_Validation;
+import Model.Authentication.CurrentUserModel;
 import Model.Database.CategoryService;
 import Model.Database.QuizService;
 import Model.Database.TestService;
@@ -15,6 +16,7 @@ import com.jfoenix.validation.RequiredFieldValidator;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -84,9 +86,11 @@ public class C_AddTest {
         scrollPane_QuizContents.setContent(vBox_QuizContents);
         screenIndex = 0;
         loadCategoryCombo();
-
-
+        txt_Author.setEditable(false);
+        txt_Author.setText(CurrentUserModel.lecturer.getFirst_name() +" " + CurrentUserModel.lecturer.getLast_name());
+        cmb_Category.setOnMouseClicked(e -> loadCategoryCombo());
     }
+
 
     public void btn_CancelOnAction(ActionEvent actionEvent) {
 
@@ -307,6 +311,14 @@ public class C_AddTest {
             new UI().NavigatePane(stackPane_AddQuestions,scrollPane_Quizs);
             btn_AddQuiz.setText("Add");
             btn_Next.setDisable(false);
+        }
+    }
+
+    public void btn_AddCategoryOnAction(ActionEvent actionEvent) {
+        try {
+            new UI().setUIWithInitiModility(Screens.addCategory);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

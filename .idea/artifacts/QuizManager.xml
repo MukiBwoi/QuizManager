@@ -1,0 +1,20 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="QuizManager">
+    <output-path>$PROJECT_DIR$/..</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="AppIntializer" />
+        <option name="description" value="" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="title" value="Quizzy Bank" />
+        <option name="vendor" value="CODA" />
+        <option name="version" value="" />
+      </options>
+    </properties>
+    <root id="root">
+      <element id="archive" name="QuizManager.jar">
+        <element id="module-output" name="QuizManager" />
+      </element>
+    </root>
+  </artifact>
+</component>
