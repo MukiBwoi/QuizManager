@@ -8,6 +8,7 @@ import Model.Entities.MyTest;
 import Model.Entities.Quiz;
 import Model.Entities.Result;
 import Model.Entities.Test;
+import Utils.ReportGenerator;
 import Utils.UI;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXProgressBar;
@@ -147,6 +148,17 @@ public class C_DoQuiz {
     }
 
     public void btn_ViewReportOnACtion(ActionEvent actionEvent) {
+        try{
+            System.out.println(TestService.test.getId());
+            HashMap parameters = new HashMap();
+            parameters.put("auth_id",CurrentUserModel.student.getAuth_id());
+            parameters.put("test_id",TestService.test.getId());
+            parameters.put("username",CurrentUserModel.student.getFirst_name()+" "+CurrentUserModel.student.getLast_name());
+            ReportGenerator.showReport(parameters,"ResultSheet");
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+
     }
 
     public void btn_RedoTestOnAction(ActionEvent actionEvent) {
@@ -155,17 +167,28 @@ public class C_DoQuiz {
 
     public ArrayList<Result> checkAnswers(){
         ArrayList<Result> results = new ArrayList<>();
+        System.out.println(QuizService.result.entrySet());
+        System.out.println(QuizService.quizs.get(0).getId());
+
         for(Map.Entry<Integer, Integer> entry : QuizService.result.entrySet()) {
+            final int[] i = {1};
             QuizService.quizs.forEach(quiz->{
-                if(quiz.getId() == entry.getKey()){
+                System.out.println(quiz.getId() +"  "+entry.getKey());
+
+                //couldnt use quiz id for this
+                if( i[0] == entry.getKey()){
+                    System.out.println("match 1");
                     if (quiz.getAnswer().getCorrectAnswerIndex() == entry.getValue()+1){
+                        System.out.println("match "+ entry.getValue()+1 );
                         results.add(new Result(quiz.getId(),true , quiz.getAnswer().getCorrectAnswerIndex()));
                     }else{
                         results.add(new Result(quiz.getId(),false , quiz.getAnswer().getCorrectAnswerIndex()));
                     }
                 }
+                i[0]++;
             });
         }
+        System.out.println(results.toString());
         return results;
     }
 
@@ -186,7 +209,7 @@ public class C_DoQuiz {
             QuizService.quizIndex = 0;
             QuizService.currentQuiz = null;
             QuizService.result.clear();
-
+            new UI().closeUIButton(btn_BackToDashboard);
             new UI().setUIWithLogout(Screens.studentDashboard);
         } catch (IOException e) {
             e.printStackTrace();
