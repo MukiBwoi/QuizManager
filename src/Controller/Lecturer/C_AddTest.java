@@ -224,10 +224,13 @@ public class C_AddTest {
         try {
             if(TestService.addTest()){
                 int lastTestID = TestService.getLastTestID();
-                System.out.println("LID" + lastTestID);
+
                 if(QuizService.addQuiz(lastTestID)){
+
                     new UI().closeUIButton(btn_Next);
                     new UI().setUI(Screens.lecturerDashboard);
+                    CategoryService.updateTestCount(cmb_Category.getSelectionModel().getSelectedItem(),
+                            true);
                     System.out.println("Added");
                 }else{
                     new UI().showErrorAlert("Something went wrong with quiz adding");

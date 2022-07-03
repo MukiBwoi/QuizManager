@@ -3,6 +3,7 @@ package Controller.Lecturer;
 import Constants.Screens;
 import Controller.Common.C_LeadBoardCard;
 import Model.Authentication.CurrentUserModel;
+import Model.Database.CategoryService;
 import Model.Database.LeadBoardService;
 import Model.Database.TestService;
 import Model.Entities.LeadBoardCard;
@@ -203,6 +204,7 @@ public class C_LecturerDashboard {
                 boolean isDeleted = TestService.deleteTest(test.getId().getValue());
                 if(isDeleted){
                     new UI().showSuccessAlert("Data Deleted Successfully");
+                    CategoryService.updateTestCount(test.getCategory().getValue() , false);
                     crateAndLoadMyTestTable();
                 }else{
                     new UI().showErrorAlert("Something went wrong !");

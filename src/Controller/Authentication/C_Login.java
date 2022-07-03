@@ -102,7 +102,7 @@ public class C_Login {
                     CurrentUserModel.getCurrentUser();
                     CurrentUserModel.isLoggedIn = true;
                     new Utils.UI().closeUIButton(btn_Login);
-                    new Utils.UI().setUI(dashboard);
+                    new Utils.UI().setUIWithLogout(dashboard);
                 }else{
                     new Utils.UI().showErrorAlert("Invalid password ! Please Try again.");
                 }

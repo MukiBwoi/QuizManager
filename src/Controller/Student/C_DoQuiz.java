@@ -1,8 +1,11 @@
 package Controller.Student;
 
 import Model.Database.QuizService;
+import Model.Database.TestService;
+import Model.Entities.Result;
 import Utils.UI;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXProgressBar;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXSpinner;
 import javafx.event.ActionEvent;
@@ -14,6 +17,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import static java.lang.Math.round;
 
 public class C_DoQuiz {
     public JFXButton btn_NextQuiz;
@@ -98,9 +108,19 @@ public class C_DoQuiz {
             UI.NavigatePane(stackPane_Quizs,pane_resultPane);
             lbl_QuizIndex.setVisible(false);
             answers.getSelectedToggle().setSelected(false);
-            System.out.println(QuizService.result.entrySet());
+            UI.progressBarAnimation(spinner_Marks,calculateTotalMarks());
+            lbl_XP.setText("You got "+(int)calculateTotalMarks()*10+"XP");
+            if(calculateTotalMarks()>0.4){
+                lbl_Greeting.setText("Hooray!");
+                lbl_Quiz.setText("Pass");
+                lbl_Quiz.setTextFill(Color.valueOf("#2ecc71"));
+            }else if(calculateTotalMarks()<0.4 && calculateTotalMarks()>=0.0){
+                lbl_Greeting.setText("Ouch ! Let's Redo Quiz");
+                lbl_Status.setText("Fail");
+                lbl_Status.setTextFill(Color.valueOf("#27ae60"));
+            }
         }else{
-            System.out.println("Please select a answer");
+            UI.showSnack(rootPane,"Please Select an answer !");
         }
     }
 
@@ -108,5 +128,37 @@ public class C_DoQuiz {
     }
 
     public void btn_RedoTestOnAction(ActionEvent actionEvent) {
+        QuizService.quizIndex = 0;
+        UI.NavigatePane(stackPane_Quizs,scrollPane_Quizs);
+        QuizService.result = 
     }
+
+    public ArrayList<Result> checkAnswers(){
+        ArrayList<Result> results = new ArrayList<>();
+        for(Map.Entry<Integer, Integer> entry : QuizService.result.entrySet()) {
+            QuizService.quizs.forEach(quiz->{
+                if(quiz.getId() == entry.getKey()){
+                    if (quiz.getAnswer().getCorrectAnswerIndex() == entry.getValue()+1){
+                        results.add(new Result(quiz.getId(),true , quiz.getAnswer().getCorrectAnswerIndex()));
+                    }else{
+                        results.add(new Result(quiz.getId(),false , quiz.getAnswer().getCorrectAnswerIndex()));
+                    }
+                }
+            });
+        }
+        return results;
+    }
+
+    public double calculateTotalMarks(){
+        int correctCount = (int) checkAnswers().stream().filter(Result::isCorrect).count();
+        return  round(correctCount/checkAnswers().size(),1);
+
+    }
+
+    private static double round(double value , int precision){
+        int scale = (int)Math.pow(10,precision);
+        return (double)Math.round(value*scale)/scale;
+    }
+
+
 }

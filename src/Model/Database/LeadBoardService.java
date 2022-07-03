@@ -12,6 +12,7 @@ public class LeadBoardService {
     public static ArrayList<LeadBoardCard> leadBoardCards = new ArrayList<LeadBoardCard>();
 
     public static  ArrayList<LeadBoardCard> getLeadBoardCards() throws SQLException, ClassNotFoundException {
+
         int i = 1;
         String sql = "SELECT mt.auth_id , avatar , first_name , last_name , marks FROM student s JOIN my_test mt on" +
                 " s.auth_id = mt.auth_id  ORDER BY mt.marks DESC";

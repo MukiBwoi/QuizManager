@@ -280,15 +280,18 @@ public class C_StudentDashboard {
             }
             lbl_FinishedTests.setText(mytestCount+"");
             lbl_totalMarks.setText(marks+"");
-            for (LeadBoardCard leadBoardcard:LeadBoardService.getLeadBoardCards()) {
+            if(TestService.getMyTests(CurrentUserModel.student.getAuth_id()).size()>0){
+                for (LeadBoardCard leadBoardcard:LeadBoardService.getLeadBoardCards()) {
                     if(leadBoardcard.getAuth_id() == CurrentUserModel.student.getAuth_id()){
                         lbl_Rank.setText("#"+leadBoardcard.getRank());
                     }
+                }
+            }else{
+                lbl_Rank.setText("No Rank");
             }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }

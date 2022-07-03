@@ -51,4 +51,16 @@ public class CategoryService {
         }
         return false;
     }
+
+    public static boolean updateTestCount(String category , boolean isINC) throws SQLException, ClassNotFoundException {
+        String sql;
+        if(isINC){
+            sql = "UPDATE category SET test_count = test_count + 1 WHERE name = ?";
+        }else{
+            sql = "UPDATE category SET test_count = test_count - 1 WHERE name = ?";
+        }
+        PreparedStatement ps = DBConnection.getInstance().getConnection().prepareStatement(sql);
+        ps.setString(1,category);
+        return ps.executeUpdate()>0;
+    }
 }
