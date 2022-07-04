@@ -8,6 +8,7 @@ import Model.Entities.MyTest;
 import Model.Entities.Quiz;
 import Model.Entities.Result;
 import Model.Entities.Test;
+import Utils.Helpers;
 import Utils.ReportGenerator;
 import Utils.UI;
 import com.jfoenix.controls.JFXButton;
@@ -194,14 +195,11 @@ public class C_DoQuiz {
 
     public double calculateTotalMarks(){
         int correctCount = (int) checkAnswers().stream().filter(Result::isCorrect).count();
-        return  round(correctCount/checkAnswers().size(),1);
+        return  Helpers.round(correctCount/checkAnswers().size(),1);
 
     }
 
-    private static double round(double value , int precision){
-        int scale = (int)Math.pow(10,precision);
-        return (double)Math.round(value*scale)/scale;
-    }
+
 
 
     public void btn_BackToDashboardOnAction(ActionEvent actionEvent) {

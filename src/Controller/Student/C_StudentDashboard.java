@@ -11,6 +11,7 @@ import Model.Entities.Student;
 import Model.Entities.Test;
 import Model.Entities.MyTest;
 import Model.Database.TestService;
+import Utils.Helpers;
 import Utils.UI;
 import com.jfoenix.controls.*;
 import com.sun.istack.internal.Nullable;
@@ -71,7 +72,8 @@ public class C_StudentDashboard {
     public Label lbl_Rank;
     public VBox vBox_SearchList;
     public JFXListView listView_CategoryList;
-
+    int mytestCount = 0;
+    int marks = 0;
 
     public void initialize(){
         initPieChart();
@@ -94,12 +96,20 @@ public class C_StudentDashboard {
     public void btn_MyProfileOnAction(ActionEvent actionEvent) {
         new UI().NavigatePane(stackPane_Main, pane_MyProfile);
         LoadMyTestList();
-        UI.progressBarAnimation(spinner_Done,0.24);
-        UI.progressBarAnimation(spinner_AverageMarks,0.97);
+        UI.progressBarAnimation(spinner_Done,calculateFinishTestPercentage());
+        UI.progressBarAnimation(spinner_AverageMarks,calculateAverageMarks());
 
 
     }
 
+    public double calculateAverageMarks(){
+        try{
+            return Helpers.round(marks/mytestCount,2);
+        }catch (ArithmeticException ex){
+            ex.printStackTrace();
+        }
+            return 0;
+    }
 
     public void txt_OnSearchAction(MouseEvent mouseEvent) {
         new UI().NavigatePane(stackPane_Main,pane_Search);
@@ -240,6 +250,18 @@ public class C_StudentDashboard {
 
 
     }
+    public double calculateFinishTestPercentage(){
+        try {
+            double percentage = (double)mytestCount/(double)TestService.getTests().size();
+            return percentage;
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
 
 
     public void btn_LogoutOnAction(ActionEvent actionEvent) {
@@ -271,8 +293,8 @@ public class C_StudentDashboard {
 
     private void loadDashboardTiles(){
         try {
-            int mytestCount = 0;
-            int marks = 0;
+
+
 
             for (MyTest myTest:TestService.getMyTests(CurrentUserModel.student.getAuth_id())) {
                     marks = marks + (int) (myTest.getMarks() * 10.0);
