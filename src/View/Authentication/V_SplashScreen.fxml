@@ -14,14 +14,14 @@
           text="National Institute of Business Management" textAlignment="CENTER"/>
    <JFXButton fx:id="btn_Lecturer" layoutX="189.0" layoutY="244.0" mnemonicParsing="false"
               onAction="#btn_LecturerOnAction" prefHeight="42.0" prefWidth="160.0"
-              style="-fx-background-color: #2196f3; -fx-text-fill: #ffffff;" text="Lecturer">
+              style="-fx-background-color: #2196f3; -fx-text-fill: #ffffff;" text="Lecturer" focusTraversable="false">
       <cursor>
          <Cursor fx:constant="HAND"/>
       </cursor>
    </JFXButton>
    <JFXButton fx:id="btn_Student" layoutX="364.0" layoutY="244.0" mnemonicParsing="false"
               onAction="#btn_StudentOnAction" prefHeight="42.0" prefWidth="160.0"
-              style="-fx-background-color: #2196f3; -fx-text-fill: #ffffff;" text="Student">
+              style="-fx-background-color: #2196f3; -fx-text-fill: #ffffff;" text="Student" focusTraversable="false">
       <cursor>
          <Cursor fx:constant="HAND"/>
       </cursor>
@@ -31,5 +31,5 @@
       <Image url="@../../Assets/logo.png"/>
    </ImageView>
    <JFXButton fx:id="btn_Admin" layoutX="14.0" layoutY="244.0" onAction="#btn_AdminOnAction" prefHeight="42.0"
-              prefWidth="160.0" style="-fx-background-color: #2196f3; -fx-text-fill: #ffffff;" text="Administrator"/>
+              prefWidth="160.0" style="-fx-background-color: #2196f3; -fx-text-fill: #ffffff;" text="Administrator" focusTraversable="false"/>
 </AnchorPane>
