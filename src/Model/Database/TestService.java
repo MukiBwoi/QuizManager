@@ -130,13 +130,15 @@ public class TestService {
         return  lastId;
     }
 
-    public static ArrayList<Test> getTestsByCategory(@Nullable  String category) throws SQLException, ClassNotFoundException {
+    public static ArrayList<Test> getTestsByCategory(@Nullable  String category) throws SQLException,
+            ClassNotFoundException {
+        testListByCategory.clear();
 
-        System.out.println(category);
         if(category == null){
             testListByCategory = getTests();
+
         }else{
-            testListByCategory.clear();
+
             String sql = "SELECT * FROM test WHERE category = ?";
             PreparedStatement ps = DBConnection.getInstance().getConnection().prepareStatement(sql);
             ps.setString(1,category);
@@ -158,7 +160,9 @@ public class TestService {
 
                 }while (rs.next());
             }
+
         }
+        System.out.println(testListByCategory);
         return  testListByCategory;
     }
 

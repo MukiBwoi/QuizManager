@@ -22,7 +22,6 @@
       <JFXDrawer fx:id="Drawer_leftDrawer" />
       <Pane prefHeight="48.0" prefWidth="800.0" style="-fx-background-color: #2196f3;">
          <children>
-            <JFXHamburger fx:id="hamburger_Drawer" layoutX="14.0" layoutY="14.0" onMouseClicked="#hamburger_ToggleDrawerOnActionPerformed" prefHeight="20.0" prefWidth="25.0" styleClass="jfx-hamburger-icon" stylesheets="@../../CSS/LectureTableStyle.css" />
             <JFXButton id="btn_MyProfile" fx:id="btn_Logout" alignment="CENTER" focusTraversable="false" layoutX="690.0" onAction="#btn_LogoutOnAction" prefHeight="48.0" prefWidth="107.0" style="-fx-font-size: 14;" text="Logout" textFill="WHITE">
                <graphic>
                   <FontAwesomeIconView fill="WHITE" glyphName="SIGN_OUT" glyphStyle="MaterialIcon" size="18" />

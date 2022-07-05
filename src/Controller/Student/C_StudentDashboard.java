@@ -72,6 +72,7 @@ public class C_StudentDashboard {
     public Label lbl_Rank;
     public VBox vBox_SearchList;
     public JFXListView listView_CategoryList;
+    public Label lbl_stars;
     int mytestCount = 0;
     int marks = 0;
 
@@ -83,6 +84,7 @@ public class C_StudentDashboard {
         loadCategories();
         LoadTestTiles(null);
         loadDashboardTiles();
+        calculateStars();
 
 
     }
@@ -100,6 +102,26 @@ public class C_StudentDashboard {
         UI.progressBarAnimation(spinner_AverageMarks,calculateAverageMarks());
 
 
+    }
+
+    public void calculateStars(){
+        try {
+            int stars = 0;
+            if(!TestService.getMyTests(CurrentUserModel.student.getAuth_id()).isEmpty()){
+                for (MyTest mytest:TestService.myTests) {
+                    if(mytest.getMarks() == 1.0){
+                        stars +=1;
+                    }
+                }
+            }else{
+                stars = 0;
+            }
+
+            lbl_stars.setText(stars+" Star(s)");
+
+        } catch (SQLException | ClassNotFoundException throwables) {
+            throwables.printStackTrace();
+        }
     }
 
     public double calculateAverageMarks(){
@@ -188,9 +210,7 @@ public class C_StudentDashboard {
             });
             piechart_CategoryInterests.setData(piechartData);
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 
@@ -223,28 +243,12 @@ public class C_StudentDashboard {
             if(TestService.getTestsByCategory(category).size()>0){
 
                 vBox_SearchList.getChildren().clear();
-                TestService.testListByCategory.forEach(test -> {
-                    try {
-                        TestService.getMyTests(CurrentUserModel.student.getAuth_id()).forEach(myTest -> {
-                            if(myTest.getTestData().getId() == test.getId()){
-                                try {
-                                    addTestItem(myTest,null);
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        });
 
-                        if(C_GridTestItem.myTest == null){
-                            addTestItem(null,test);
-                        }
-
-                    } catch (IOException | SQLException | ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
-                });
+                for (Test test:TestService.testListByCategory) {
+                    addTestItem(test);
+                }
             }
-        } catch (SQLException | ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException | IOException e) {
             e.printStackTrace();
         }
 
@@ -254,10 +258,8 @@ public class C_StudentDashboard {
         try {
             double percentage = (double)mytestCount/(double)TestService.getTests().size();
             return percentage;
-        } catch (SQLException throwables) {
+        } catch (SQLException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
         return 0;
     }
@@ -293,8 +295,6 @@ public class C_StudentDashboard {
 
     private void loadDashboardTiles(){
         try {
-
-
 
             for (MyTest myTest:TestService.getMyTests(CurrentUserModel.student.getAuth_id())) {
                     marks = marks + (int) (myTest.getMarks() * 10.0);
@@ -349,9 +349,17 @@ public class C_StudentDashboard {
         }
     }
 
-    public void addTestItem(@Nullable  MyTest mt , @Nullable Test t) throws IOException {
-        C_GridTestItem.test = t;
-        C_GridTestItem.myTest = mt;
+    public void addTestItem(Test test) throws IOException, SQLException, ClassNotFoundException {
+        C_GridTestItem.test = test;
+        C_GridTestItem.myTest = null;
+        if(!TestService.getMyTests(CurrentUserModel.student.getAuth_id()).isEmpty()){
+            for (MyTest myTest:TestService.myTests){
+                if(myTest.getTestData().getId() == test.getId()){
+                    C_GridTestItem.test = null;
+                    C_GridTestItem.myTest = myTest;
+                }
+            }
+        }
         Node node = FXMLLoader.load(getClass().getResource(Screens.gridTestItem+".fxml"));
         JFXRippler rippler = new JFXRippler(node);
         vBox_SearchList.getChildren().add(rippler);

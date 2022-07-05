@@ -14,8 +14,8 @@ public class LeadBoardService {
     public static  ArrayList<LeadBoardCard> getLeadBoardCards() throws SQLException, ClassNotFoundException {
 
         int i = 1;
-        String sql = "SELECT mt.auth_id , avatar , first_name , last_name , marks FROM student s JOIN my_test mt on" +
-                " s.auth_id = mt.auth_id  ORDER BY mt.marks DESC";
+        String sql = "SELECT mt.auth_id , avatar , first_name , last_name , COUNT(mt.marks) as marks FROM student s JOIN" +
+                " my_test mt on s.auth_id = mt.auth_id   GROUP BY mt.auth_id ORDER BY Count(mt.marks) DESC";
         ResultSet rs = DBConnection.getInstance().getConnection().prepareStatement(sql).executeQuery();
         leadBoardCards.clear();
         if(rs.next()){

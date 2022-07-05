@@ -9,29 +9,18 @@ import Model.Database.TestService;
 import Model.Entities.LeadBoardCard;
 import Model.Entities.Lecturer;
 import Model.Lecturer.DashboardData;
-import Utils.DBConnection;
 import Utils.ReportGenerator;
 import Utils.UI;
 import com.jfoenix.controls.*;
-import com.jfoenix.transitions.hamburger.HamburgerBasicCloseTransition;
 import javafx.event.ActionEvent;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
-import net.sf.jasperreports.engine.JRException;
-import net.sf.jasperreports.engine.JasperFillManager;
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.JasperReport;
-import net.sf.jasperreports.engine.util.JRLoader;
-import net.sf.jasperreports.view.JasperViewer;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.ZonedDateTime;
@@ -42,7 +31,6 @@ public class C_LecturerDashboard {
     public JFXTreeTableView tableView_TestTable;
     public JFXSpinner spinner_TestEnrollement;
     public JFXNodesList nodeList_optionNodes;
-    public JFXHamburger hamburger_Drawer;
     public JFXButton btn_Insert;
     public JFXButton btn_Delete;
     public JFXButton btn_GenerateReport;
@@ -61,7 +49,6 @@ public class C_LecturerDashboard {
         LoadLeadBoard();
         UI.progressBarAnimation(spinner_TestEnrollement , 0.25);
         setNodebtnList();
-        handleDrawer();
         setPersonalDetails();
         setTestEnrollementProgressBar();
 
@@ -106,14 +93,6 @@ public class C_LecturerDashboard {
         lbl_DateTime.setText(zdtString);
     }
 
-    public void hamburger_ToggleDrawerOnActionPerformed(MouseEvent mouseEvent) {
-        if(!Drawer_leftDrawer.isShowing()){
-            Drawer_leftDrawer.open();
-        }else{
-            Drawer_leftDrawer.close();
-        }
-    }
-
     public void btn_InsertOnAction(ActionEvent actionEvent) {
 
         try {
@@ -131,37 +110,11 @@ public class C_LecturerDashboard {
         circle_Avatar.setFill(UI.pattern(new Image(lecturer.getAvatar().toURI().toString()),20));
     }
 
-    public void handleDrawer(){
-        StackPane stackPane = new StackPane();
-        Drawer_leftDrawer.setSidePane(stackPane);
-        Drawer_leftDrawer.setDefaultDrawerSize(150);
-        Drawer_leftDrawer.setResizeContent(true);
-        Drawer_leftDrawer.setOverLayVisible(false);
-        Drawer_leftDrawer.setResizableOnDrag(true);
-        Drawer_leftDrawer.setContent(new Label("Hello"));
-
-        HamburgerBasicCloseTransition burgerTask = new HamburgerBasicCloseTransition(hamburger_Drawer);
-        burgerTask.setRate(-1);
-        hamburger_Drawer.addEventHandler(MouseEvent.MOUSE_PRESSED, (e)->{
-            burgerTask.setRate(burgerTask.getRate()*-1);
-            burgerTask.play();
-
-            if(Drawer_leftDrawer.isShowing()){
-                Drawer_leftDrawer.close();
-                System.out.println("Opened");
-            }else{
-                Drawer_leftDrawer.open();
-                System.out.println("Closed");
-            }
-        });
-    }
 
     public void crateAndLoadMyTestTable(){
         try {
             DashBoardTableController.createTable(tableView_TestTable,TestService.getTests());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
