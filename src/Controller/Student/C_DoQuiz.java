@@ -134,6 +134,7 @@ public class C_DoQuiz {
                 if(TestService.test != null && TestService.myTest == null){
                     TestService.addMyTest(new MyTest(TestService.test.getId(),TestService.test,calculateTotalMarks(),true,
                             CurrentUserModel.student.getAuth_id()));
+                    TestService.updateEnrolledCount(TestService.test.getId());
                 }else if (TestService.myTest != null && TestService.test == null){
 
                 }else{

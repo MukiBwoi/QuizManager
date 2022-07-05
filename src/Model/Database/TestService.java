@@ -69,6 +69,13 @@ public class TestService {
         }
     }
 
+    public static boolean updateEnrolledCount(int testId) throws SQLException, ClassNotFoundException {
+        String sql = "UPDATE test SET enrolledCount = enrolledCount+1 WHERE test_id = ?";
+        PreparedStatement ps = DBConnection.getInstance().getConnection().prepareStatement(sql);
+        ps.setInt(1,testId);
+        return ps.executeUpdate()>0;
+    }
+
     public static ArrayList<Test> getTests() throws SQLException, ClassNotFoundException {
         String sql = "SELECT * FROM test";
 

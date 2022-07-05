@@ -43,7 +43,7 @@
             <Pane opacity="0.9" prefHeight="193.0" prefWidth="155.0" style="-fx-background-color: #ffffff; -fx-background-radius: 15;" styleClass="dashboard_Spinners" stylesheets="@../../CSS/LectureTableStyle.css">
                <children>
                   <JFXSpinner fx:id="spinner_TestEnrollement" layoutX="45.0" layoutY="32.0" prefHeight="65.0" prefWidth="65.0" progress="0.24" stylesheets="@../../CSS/LectureTableStyle.css" />
-                  <Label layoutX="28.0" layoutY="134.0" text="Teset Enrollement">
+                  <Label layoutX="28.0" layoutY="134.0" text="Test Enrollement">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
