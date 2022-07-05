@@ -288,7 +288,7 @@ public class C_AddTest {
         if(vBox_QuizList.getChildren().size()>0){
             return  true;
         }
-        UI.showSnack(rootPane,"Please add at least on quiz ");
+        UI.showSnack(rootPane,"Please add at least one question ! ");
         return false;
     }
 

@@ -113,7 +113,9 @@ public class C_LecturerDashboard {
 
     public void crateAndLoadMyTestTable(){
         try {
-            DashBoardTableController.createTable(tableView_TestTable,TestService.getTests());
+            Lecturer lecturer = CurrentUserModel.lecturer;
+            DashBoardTableController.createTable(tableView_TestTable,TestService.searchTests(
+                    lecturer.getFirst_name()+" "+lecturer.getLast_name()));
         } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
