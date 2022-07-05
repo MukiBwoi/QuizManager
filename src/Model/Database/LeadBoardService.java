@@ -24,7 +24,7 @@ public class LeadBoardService {
                 LeadBoardCard leadBoardCard = new LeadBoardCard(
                         rs.getInt("auth_id"),
                         getFile(rs.getBinaryStream("avatar"),"avatar"+i+".png"),
-                  rs.getString("first_name") + rs.getString("last_name"),
+                  rs.getString("first_name") +" "+ rs.getString("last_name"),
                         (int) (rs.getDouble("marks") * 10.0),
                         i
                 );

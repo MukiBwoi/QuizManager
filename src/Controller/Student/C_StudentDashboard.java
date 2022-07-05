@@ -241,7 +241,7 @@ public class C_StudentDashboard {
     }
 
     public void LoadTestTiles(@Nullable  String category){
-
+        noResultSetting(false);
         try {
             C_GridTestItem.myTest = null;
             C_GridTestItem.test = null;
@@ -250,13 +250,11 @@ public class C_StudentDashboard {
                 vBox_SearchList.getChildren().clear();
 
                 for (Test test:TestService.testListByCategory) {
-                    scrollPane_TestGrid.setVisible(true);
-                    lbl_NoResultFound.setVisible(false);
+                    noResultSetting(false);
                     addTestItem(test);
                 }
             }else{
-                scrollPane_TestGrid.setVisible(false);
-                lbl_NoResultFound.setVisible(true);
+                noResultSetting(true);
             }
         } catch (SQLException | ClassNotFoundException | IOException e) {
             e.printStackTrace();
@@ -381,29 +379,30 @@ public class C_StudentDashboard {
         txt_Search.textProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if(!newValue.isEmpty() || newValue != null){
+                if(!newValue.isEmpty()){
                     try {
                         vBox_SearchList.getChildren().clear();
                        if(TestService.searchTests(newValue).size()>0){
-                           scrollPane_TestGrid.setVisible(true);
-                           lbl_NoResultFound.setVisible(false);
+                           noResultSetting(false);
                            for (Test test:TestService.tests) {
                                addTestItem(test);
                            }
                        }else{
-                           scrollPane_TestGrid.setVisible(false);
-                           lbl_NoResultFound.setVisible(true);
+                           noResultSetting(true);
                        }
                     } catch (SQLException | ClassNotFoundException | IOException e) {
                         e.printStackTrace();
                     }
                 }else{
-                    scrollPane_TestGrid.setVisible(true);
-                    lbl_NoResultFound.setVisible(false);
                     LoadTestTiles(CategoryService.currentCategory);
                 }
 
             }
         });
+    }
+
+    public void noResultSetting(boolean isNoResult){
+        scrollPane_TestGrid.setVisible(!isNoResult);
+        lbl_NoResultFound.setVisible(isNoResult);
     }
 }
