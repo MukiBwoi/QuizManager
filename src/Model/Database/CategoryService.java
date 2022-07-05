@@ -13,6 +13,8 @@ import java.util.ArrayList;
 public class CategoryService {
 
     public static ArrayList<Category> categories = new ArrayList<>();
+    public static String currentCategory;
+
 
     public static ArrayList<Category> getCategories()throws SQLException, ClassNotFoundException{
         String sql = "SELECT * FROM category";

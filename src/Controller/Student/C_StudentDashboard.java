@@ -85,6 +85,7 @@ public class C_StudentDashboard {
         LoadTestTiles(null);
         loadDashboardTiles();
         calculateStars();
+        onSearch();
 
 
     }
@@ -135,7 +136,11 @@ public class C_StudentDashboard {
 
     public void txt_OnSearchAction(MouseEvent mouseEvent) {
         new UI().NavigatePane(stackPane_Main,pane_Search);
-        LoadTestTiles(null);
+        if(CategoryService.currentCategory != null){
+            LoadTestTiles(CategoryService.currentCategory);
+        }else{
+            LoadTestTiles(null);
+        }
     }
 
     public void LoadMyTestList(){
@@ -245,8 +250,13 @@ public class C_StudentDashboard {
                 vBox_SearchList.getChildren().clear();
 
                 for (Test test:TestService.testListByCategory) {
+                    scrollPane_TestGrid.setVisible(true);
+                    lbl_NoResultFound.setVisible(false);
                     addTestItem(test);
                 }
+            }else{
+                scrollPane_TestGrid.setVisible(false);
+                lbl_NoResultFound.setVisible(true);
             }
         } catch (SQLException | ClassNotFoundException | IOException e) {
             e.printStackTrace();
@@ -338,8 +348,10 @@ public class C_StudentDashboard {
                 @Override
                 public void changed(ObservableValue observable, Object oldValue, Object newValue) {
                     if(newValue == "All Categories"){
+                        CategoryService.currentCategory = null;
                         LoadTestTiles(null);
                     }else{
+                        CategoryService.currentCategory = newValue.toString();
                         LoadTestTiles(newValue.toString());
                     }
                 }
@@ -363,5 +375,35 @@ public class C_StudentDashboard {
         Node node = FXMLLoader.load(getClass().getResource(Screens.gridTestItem+".fxml"));
         JFXRippler rippler = new JFXRippler(node);
         vBox_SearchList.getChildren().add(rippler);
+    }
+
+    public void onSearch(){
+        txt_Search.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if(!newValue.isEmpty() || newValue != null){
+                    try {
+                        vBox_SearchList.getChildren().clear();
+                       if(TestService.searchTests(newValue).size()>0){
+                           scrollPane_TestGrid.setVisible(true);
+                           lbl_NoResultFound.setVisible(false);
+                           for (Test test:TestService.tests) {
+                               addTestItem(test);
+                           }
+                       }else{
+                           scrollPane_TestGrid.setVisible(false);
+                           lbl_NoResultFound.setVisible(true);
+                       }
+                    } catch (SQLException | ClassNotFoundException | IOException e) {
+                        e.printStackTrace();
+                    }
+                }else{
+                    scrollPane_TestGrid.setVisible(true);
+                    lbl_NoResultFound.setVisible(false);
+                    LoadTestTiles(CategoryService.currentCategory);
+                }
+
+            }
+        });
     }
 }

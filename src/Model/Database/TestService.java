@@ -162,8 +162,40 @@ public class TestService {
             }
 
         }
-        System.out.println(testListByCategory);
+
         return  testListByCategory;
+    }
+
+    public static ArrayList<Test> searchTests(String keyword) throws SQLException, ClassNotFoundException {
+        System.out.println(keyword);
+            String sql = null;
+
+            if(CategoryService.currentCategory == null){
+                sql = "SELECT * FROM test WHERE author LIKE '"+keyword+"%' || name LIKE '"+keyword+"%' ";
+            }else{
+               sql = "SELECT * FROM test WHERE category = '"+CategoryService.currentCategory+"' &&" +
+                        " author LIKE '"+keyword+"%' || name LIKE '"+keyword+"%' ";
+            }
+            System.out.println(sql);
+            ResultSet rs = DBConnection.getInstance().getConnection().createStatement().executeQuery(sql);
+            tests.clear();
+            if(rs.next()){
+                do{
+                    Test test = new Test(
+                            rs.getInt("test_id"),
+                            rs.getString("name"),
+                            rs.getString("author"),
+                            rs.getString("category"),
+                            rs.getString("description"),
+                            rs.getInt("nofQuizs"),
+                            rs.getInt("enrolledCount")
+                    );
+                    tests.add(test);
+
+                }while (rs.next());
+            }
+        System.out.println(tests);
+            return  tests;
     }
 
     public static boolean deleteTest(int testID) throws SQLException, ClassNotFoundException {
