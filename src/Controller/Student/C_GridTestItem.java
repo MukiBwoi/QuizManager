@@ -32,7 +32,7 @@ public class C_GridTestItem {
             lbl_Author.setText(myTest.getTestData().getAuthor());
             lbl_Category.setText(myTest.getTestData().getCategory());
             progress_Marks.setProgress(myTest.getMarks());
-            btn_StartTest.setText("Redo Test");
+            btn_StartTest.setText("Done");
             UI.progressBarAnimation(progress_Marks,myTest.getMarks());
             btn_StartTest.setDisable(true);
 
