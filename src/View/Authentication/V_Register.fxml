@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="560.0" prefWidth="610.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Authentication.C_Register">
+<AnchorPane fx:id="rootPane" prefHeight="560.0" prefWidth="610.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Authentication.C_Register">
    <ImageView fitHeight="53.0" fitWidth="99.0" layoutX="35.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true">
       <Image url="@../../Assets/logo.png" />
    </ImageView>

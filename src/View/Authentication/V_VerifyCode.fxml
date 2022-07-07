@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane focusTraversable="true" prefHeight="500.0" prefWidth="320.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Authentication.C_VerifyCode">
+<AnchorPane fx:id="rootPane" focusTraversable="true" prefHeight="500.0" prefWidth="320.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Authentication.C_VerifyCode">
    <children>
       <Label layoutX="122.0" layoutY="32.0" text="Verify Code">
          <font>

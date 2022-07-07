@@ -29,7 +29,7 @@
             </JFXButton>
             <Label fx:id="lbl_Name" alignment="TOP_RIGHT" layoutX="437.0" layoutY="25.0" prefHeight="17.0" prefWidth="210.0" text="Your Name" textFill="WHITE" />
             <Label layoutX="612.0" layoutY="10.0" prefHeight="17.0" prefWidth="40.0" text="Hello !" textFill="WHITE" />
-            <Circle fx:id="circle_Avatar" fill="WHITE" layoutX="674.0" layoutY="24.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+            <Circle fx:id="circle_Avatar" onMouseClicked="#circle_AvatarOnAction" fill="WHITE" layoutX="674.0" layoutY="24.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
             <Label layoutX="63.0" layoutY="9.0" text="Quizzy Bank" textFill="WHITE">
                <font>
                   <Font name="Microsoft Sans Serif" size="24.0" />

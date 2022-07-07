@@ -11,6 +11,8 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+
 import javax.mail.MessagingException;
 import java.io.IOException;
 
@@ -26,6 +28,7 @@ public class C_VerifyCode{
     public ImageView img_loadingIndicator;
     public static String nextScreen;
     public static String purpose;
+    public AnchorPane rootPane;
 
     public void initialize(){
         lbl_Email.setText(email);
@@ -52,7 +55,7 @@ public class C_VerifyCode{
                     e.printStackTrace();
                 }
             }else{
-               new Utils.UI().showErrorAlert("Wrong verification code !");
+               new Utils.UI().showErrorAlert(rootPane,"Wrong verification code !");
             }
 
         }

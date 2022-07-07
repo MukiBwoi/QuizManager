@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javax.mail.MessagingException;
 
@@ -55,6 +56,7 @@ public class C_Register {
     public JFXComboBox<String> current_cmb;
     public Label lbl_why;
     public ImageView img_loadingIndicator;
+    public AnchorPane rootPane;
     private  String cmb_validation_message;
     public static boolean isValidated;
 
@@ -81,7 +83,7 @@ public class C_Register {
         validateAllFields();
         if(isValidated){
             if(C_Validation.isEmailExist(txt_email.getText())){
-                ui.showErrorAlert("Email already exists ! Please use a different email.");
+                ui.showErrorAlert(rootPane,"Email already exists ! Please use a different email.");
             }else{
                 try {
                     boolean isRegistered;
@@ -104,10 +106,9 @@ public class C_Register {
                         sendVerifyCode("Registration" , btn_Register,Screens.uploadAvatar ,
                                 img_loadingIndicator,txt_email.getText());
                     }else{
-                        ui.showErrorAlert("Something went wrong please try again !");
+                        ui.showErrorAlert(rootPane,"Something went wrong please try again !");
                     }
                 } catch (IOException | ClassNotFoundException | SQLException e) {
-                    ui.showErrorAlert(e.getMessage());
                     e.printStackTrace();
                 }
             }

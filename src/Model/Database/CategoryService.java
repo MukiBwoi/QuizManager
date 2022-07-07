@@ -36,22 +36,12 @@ public class CategoryService {
     }
 
     public static boolean addCategory(Category category) throws SQLException, ClassNotFoundException {
-        String sql = "SELECT * FROM category where name = ? OR name = ?";
-        Connection conn = DBConnection.getInstance().getConnection();
-        PreparedStatement ps = conn.prepareStatement(sql);
-        ps.setString(1,category.getName());
-        ps.setString(2,category.getName().toLowerCase());
-        if(!ps.executeQuery().next()){
-           sql = "INSERT INTO category VALUES(?,?,?)";
-           ps = conn.prepareStatement(sql);
+           String sql = "INSERT INTO category VALUES(?,?,?)";
+           PreparedStatement ps = DBConnection.getInstance().getConnection().prepareStatement(sql);
            ps.setInt(1,category.getId());
            ps.setString(2,category.getName());
            ps.setInt(3,category.getTest_count());
            return ps.executeUpdate()>0;
-        }else {
-            ErrorHandler.setError("Category Already exist");
-        }
-        return false;
     }
 
     public static boolean updateTestCount(String category , boolean isINC) throws SQLException, ClassNotFoundException {

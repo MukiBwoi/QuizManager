@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.FileChooser;
@@ -28,6 +29,7 @@ public class C_UploadAvatar {
     public JFXButton btn_Skip;
     public ImageView img_AddImage;
     public static String email = C_VerifyCode.email;
+    public AnchorPane rootPane;
     FileInputStream in = null;
     public static String nextScreen = Screens.login;
 
@@ -43,7 +45,7 @@ public class C_UploadAvatar {
                     new UI().closeUIButton(btn_Next);
                     new UI().setUI(nextScreen);
                 }else{
-                    new UI().showErrorAlert("Image Not found");
+                    new UI().showErrorAlert(rootPane,"Image Not found");
                 }
             }
         }catch (SQLException | ClassNotFoundException | IOException e){
@@ -75,7 +77,7 @@ public class C_UploadAvatar {
                 circle_Avatar.setFill(UI.pattern(new Image(file.toURI().toString()),80));
                 in = new FileInputStream(file);
             }else{
-                new UI().showErrorAlert("File Not Selected");
+                new UI().showErrorAlert(rootPane,"File Not Selected");
             }
 
         } catch (FileNotFoundException e) {

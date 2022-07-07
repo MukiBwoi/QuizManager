@@ -8,12 +8,14 @@ import Utils.UI;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
+import javafx.scene.layout.AnchorPane;
 
 import java.sql.SQLException;
 
 public class C_AddCategory {
     public JFXButton btn_AddCategory;
     public JFXTextField txt_CategoryName;
+    public AnchorPane rootPane;
 
     public void btn_AddCategoryOnAction(ActionEvent actionEvent) {
         try {
@@ -24,14 +26,21 @@ public class C_AddCategory {
                         0
                 ));
                 if(isAdded){
-                    new UI().showSuccessAlert("Category Added Successfully");
+                    new UI().showSuccessAlert(rootPane,"Category Added Successfully");
                     new UI().closeUIButton(btn_AddCategory);
                 }else{
-                    new UI().showErrorAlert(ErrorHandler.getMessage());
+                    new UI().showErrorAlert(rootPane,ErrorHandler.getMessage());
                 }
             }
-        } catch (SQLException | ClassNotFoundException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            if(e.getMessage().contains("Duplicate entry")){
+                new UI().showErrorAlert(rootPane , "Category Already exist");
+            }else{
+                e.printStackTrace();
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 }

@@ -1,6 +1,7 @@
 package Controller.Lecturer;
 
 import Constants.Screens;
+import Controller.Authentication.C_UploadAvatar;
 import Controller.Common.C_LeadBoardCard;
 import Model.Authentication.CurrentUserModel;
 import Model.Database.CategoryService;
@@ -21,6 +22,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
+import javafx.stage.Stage;
+
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.ZonedDateTime;
@@ -158,11 +161,11 @@ public class C_LecturerDashboard {
                 DashBoardTableController.Test test = (DashBoardTableController.Test) selectedItem.getValue();
                 boolean isDeleted = TestService.deleteTest(test.getId().getValue());
                 if(isDeleted){
-                    new UI().showSuccessAlert("Data Deleted Successfully");
+                    new UI().showSuccessAlert(rootPane,"Data Deleted Successfully");
                     CategoryService.updateTestCount(test.getCategory().getValue() , false);
                     crateAndLoadMyTestTable();
                 }else{
-                    new UI().showErrorAlert("Something went wrong !");
+                    new UI().showErrorAlert(rootPane,"Something went wrong !");
                 }
 
             } catch (SQLException | ClassNotFoundException throwables) {
@@ -173,5 +176,19 @@ public class C_LecturerDashboard {
             UI.showSnack(rootPane,"Please Select a Row !");
         }
 
+    }
+
+    public void circle_AvatarOnAction(MouseEvent mouseEvent) {
+        try {
+            Stage stage = (Stage) circle_Avatar.getScene().getWindow();
+            stage.close();
+            C_UploadAvatar.email = CurrentUserModel.lecturer.getEmail();
+            C_UploadAvatar.nextScreen = Screens.lecturerDashboard;
+            new UI().setUI(Screens.uploadAvatar);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

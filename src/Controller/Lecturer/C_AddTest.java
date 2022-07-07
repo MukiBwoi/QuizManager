@@ -226,17 +226,16 @@ public class C_AddTest {
                 int lastTestID = TestService.getLastTestID();
 
                 if(QuizService.addQuiz(lastTestID)){
-
                     new UI().closeUIButton(btn_Next);
                     new UI().setUI(Screens.lecturerDashboard);
                     CategoryService.updateTestCount(cmb_Category.getSelectionModel().getSelectedItem(),
                             true);
-                    System.out.println("Added");
+
                 }else{
-                    new UI().showErrorAlert("Something went wrong with quiz adding");
+                    new UI().showErrorAlert(rootPane,"Something went wrong with quiz adding");
                 }
             }else{
-                new UI().showErrorAlert("Something went wrong with test adding");
+                new UI().showErrorAlert(rootPane,"Something went wrong with test adding");
             }
 
         } catch (IOException | ClassNotFoundException | SQLException e) {

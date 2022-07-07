@@ -16,6 +16,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import sun.plugin.com.Utils;
+
 import java.io.IOException;
 
 
@@ -58,7 +60,7 @@ public class C_Login {
                 loginProcess(Screens.studentDashboard);
 
             }else{
-                System.out.println("Admin Login");
+               new UI().showDialog(pane_Login ,"Error Box","This is error");
             }
         }
 
@@ -101,13 +103,13 @@ public class C_Login {
                     CurrentUserModel.currentUserEmail = txt_Email.getText();
                     CurrentUserModel.getCurrentUser();
                     CurrentUserModel.isLoggedIn = true;
-                    new Utils.UI().closeUIButton(btn_Login);
-                    new Utils.UI().setUIWithLogout(dashboard);
+                    new UI().closeUIButton(btn_Login);
+                    new UI().setUIWithLogout(dashboard);
                 }else{
-                    new Utils.UI().showErrorAlert("Invalid password ! Please Try again.");
+                    new UI().showErrorAlert(pane_Login,"Invalid password ! Please Try again.");
                 }
             }else{
-                new Utils.UI().showErrorAlert(
+                new UI().showErrorAlert(pane_Login,
                         "Email doesn't exists ! if you don't have an account please register.");
             }
 
